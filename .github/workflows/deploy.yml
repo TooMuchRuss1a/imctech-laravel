@@ -19,4 +19,4 @@ jobs:
       # Build
       - run: npm ci
       # Deploy
-      - run: rsync -e "ssh -p 1500 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . server22.hosting.reg.ru:/home/u1611143/www/imctech.ru
+      - run: rsync -e "ssh -p 1500 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . server22.hosting.reg.ru:/www/imctech.ru
