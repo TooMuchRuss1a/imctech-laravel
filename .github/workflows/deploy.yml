@@ -20,4 +20,4 @@ jobs:
       - name: Git clone
         run: git clone git@github.com:TooMuchRuss1a/imctech-laravel.git
       - name: Deploy with rsync
-        run: rsync -avz /home/runner/work/imctech-laravel/imctech-laravel/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/${{ secrets.SSH_USER }}/data/www/imctech.ru
+        run: rsync -avz /home/runner/work/imctech-laravel/imctech-laravel/imctech-laravel ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/${{ secrets.SSH_USER }}/data/www/imctech.ru
