@@ -2,9 +2,11 @@ name: Deploy
 
 on:
   workflow_dispatch:
+  discussion:
+    types: [created, edited]
   push:
     branches:
-      - release*
+      - main
 
 jobs:
   deploy:
