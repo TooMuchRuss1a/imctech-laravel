@@ -68,6 +68,15 @@
     </ul>
 </div>
 
+<script>
+    var myNav = document.getElementById("nav");
+    var scrUp = document.getElementById("scrup");
+    var dd = document.getElementById("myDropdown1");
+    if (dd === null) {
+      dd = document.getElementById("nav");
+    }
+</script>
+
 @endsection
 
 @section('footer')
