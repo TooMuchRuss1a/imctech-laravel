@@ -1,0 +1,500 @@
+body {
+    background-color: #000;
+    margin: 0;
+  
+  }
+  
+  .imctech {
+    background-color: #111;
+    backdrop-filter: blur(100px);
+    width: 100%;
+    height: 100vh;
+    line-height: 1.1;
+  
+    text-align: center;
+  }
+  
+  .intro {
+    width: 100%;
+  
+    background: 
+    url(/img/afishaaa.jpg) center no-repeat;
+    background-size: cover;
+    background-size: 120%;
+    height:60vh;
+  
+    line-height: 1.1;
+    text-align: center;
+    filter: grayscale(0.3);
+    transition: 1s;
+  }
+  
+  .intro:hover {
+    background-size: 140%;
+    filter: grayscale(0);
+  }
+  
+  
+  
+  .intro_title {
+    padding-top: 26vh;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    z-index: 100;
+  
+    position: relative;
+  }
+  
+  .intro_subtitle {
+    text-shadow: 2px 2px 2px black;
+    font-size: 0.32rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    z-index: 100;
+    position: relative;
+  }
+  
+  .btn {
+    margin-top: 2vmax;
+    display: inline-block;
+    vertical-align: top;
+    padding: 8px 28px;
+    cursor: pointer;
+  
+    border: 2px solid white;
+  
+    margin-left: auto;
+    margin-right: auto;
+  
+    color: white;
+    text-transform: uppercase;
+    text-decoration: 0;
+    font-size: 0.18rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px black;
+  
+    -webkit-transition: color .2s linear, background .1s linear;
+  }
+  
+  .btn:hover {
+    background-color: white;
+    color: #666;
+    text-shadow: none;
+  }
+  
+  
+  .btn-grey {
+    max-height: 38px;
+    margin-top: 40px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 8px 28px;
+    cursor:not-allowed;
+  
+    border: 2px solid rgba(255,255,255, 0.5);;
+  
+    margin-left: auto;
+    margin-right: auto;
+  
+    color: rgba(255,255,255, 0.5);
+    text-transform: uppercase;
+    text-decoration: 0;
+    font-size: 0.18rem;
+    font-weight: 600;
+  
+    -webkit-transition: max-height .2s linear;
+  }
+  .btn-grey:hover {
+    max-height: 100px;
+  }
+  
+  .btn-grey_popup {
+    font-weight: 400;
+    font-size: 0.12rem;
+    opacity: 0;
+    visibility: hidden;
+  
+    -webkit-transition: opacity .2s ease-in-out;
+  }
+  
+  .btn-grey:hover .btn-grey_popup {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* SECTION 2 | PROJECT SCHOOL ///////////////////// */
+  /* //////////////////////////////////////////////// */
+  /* SECTION 3 | PROJECTS /////////////////////////// */
+  
+  .wrapper {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    animation: marquee 30s linear infinite;
+  }
+  
+  .marquee p {
+    display: inline-block;
+  }
+  
+  .abobus {
+    position: absolute;
+    height: 8vmax;
+    transform: rotate(-5deg);
+    left: 7vw;
+    margin-top: 6vw;
+    z-index: 100;
+  }
+  
+  .projects_bg {
+    background-color: #222;
+    padding-bottom: 40px;
+  }
+  
+  .projects {
+    cursor: default;
+    font-size: 0.4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    z-index: 100;
+  
+    text-align: center;
+    color:white;
+  
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  
+    background-color: #111;
+  
+  }
+  
+  .projects_sub {
+    max-width: 1600px;
+    padding-top: 10px;
+    font-size: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    z-index: 100;
+    padding-bottom: 10px;
+  
+    margin-left: auto;
+    margin-right: auto;
+  
+    text-align: center;
+    color:white;
+  
+    background-color: #000;
+  
+  }
+  
+  .pj {
+    position: relative;
+    max-width: 83%;
+    display: table;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    background-color: rgba(0,0,0,0.3);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+  }
+  
+  .pj-container{
+    width: 52vmax;
+    font-size: 0.2rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .pj-name{
+    position: relative;
+    font-size: 0.26rem;
+    text-align: center;
+  }
+  
+  .pj-subname{
+    color: rgb(160, 160, 160);
+    position: relative;
+    font-size: 0.2rem;
+    text-align: center;
+  }
+  
+  .pj-text{
+    margin-top: 30px;
+    line-height: 1.5;
+    position: relative;
+    font-size: 0.2rem;
+    margin-left: 0;
+    text-align: justify;
+  }
+  
+  .pj-text-a{
+    margin-top: 20px;
+    line-height: 1.5;
+    position: relative;
+    margin-left: 0;
+    text-align: justify;
+  }
+  
+  .pj-text-c{
+    margin-top: 10px;
+    line-height: 1.5;
+    position: relative;
+    margin-left: 0;
+    text-align: justify;
+    font-size: 0.2rem;
+    font-style: oblique;
+  }
+  
+  .vk {
+    margin-top: 1px;
+    border-radius: 50%;
+    width: 1.25vmax;
+    position: absolute;
+  }
+  
+  .pointer {
+    margin-top: 4vmax;
+    right: 44vw;
+    width: 3vmax;
+    position: absolute;
+    transition: .4s;
+    animation: pointer 1s ease-in-out infinite;
+  }
+  
+  .btn:hover ~ .pointer {
+    opacity: 0;
+    visibility:hidden;
+  }
+  
+  @keyframes pointer {
+    90% { margin-top: 3.6vmax; }
+   }
+  
+  .pj-team{
+    max-width: 1000px;
+    margin-top: 40px;
+    line-height: 1.6;
+    position: relative;
+  }
+  
+  .pj-team-c{
+    opacity: 1;
+    max-width: 1000px;
+    line-height: 1.6;
+    position: relative;
+    font-size: 0.18rem;  
+  
+    color: white;
+    text-decoration: none;
+  
+    -webkit-transition: opacity .2s linear;
+  }
+  
+  .pj-team-c:hover{
+    opacity: 0.5;
+  }
+  
+  .pj-team-c text{
+    margin-left: 1.4vmax;
+  }
+  
+  
+  .pj-img-m{
+    display: none;
+  
+  }
+  
+  .pj-img-d{
+    position: relative;
+    height: auto;
+    width: 28.6vmax;
+    object-fit: contain;
+    overflow: hidden;
+    margin: 0 0 0 0;
+  }
+  
+  @keyframes marquee {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  
+  @keyframes gradient {
+      0% {
+          background-position: 0% 50%;
+      }
+      50% {
+          background-position: 100% 50%;
+      }
+      100% {
+          background-position: 0% 50%;
+      }
+  }
+  
+  .program {
+    position: relative;
+    width: 83%;
+    display: table;
+    margin: 0 auto;
+    margin-top: 20px;
+  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .program-box {
+    margin-top: 20px;
+    padding-bottom: 40px;
+    position: relative;
+    width: 26vmax;
+    height: auto;
+    display: table;
+    text-align: center;
+  
+    background-color: #222;
+    background-color: rgba(0,0,0,0.3);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+  }
+  
+  .program-box img {
+  
+    max-width: 90%;
+    margin-top: 24px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .program-box div {
+    margin-top: 20px;
+    font-size: 0.48rem;
+    font-weight: 600;
+  }
+  
+  .program-box div > div {
+    max-width: 80%;
+    margin-top: 16px;
+    font-size: 0.2rem;
+    font-weight: 200;
+    color: rgb(200, 200, 200);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+    overflow: hidden;
+  }
+  
+  .flogo_container {
+    margin: 0 30vmax;
+    margin-top: 0.8vmax;
+  }
+  
+  
+  .container {
+    color: var(--color);
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .right {
+    text-align: right;
+    width: 100%;
+  }
+  
+  .stack {
+    display: grid;
+    grid-template-columns: 1fr;
+    overflow: hidden;
+  }
+  
+  .stack span {
+    text-shadow: 4px 4px 2px black;
+    margin-top: 12vw;
+    font-weight: bold;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    font-size: 0.72rem;
+    --stack-height: calc(100% / var(--stacks) - 1px);
+    --inverse-index: calc(calc(var(--stacks) - 1) - var(--index));
+    --clip-top: calc(var(--stack-height) * var(--index));
+    --clip-bottom: calc(var(--stack-height) * var(--inverse-index));
+    clip-path: inset(var(--clip-top) 0 var(--clip-bottom) 0);
+    animation: stack 340ms cubic-bezier(.46,.29,0,1.24) 1 backwards calc(var(--index) * 120ms), glitch 2s ease infinite 2s alternate-reverse;
+  }
+  
+  .stack span:nth-child(odd) { --glitch-translate: 8px; text-shadow: 4px 4px 2px black;}
+  .stack span:nth-child(even) { --glitch-translate: -8px; text-shadow: 4px 4px 2px black;}
+  
+  @keyframes stack {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%);
+      text-shadow: -2px 3px 0 red, 2px -3px 0 blue;
+    };
+    60% {
+      opacity: 0.5;
+      transform: translateX(50%);
+    }
+    80% {
+      transform: none;
+      opacity: 1;
+      text-shadow: 2px -3px 0 red, -2px 3px 0 blue;
+    }
+    100% {
+      text-shadow: 4px 4px 2px black
+    }
+  }
+  
+  @keyframes glitch {
+    0% {
+      text-shadow: -2px 3px 0 red, 2px -3px 0 blue;
+      transform: translate(var(--glitch-translate));
+    }
+    2% {
+      text-shadow: 2px -3px 0 red, -2px 3px 0 blue;
+    }
+    4%, 100% {  text-shadow: 4px 4px 2px black;; transform: none; }
+  }
+  
+  .reged {
+    font-size: 0.3rem;
+  }
+  
+  .reged text{
+    font-size: 0.4rem;
+    color: rgb(160, 160, 255);
+  }
+  
+  .charts {
+    position: fixed;
+    bottom: 2vh;
+    left: 2vh;
+    width: 2vmax;
+  
+    transition: .2s;
+    animation: charts .8s infinite;
+    animation-iteration-count: 8;
+  }
+  
+  .charts:hover {
+    transform: scale(1.2);
+  }
+  
+  @keyframes charts {
+    0% {opacity: 1;}
+    50% {opacity: 0.6;}
+    100% {opacity: 1;}
+  }

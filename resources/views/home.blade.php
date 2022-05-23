@@ -9,11 +9,13 @@
     <meta property="og:title"            content="JOIN US"/>
     <meta property="og:description"      content="Строим цифровое будущее"/>
     <meta property="og:url"              content="https://imctech.ru/"/>
-    <meta property="og:image"            content="https://imctech.ru/assets/images/main.jpg"/>
-    <meta property="og:image:secure_url" content="https://imctech.ru/assets/images/main.jpg"/>
+    <meta property="og:image"            content="https://imctech.ru/img/main.jpg"/>
+    <meta property="og:image:secure_url" content="https://imctech.ru/img/main.jpg"/>
     <meta property="og:image:type"       content="image/jpeg"/>
     
     <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/css/home_mobile.css">
+    <script src="/js/nav.js"></script>
 @endsection
 
 @section('content')
