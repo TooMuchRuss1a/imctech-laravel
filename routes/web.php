@@ -20,3 +20,15 @@ Route::get('/', function () {
 Route::get('/pschool', function () {
     return view('pschool');
 });
+
+Route::get('/login', function () {
+    return view('login');
+});
+
+Route::post('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::get('/login/success', function () {
+    return view('success');
+});
