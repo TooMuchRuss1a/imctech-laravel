@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Route;
 function login()
 {
     if (isset($_COOKIE['login']) && (isset($_COOKIE['password']))) {
@@ -65,7 +66,7 @@ function login()
 <header id="nav" class="header">
     <div class="header_inner">
         <div class="header_logo">
-            <a class="header_logo_link" href="/"><img class="header_logoimg" src="/img/logos/imctech.png"><text> IMCTech</text></a>
+            <a class="header_logo_link" href="<?php if (Route::current()->getName() == "home") {echo "#";} else {echo "/";} ?>"><img class="header_logoimg" src="/img/logos/imctech.png"><text> IMCTech</text></a>
         </div>
         <div class="nav">
             <?php echo login() ?>
