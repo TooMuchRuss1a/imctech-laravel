@@ -43,13 +43,13 @@ function login()
                           </div>';
                 }
             } else {
-                setcookie("login", "", time() - (60 * 60 * 24 * 7));
-                setcookie("password", "", time() - (60 * 60 * 24 * 7));
+                setcookie("login", "", time() - (60 * 60 * 24 * 7), "/");
+                setcookie("password", "", time() - (60 * 60 * 24 * 7), "/");
                 $msg = '<a class="nav_link" href="/login">Войти</a>';
             }
         } else {
-            setcookie("login", "", time() - (60 * 60 * 24 * 7));
-            setcookie("password", "", time() - (60 * 60 * 24 * 7));
+            setcookie("login", "", time() - (60 * 60 * 24 * 7), "/");
+            setcookie("password", "", time() - (60 * 60 * 24 * 7), "/");
             $msg = '<a class="nav_link" href="/login">Войти</a>';
         }
     } else {

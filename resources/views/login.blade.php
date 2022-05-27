@@ -22,8 +22,8 @@ if (isset($_REQUEST['Submit'])) {
                     if ($result->ban == "0") {
                         // Если функция возвращает true, то вы входите
                         $password_hased = password_hash($pass, PASSWORD_DEFAULT);
-                        setcookie("login", $login, time() + 259200);
-                        setcookie("password", $pass, time() + 259200);
+                        setcookie("login", $login, time() + 259200, "/");
+                        setcookie("password", $pass, time() + 259200, "/");
                         header('Location: login/success');
                         exit;
                     } else {
