@@ -32,3 +32,7 @@ Route::post('/login', function () {
 Route::get('/login/success', function () {
     return view('success');
 })->name('success');
+
+Route::get('/login/logout', function () {
+    return view('logout');
+})->name('logout');

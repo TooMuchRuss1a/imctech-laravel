@@ -28,7 +28,7 @@ function login()
                             <div style="text-transform:lowercase;" class="dd-text-description">' . $result->email . '</div>
                             <div class="dd-text">Tg ID</div>
                             <div class="dd-text-description">' . $result->tg . '</div>
-                            <div class="dd-text"><a href="profile">Профиль</a><a href="login/unlogin.php">Выход</a></div>
+                            <div class="dd-text"><a href="profile">Профиль</a><a href="login/logout">Выход</a></div>
                             </div>
                           </div>';
                 } else {
@@ -38,7 +38,7 @@ function login()
                             <div class="dd-text"><a href="/profile">Профиль</a></div>
                             <div class="dd-text" style="color:rgb(255,50,50);">вы заблокированы</div>
                             <div class="dd-text-description" style="color:rgb(255,50,50);">' . $result->ban . '</div>
-                            <div class="dd-text"><a href="/profile">Профиль</a><a href="/login/unlogin.php">Выход</a></div>
+                            <div class="dd-text"><a href="/profile">Профиль</a><a href="/login/logout">Выход</a></div>
                             </div>
                           </div>';
                 }
