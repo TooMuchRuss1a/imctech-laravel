@@ -22,8 +22,8 @@ if (isset($_REQUEST['Submit'])) {
                     if ($result->ban == "0") {
                         // Если функция возвращает true, то вы входите
                         $password_hased = password_hash($pass, PASSWORD_DEFAULT);
-                        setcookie("login", $login, time() + 259200, '/', "imctech.ru");
-                        setcookie("password", $pass, time() + 259200, '/', "imctech.ru");
+                        setcookie("login", $login, time() + 259200);
+                        setcookie("password", $pass, time() + 259200);
                         header('Location: login/success');
                         exit;
                     } else {
@@ -77,7 +77,7 @@ if (isset($_REQUEST['Submit'])) {
         <div class="regname">Авторизация
             <div style="margin: 0 0 0 0;"><?= $error ?></div>
             <div style="margin: 0 0 0 0;"><?= $reason ?></div>
-            <div class="reg"><a rel="noopener noreferrer" target="_blank" href="https://imctech.ru/registration">Регистрация</a></div>
+            <div class="reg"><a rel="noopener noreferrer" target="_blank" href="/registration">Регистрация</a></div>
         </div>
         <form name="frmContact" method="post" action="{{ route('login')}}">
             @csrf
@@ -90,7 +90,7 @@ if (isset($_REQUEST['Submit'])) {
                 <input type="password" name="pass" required="" autocomplete="off">
                 <label>Пароль</label>
                 <div>***</div>
-                <a style="bottom: -10px; right: 0;padding: 0 0; font-size:0.13rem" rel="noopener noreferrer" target="_blank" href="https://imctech.ru/vospass">Забыли пароль?</a>
+                <a style="bottom: -10px; right: 0;padding: 0 0; font-size:0.13rem" rel="noopener noreferrer" target="_blank" href="/vospass">Забыли пароль?</a>
             </div>
             <div class="g-recaptcha" data-theme="dark" data-sitekey="6LcYs80eAAAAAHcpAI3xP1tKPyGWUXgX01K2Y75R"></div>
             <input class="prikol" type="submit" name="Submit" id="Submit" value="Войти">

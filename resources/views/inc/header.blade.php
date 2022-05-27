@@ -28,32 +28,32 @@ function login()
                             <div style="text-transform:lowercase;" class="dd-text-description">' . $result->email . '</div>
                             <div class="dd-text">Tg ID</div>
                             <div class="dd-text-description">' . $result->tg . '</div>
-                            <div class="dd-text"><a href="https://imctech.ru/profile">Профиль</a><a href="https://imctech.ru/login/unlogin.php">Выход</a></div>
+                            <div class="dd-text"><a href="profile">Профиль</a><a href="login/unlogin.php">Выход</a></div>
                             </div>
                           </div>';
                 } else {
                     $msg = '<div class="dropdown1">
                             <button onclick="myFunction()" class="dropbtn1" style="color:rgb(255,50,50);">' . $result->login . '</button>
                             <div id="myDropdown1" class="dropdown1-content">
-                            <div class="dd-text"><a href="https://imctech.ru/profile">Профиль</a></div>
+                            <div class="dd-text"><a href="/profile">Профиль</a></div>
                             <div class="dd-text" style="color:rgb(255,50,50);">вы заблокированы</div>
                             <div class="dd-text-description" style="color:rgb(255,50,50);">' . $result->ban . '</div>
-                            <div class="dd-text"><a href="https://imctech.ru/profile">Профиль</a><a href="https://imctech.ru/login/unlogin.php">Выход</a></div>
+                            <div class="dd-text"><a href="/profile">Профиль</a><a href="/login/unlogin.php">Выход</a></div>
                             </div>
                           </div>';
                 }
             } else {
-                setcookie("login", "", time() - (60 * 60 * 24 * 7), '/', "imctech.ru");
-                setcookie("password", "", time() - (60 * 60 * 24 * 7), '/', "imctech.ru");
-                $msg = '<a class="nav_link" href="https://imctech.ru/login">Войти</a>';
+                setcookie("login", "", time() - (60 * 60 * 24 * 7));
+                setcookie("password", "", time() - (60 * 60 * 24 * 7));
+                $msg = '<a class="nav_link" href="/login">Войти</a>';
             }
         } else {
-            setcookie("login", "", time() - (60 * 60 * 24 * 7), '/', "imctech.ru");
-            setcookie("password", "", time() - (60 * 60 * 24 * 7), '/', "imctech.ru");
-            $msg = '<a class="nav_link" href="https://imctech.ru/login">Войти</a>';
+            setcookie("login", "", time() - (60 * 60 * 24 * 7));
+            setcookie("password", "", time() - (60 * 60 * 24 * 7));
+            $msg = '<a class="nav_link" href="/login">Войти</a>';
         }
     } else {
-        $msg = '<a class="nav_link" href="https://imctech.ru/login">Войти</a>';
+        $msg = '<a class="nav_link" href="/login">Войти</a>';
     }
 
     return $msg;
