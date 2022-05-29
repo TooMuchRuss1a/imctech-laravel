@@ -36,3 +36,7 @@ Route::get('/login/success', function () {
 Route::get('/login/logout', function () {
     return view('logout');
 })->name('logout');
+
+Route::get('/pschool/analytics', function () {
+    return view('analytics');
+})->name('analytics');

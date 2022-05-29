@@ -1,0 +1,26 @@
+.intro_title {
+    padding-top: 15vmax;
+    font-size: 0.54rem;
+}
+
+.gstat {
+    height: 40vh;
+}
+
+.table thead th {
+    font-weight: bold;
+    text-align: left;
+    border: none;
+    padding: 3px 6px;
+    background: rgb(50,50,50);
+    font-size: 0.18rem;
+    overflow: hidden;
+}
+
+.table tbody td {
+    text-align: left;
+    border: none;
+    padding: 3px 6px;
+    font-size: 2.6vw;
+    vertical-align: top;
+}

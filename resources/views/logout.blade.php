@@ -18,7 +18,7 @@
     <meta property="og:image:secure_url" content="https://imctech.ru/img/main.jpg"/>
     <meta property="og:image:type"       content="image/jpeg"/>
     <meta http-equiv="Refresh" content="0; URL=/">
-    
+
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/css/home_mobile.css">
 @endsection
