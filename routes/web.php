@@ -39,4 +39,4 @@ Route::get('/login/logout', function () {
 
 Route::get('/pschool/analytics', function () {
     return view('analytics');
-})->name('analytics');
+})->name('analytics'); // commit for commit
