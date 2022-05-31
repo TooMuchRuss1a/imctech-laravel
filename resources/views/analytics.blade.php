@@ -21,7 +21,7 @@ foreach ($result as $row){
     $table .= '<tr><td>'.$row->project.'</td><td>'.$row->customer.'</td><td>'.$row->team.'</td><td>'.$row->students.'</td></tr>';
 }
 
-$pschoolcounter = DB::table('tbl_springpschool2022')->count();
+$pschoolcounter = DB::table('tbl_springpschool2022')->count(); // commit for commit
 ?>
 
 
