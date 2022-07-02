@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,30 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
-Route::get('/pschool', function () {
-    return view('pschool');
-})->name('pschool');;
-
-Route::get('/login', function () {
-    return view('login');
-});
-
-Route::post('/login', function () {
-    return view('login');
-})->name('login');
-
-Route::get('/login/success', function () {
-    return view('success');
-})->name('success');
-
-Route::get('/login/logout', function () {
-    return view('logout');
-})->name('logout');
-
-Route::get('/pschool/analytics', function () {
-    return view('analytics');
-})->name('analytics');
+Route::get('/', [UserController::class, 'home'])->name('home');
+Route::get('/pschool', [UserController::class, 'pschool'])->name('pschool');
+Route::get('/login', [UserController::class, 'login'])->name('login');
+Route::post('/login', [UserController::class, 'login'])->name('login');
+Route::get('/login/logout', [UserController::class, 'logout'])->name('logout');
+Route::get('/pschool/analytics', [UserController::class, 'analytics'])->name('analytics');

@@ -1,56 +1,5 @@
 @extends('layouts.app')
 
-<?php
-$error = "";
-$reason = "";
-$secret = env('RECAPTCHA_SECRET');
-// Проверка нажата ли кнопка отправки формы
-if (isset($_REQUEST['Submit'])) {
-    if (isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response']) {
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $response = $_POST['g-recaptcha-response'];
-        $rsp = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$response&remoteip=$ip");
-        $arr = json_decode($rsp, TRUE);
-        if ($arr['success']) {
-            $login = $_REQUEST['login'];
-            $pass = $_REQUEST['pass'];
-
-            // берёт из БД пароль и id пользователя 
-            $result = DB::table('tbl_reg')->where('login', "$login")->where('email_confirmed', '1')->first();
-            if ($result) {
-                if (password_verify($pass, $result->password)) {
-                    if ($result->ban == "0") {
-                        // Если функция возвращает true, то вы входите
-                        $password_hased = password_hash($pass, PASSWORD_DEFAULT);
-                        setcookie("login", $login, time() + 259200, "/");
-                        setcookie("password", $pass, time() + 259200, "/");
-                        header('Location: login/success');
-                        exit;
-                    } else {
-                        $error = "Вы заблокированы";
-                        $reason = $result->ban;
-                    }
-                } else {
-                    // Если функция возвращает false, то выводит ошибку
-                    $error = "Неверный пароль";
-                }
-            } else {
-                $error = "Логин не существует или почта не подтверждена";
-            }
-        } else {
-            $error = "Капча не пройдена";
-        }
-    } else {
-        $error = 'Не установлен флажок "Я не робот"';
-    }
-
-    if (strpos($_REQUEST['login'], 'dvfu.ru') == true) {
-        $error = "Логин = почта без @students.dvfu.ru";
-    }
-}
-
-?>
-
 @section('head')
     <title>IMCTech</title>
     <meta charset="UTF-8">
@@ -75,8 +24,8 @@ if (isset($_REQUEST['Submit'])) {
 @section('content')
     <div class="reg-box">
         <div class="regname">Авторизация
-            <div style="margin: 0 0 0 0;"><?= $error ?></div>
-            <div style="margin: 0 0 0 0;"><?= $reason ?></div>
+            <div style="margin: 0 0 0 0;">{{{$error}}}</div>
+            <div style="margin: 0 0 0 0;">{{{ $reason }}}</div>
             <div class="reg"><a rel="noopener noreferrer" target="_blank" href="/registration">Регистрация</a></div>
         </div>
         <form name="frmContact" method="post" action="{{ route('login')}}">

@@ -1,30 +1,3 @@
-<?php
-$groups = array();
-$result = DB::table('tbl_springpschool2022')->orderBy('agroup')->get();
-foreach ($result as $row) {
-    if (isset($groups[substr($row->agroup, 7)])) {
-        $groups[substr($row->agroup, 7)]++;
-    }
-    else {
-        $groups[substr($row->agroup, 7)] = 1;
-    }
-}
-ksort($groups);
-$groupsArray = "";
-foreach ($groups as $key => $value) {
-    $groupsArray .= '["'.$key.'", ' . $value . '],';
-}
-
-$table = "";
-$result = DB::table('tbl_projects')->orderBy('id', 'DESC')->get();
-foreach ($result as $row){
-    $table .= '<tr><td>'.$row->project.'</td><td>'.$row->customer.'</td><td>'.$row->team.'</td><td>'.$row->students.'</td></tr>';
-}
-
-$pschoolcounter = DB::table('tbl_springpschool2022')->count();
-?>
-
-
 @extends('layouts.app')
 
 @section('head')
@@ -50,7 +23,9 @@ $pschoolcounter = DB::table('tbl_springpschool2022')->count();
         function drawStuff() {
             var data = new google.visualization.arrayToDataTable([
                 ['Направление подготовки', 'Кол-во'],
-                <?=$groupsArray?>
+                @foreach($groups as $key => $value)
+                ["{{{$key}}}", {{{$value}}}],
+                @endforeach
             ]);
 
             var options = {
@@ -68,7 +43,7 @@ $pschoolcounter = DB::table('tbl_springpschool2022')->count();
                     subtitle: 'Весенняя проектная школа' },
                 axes: {
                     x: {
-                        0: { side: 'down', label: 'Всего - <?=$pschoolcounter?> студентов'} // Top x-axis.
+                        0: { side: 'down', label: 'Всего - {{{$students}}} студентов'} // Top x-axis.
                     }
                 },
                 bar: { groupWidth: "90%" }
@@ -97,7 +72,9 @@ $pschoolcounter = DB::table('tbl_springpschool2022')->count();
         </tr>
         </thead>
         <tbody>
-        <?=$table ?>
+        @foreach($projects as $row)
+            <tr><td>{{{$row->project}}}</td><td>{{{$row->customer}}}</td><td>{{{$row->team}}}</td><td>{{{$row->students}}}</td></tr>
+        @endforeach
         </tbody>
     </table>
     <div id="top_x_div" class="gstat"></div>

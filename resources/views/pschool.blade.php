@@ -45,7 +45,7 @@
 
     <div class="projects_bg">
         <div class="projects">
-            <div class="reged"><text>112</text> студентов приняло участие на Весенней проектной школе 2022</div>
+            <div class="reged"><text>{{{$students}}}</text> студентов приняло участие в Весенней проектной школе 2022</div>
             <div class="wrapper">
                 <div class="marquee">
                     <p>
