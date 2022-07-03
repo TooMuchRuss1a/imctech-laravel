@@ -1,0 +1,68 @@
+html{
+    background:
+        url(/img/bgbig.png) center no-repeat;
+    background-size: cover;
+}
+
+.reg-box {
+    width: 90%;
+}
+
+.reg-box div {
+    font-size: 0.46rem;
+    font-weight: 700;
+    margin: 0 0 20px;
+    padding: 0;
+    color: #fff;
+    text-align: start;
+}
+
+.reg-box .user-box {
+    font-weight: 400;
+    position: relative;
+}
+
+.reg-box .user-box input {
+    width: 100%;
+    padding: 2px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 0vmax;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+.reg-box .user-box label {
+    top:4px;
+    font-size: 0.26rem;
+    padding: 10px 0;
+}
+
+
+.reg-box .user-box input:focus ~ label,
+.reg-box .user-box input:valid ~ label {
+    top: -12px;
+    left: 0;
+    opacity: 0.5;
+    font-size: 0.2rem;
+}
+.reg-box .user-box input:focus ~ div,
+.reg-box .user-box input:valid ~ div {
+    opacity: 0;
+}
+
+.reg-box .user-box div {
+    top:10px;
+    font-size: 0.18rem;
+    padding: 10px;
+}
+
+.reg-box a {
+    top:40px;
+    font-size: 0.18rem;
+}
+
+.prikol {
+    font-size: 0.24rem;
+}

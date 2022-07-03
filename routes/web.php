@@ -20,3 +20,8 @@ Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::get('/login/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/pschool/analytics', [UserController::class, 'analytics'])->name('analytics');
+Route::get('/registration', [UserController::class, 'registration'])->name('registration');
+Route::post('/registration', [UserController::class, 'registration'])->name('registration');
+Route::get('/confirm', [UserController::class, 'confirm'])->name('confirm');
+Route::get('/confirmed', [UserController::class, 'confirmed'])->name('confirmed');
+Route::get('/confirm/{hash}', [UserController::class, 'confirmHash'])->name('confirmHash');
