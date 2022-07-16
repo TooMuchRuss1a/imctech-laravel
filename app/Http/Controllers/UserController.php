@@ -266,7 +266,10 @@ class UserController extends Controller
             if ($emailID = DB::table('tbl_psession2022')
                 ->where('email', $user->email)
                 ->count() > 0) {
-                    $error = 'Ты уже участвуешь в мероприятии';
+                return view('adWindow', [
+                    'user' => $user,
+                    'error' => 'Ты уже участвуешь в мероприятии'
+                ]);
             }
             else {
                 date_default_timezone_set('Asia/Vladivostok');
@@ -279,7 +282,10 @@ class UserController extends Controller
                     'email' => $user->email,
                     'reg_date' => $reg_date
                 ]);
-                return redirect()->route('home');
+                return view('adWindow', [
+                    'user' => $user,
+                    'error' => ''
+                ]);
             }
         }
         return view('psessionReg', [
