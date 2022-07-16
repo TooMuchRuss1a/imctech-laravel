@@ -28,3 +28,8 @@ Route::post('/registration', [UserController::class, 'registration'])->name('reg
 Route::get('/confirm', [UserController::class, 'confirm'])->name('confirm');
 Route::get('/confirmed', [UserController::class, 'confirmed'])->name('confirmed');
 Route::get('/confirm/{hash}', [UserController::class, 'confirmHash'])->name('confirmHash');
+Route::get('/vospass', [UserController::class, 'vospass'])->name('vospass');
+Route::post('/vospass', [UserController::class, 'vospass'])->name('vospass');
+Route::get('/vospass/{hash}', [UserController::class, 'vospassHash'])->name('vospassHash');
+Route::post('/vospass/{hash}', [UserController::class, 'vospassHash'])->name('vospassHash');
+Route::get('/vospassAnswer', [UserController::class, 'vospassAnswer'])->name('vospassAnswer');

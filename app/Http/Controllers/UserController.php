@@ -64,6 +64,11 @@ class UserController extends Controller
                     $login = $_REQUEST['login'];
                     $password = $_REQUEST['pass'];
                     $user = $this->authController->auth($login, $password);
+                    if (!empty($user)) {
+                        (empty($request->cookie('previous_route'))) ? $to = 'home' : $to = $request->cookie('previous_route');
+                        $this->authController->forgetCookie('previous_route');
+                        return redirect()->route($to);
+                    }
                 } else {
                     $error = "Капча не пройдена";
                 }
@@ -280,6 +285,91 @@ class UserController extends Controller
         return view('psessionReg', [
             'user' => $user,
             'error' => $error
+        ]);
+    }
+
+    public function vospass(Request $request) {
+        $user = $this->authController->cookieAuth($request);
+        $error = '';
+        if (isset($_REQUEST['Submit'])) {
+            $email = $_REQUEST['email'];
+            if (strpos($_REQUEST['email'], 'dvfu.ru') == true) {
+                if (isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response']) {
+                    $secret = env('RECAPTCHA_SECRET');
+                    $ip = $_SERVER['REMOTE_ADDR'];
+                    $response = $_POST['g-recaptcha-response'];
+                    $rsp = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$response&remoteip=$ip");
+                    $arr = json_decode($rsp, TRUE);
+                    if ($arr['success']) {
+                        $result = DB::table('tbl_reg')
+                            ->where([
+                                'email' => $email,
+                                'email_confirmed' => '1'
+                            ])
+                            ->first();
+
+                        if (!empty($result)) {
+                            $details['hash'] = md5($email . time());
+
+                            Mail::to($email)->send(new \App\Mail\Vospass($details));
+
+                            DB::table('tbl_reg')
+                                ->where('id', "$result->id")
+                                ->update([
+                                    'hash' => $details['hash']
+                                ]);
+                            return redirect()->route('vospassAnswer');
+                        }
+                        else {$error = "Почты не существует";}
+                    }
+                    else {$error = "Капча не пройдена";}
+                }
+                else {$error = 'Не установлен флажок "Я не робот"';}
+            } else {
+                $error = "Введите корпоративную почту ДВФУ";
+            }
+        }
+        return view('vospass', [
+            'user' => $user,
+            'error' => $error
+        ]);
+    }
+
+    public function vospassHash(Request $request, $hash) {
+        $user = $this->authController->cookieAuth($request);
+        $error = '';
+        $result = DB::table('tbl_reg')
+            ->where([
+                'hash' => $hash
+            ])
+            ->first();
+        if (!empty($result)) {
+            if (isset($_REQUEST['Submit'])) {
+                if ($_REQUEST['new_pass'] == $_REQUEST['new_pass_rep']) {
+                    $new_pass = $_REQUEST['new_pass'];
+                    $hased_pass = password_hash($new_pass, PASSWORD_DEFAULT);
+                    $new_hash = md5($hash . time());
+                    DB::table('tbl_reg')
+                        ->where('id', "$result->id")
+                        ->update([
+                            'password' => $hased_pass,
+                            'hash' => $new_hash
+                        ]);
+                    return redirect()->route('login');
+                } else $error = 'Пароли не совпадают';
+            }
+        } else return redirect()->route('home');
+        return view('vospassHash', [
+            'error' => $error,
+            'user' => $user,
+            'hash' => $hash
+        ]);
+    }
+
+    public function vospassAnswer(Request $request) {
+        $user = $this->authController->cookieAuth($request);
+        return view('vospassAnswer', [
+            'user' => $user,
         ]);
     }
 }
