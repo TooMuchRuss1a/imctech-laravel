@@ -1,0 +1,97 @@
+.intro {
+    background-size: 256%;
+    height: 300px;
+    padding-bottom: 6vmax;
+  }
+  .intro:hover {
+    background-size: 320%;
+  }
+
+  .intro_title {
+      padding-top: 20vmax;
+      font-size: 0.5rem;
+  }
+
+  .intro_subtitle {
+    margin-top: 10px;
+      font-size: 0.3rem;
+  }
+
+.reged {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+  .btn {
+    margin-top: 2vmax;
+    font-size: 0.3rem;
+  }
+
+  .btn-grey {
+    margin-top: 2vmax;
+    max-height: 10vw;
+    font-size: 0.3rem;
+  }
+  .btn-grey:hover {
+    max-height: 14vw;
+  }
+
+  .btn-grey_popup {
+    font-size: 0.2rem;
+  }
+
+    .program {
+      position: relative;
+      width: 90%;
+      display: table;
+      margin: 0 auto;
+      margin-top: 0px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+
+    .program-box {
+      margin-top: 20px;
+      padding-bottom: 3vmax;
+      position: relative;
+      width: 90vw;
+      height: auto;
+      display: table;
+      text-align: center;
+
+      margin-left: auto;
+      margin-right: auto;
+
+      background-color: #222;
+      background-color: rgba(0,0,0,0.3);
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    }
+
+    .program-box img {
+
+      width: 90%;
+      margin-top: 2.4vmax;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .program-box div {
+      margin-top: 2vmax;
+      font-size: 0.4rem;
+      font-weight: 600;
+    }
+
+    .program-box div > div {
+      max-width: 90%;
+      margin-top: 1vmax;
+      font-size: 0.26rem;
+      font-weight: 200;
+      color: rgb(200, 200, 200);
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      overflow: hidden;
+    }

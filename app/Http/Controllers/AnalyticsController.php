@@ -10,6 +10,10 @@ class AnalyticsController extends Controller
         return DB::table('tbl_springpschool2022')->count();
     }
 
+    public function psessionCounter() {
+        return DB::table('tbl_psession2022')->count();
+    }
+
     public function getGroups() {
         $groups = array();
         $result = DB::table('tbl_springpschool2022')->orderBy('agroup')->get();

@@ -32,6 +32,16 @@ class UserController extends Controller
         ]);
     }
 
+    public function psession(Request $request)
+    {
+        $user = $this->authController->cookieAuth($request);
+        $students = $this->analiticsController->psessionCounter();
+        return view('psession', [
+            'user' => $user,
+            'students' => $students
+        ]);
+    }
+
     public function login(Request $request)
     {
         $user = $this->authController->cookieAuth($request);
