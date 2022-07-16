@@ -46,7 +46,9 @@ class UserController extends Controller
     {
         $user = $this->authController->cookieAuth($request);
         if (!empty($user)) {
-            return redirect('/');
+            (empty($request->cookie('previous_route'))) ? $to = 'home' : $to = $request->cookie('previous_route');
+            $this->authController->forgetCookie('previous_route');
+            return redirect()->route($to);
         }
         $error = "";
         $reason = "";
@@ -247,5 +249,37 @@ class UserController extends Controller
         } else {
             return redirect('/');
         }
+    }
+    public function psessionReg(Request $request) {
+        $user = $this->authController->cookieAuth($request);
+        $error = '';
+        if (empty($user)) {
+            $this->authController->setCookie('previous_route', $request->route()->getName(), 3600);
+            return redirect('/login');
+        }
+        if (isset($_REQUEST['prikol'])) {
+            if ($emailID = DB::table('tbl_psession2022')
+                ->where('email', $user->email)
+                ->count() > 0) {
+                    $error = 'Ты уже участвуешь в мероприятии';
+            }
+            else {
+                date_default_timezone_set('Asia/Vladivostok');
+                $reg_date = Carbon::now()->format('Y-m-d H:i:s.u');
+                DB::table('tbl_psession2022')->insert([
+                    'id' => 0,
+                    'name' => $user->name,
+                    'agroup' => $user->agroup,
+                    'vk' => $user->vk,
+                    'email' => $user->email,
+                    'reg_date' => $reg_date
+                ]);
+                return redirect()->route('home');
+            }
+        }
+        return view('psessionReg', [
+            'user' => $user,
+            'error' => $error
+        ]);
     }
 }

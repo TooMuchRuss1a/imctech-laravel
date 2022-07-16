@@ -17,6 +17,8 @@ use App\Http\Controllers\UserController;
 Route::get('/', [UserController::class, 'home'])->name('home');
 Route::get('/pschool', [UserController::class, 'pschool'])->name('pschool');
 Route::get('/psession', [UserController::class, 'psession'])->name('psession');
+Route::get('/psession/reg', [UserController::class, 'psessionReg'])->name('psessionReg');
+Route::post('/psession/reg', [UserController::class, 'psessionReg'])->name('psessionReg');
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::get('/login/logout', [UserController::class, 'logout'])->name('logout');
