@@ -21,7 +21,7 @@
                             <div style="text-transform:lowercase;" class="dd-text-description">{{{$user->email}}}</div>
                             <div class="dd-text">Tg ID</div>
                             <div class="dd-text-description">{{{$user->tg}}}</div>
-                            <div class="dd-text"><a href="profile">Профиль</a><a href="login/logout">Выход</a></div>
+                            <div class="dd-text"><a href="profile">Профиль</a><a href={{{route('logout')}}}>Выход</a></div>
                         </div>
                     </div>
                 @else

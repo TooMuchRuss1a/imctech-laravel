@@ -39,7 +39,6 @@
                 <label>Повторите пароль</label>
                 <div>***</div>
             </div>
-            <input type="text" name="hash" required="" value="{{{$hash}}}" hidden>
             <div class="g-recaptcha" data-theme="dark" data-sitekey="6LcYs80eAAAAAHcpAI3xP1tKPyGWUXgX01K2Y75R"></div>
             <input class="prikol" type="submit" name="Submit" id="Submit" value="Войти">
         </form>
