@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,5 @@ Route::post('/vospass', [UserController::class, 'vospass'])->name('vospass');
 Route::get('/vospass/{hash}', [UserController::class, 'vospassHash'])->name('vospassHash');
 Route::post('/vospass/{hash}', [UserController::class, 'vospassHash'])->name('vospassHash');
 Route::get('/vospassAnswer', [UserController::class, 'vospassAnswer'])->name('vospassAnswer');
+Route::get('/admin', [AdminController::class, 'admin'])->name('admin');
+Route::get('/admin/table/{table}', [AdminController::class, 'adminTable'])->name('adminTable');

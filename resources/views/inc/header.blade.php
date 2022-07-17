@@ -21,7 +21,7 @@
                             <div style="text-transform:lowercase;" class="dd-text-description">{{{$user->email}}}</div>
                             <div class="dd-text">Tg ID</div>
                             <div class="dd-text-description">{{{$user->tg}}}</div>
-                            <div class="dd-text"><a href="profile">Профиль</a><a href={{{route('logout')}}}>Выход</a></div>
+                            <div class="dd-text"><a href="profile">Профиль</a>@if($user->is_admin == "1")<a href={{{route('admin')}}}>Админка</a>@endif<a href={{{route('logout')}}}>Выход</a></div>
                         </div>
                     </div>
                 @else
