@@ -191,7 +191,7 @@ class UserController extends Controller
                 $data['hash'] = md5($data['login'] . time());
 
                 date_default_timezone_set('Asia/Vladivostok');
-                $reg_date = Carbon::now()->format('Y-m-d H:i:s.u');
+                $reg_date = Carbon::now()->format('Y-m-d H:i:s');
                 DB::table('tbl_reg')->insert([
                     'id' => 0,
                     'login' => $data['login'],
@@ -205,14 +205,15 @@ class UserController extends Controller
                     'ban' => 0,
                     'is_admin' => 0,
                     'reg_date' => $reg_date,
-                    'last_activity' => $reg_date
+                    'last_activity' => $reg_date,
+                    'tg' => 0
                 ]);
                 $details = [
                     'link' => 'http://imctech.ru/confirm/' . $data['hash']
                 ];
 
                 Mail::to($data['email'])->send(new \App\Mail\ConfirmEmail($details));
-                redirect('/confirm');
+                return redirect('/confirm');
             }
         }
         return view('registration', [
