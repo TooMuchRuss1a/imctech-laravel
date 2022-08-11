@@ -26,7 +26,7 @@
         <div id="scrup" class="scroll-up"></div>
     </a>
 
-    <a href="statistic"><img class="charts" src="/img/chart.png"></a>
+    <a href="{{route('analytics')}}"><img class="charts" src="/img/chart.png"></a>
 
     <div class="intro">
         <div class="containerglitch">

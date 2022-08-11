@@ -24,7 +24,9 @@
 
     <div class="intro">
             <div class="intro_title">ПРОЕКТНАЯ СЕССИЯ</div>
-        <a class="btn" href="psession/reg">Участвовать</a>
+        <a class="btn-grey">Участвовать
+            <div class="btn-grey_popup">регистрация закрыта</div>
+        </a>
     </div>
 
     <div class="projects_bg">

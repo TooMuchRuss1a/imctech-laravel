@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Models\Error;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -46,5 +47,33 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        $retval = parent::render($request, $exception);
+
+        if (env('CUSTOM_LOG')) $this->logError($request, $exception);
+
+        return $retval;
+    }
+
+    protected function logError($request, $exception): void {
+        $post = $request->post();
+        unset($post['recaptcha']);
+        unset($post['_token']);
+
+        $data = [
+            'status' => (method_exists($exception, 'getStatusCode')) ?  $exception->getStatusCode() : ((isset($exception->status)) ? $exception->status : 500),
+            'username' => (auth()->check()) ? auth()->user()->login : 'unknown',
+            'method' => $request->getMethod(),
+            'uri' => $request->getRequestUri(),
+            'where' => $exception->getFile() . ' ' . $exception->getLine(),
+            'agent' => $request->header()['user-agent'][0],
+            'message' => $exception->getMessage(),
+            'data' => (!empty($post)) ? json_encode($post, JSON_UNESCAPED_UNICODE) : null,
+        ];
+
+        Error::create($data);
     }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
+use App\Models\User;
+use App\Services\VkApiService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -9,74 +12,72 @@ use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
-    public function __construct(AnalyticsController $analyticsController, AuthController $authController)
-    {
-        $this->analiticsController = $analyticsController;
-        $this->authController = $authController;
-    }
-
-    public function getAdminData(){
-        $data = [];
-        $data['tbl_reg'] = DB::table('tbl_reg')->count();
-        $data['tbl_psession2022'] = DB::table('tbl_psession2022')->count();
-        $data['tbl_springpschool2022'] = DB::table('tbl_springpschool2022')->count();
-
-        return $data;
-    }
-
-    public function isAdmin($user) {
-        if (empty($user)) {
-            return false;
-        }
-        if ($user->is_admin == '1') {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     public function admin(Request $request)
     {
-        $user = $this->authController->cookieAuth($request);
-        if ($this->isAdmin($user)) {
-            return view('admin', ['user' => $user, 'data' => $this->getAdminData()]);
-        }
-        else {
-            return redirect()->route('home');
-        }
+        $errors = DB::table('errors')
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        $row = $errors->first();
+
+        return view('admin.admin', ['errors' => $errors, 'keys' => (!empty($row)) ? array_keys(get_object_vars($row)) : null]);
     }
 
-    public function adminTable(Request $request, $table)
+
+    public function users(Request $request)
     {
-        $user = $this->authController->cookieAuth($request);
-        if ($this->isAdmin($user)) {
-            switch ($table) {
-                case 'reg':
-                    $tableData = DB::table('tbl_reg')
-                        ->select('id', 'login', 'email', 'name', 'agroup', 'vk', 'email_confirmed', 'ban', 'is_admin', 'reg_date', 'last_activity')
-                        ->get();
-                    break;
-                case 'psession2022':
-                    $tableData = DB::table('tbl_psession2022')
-                        ->select('id', 'name', 'agroup', 'vk', 'email', 'reg_date')
-                        ->get();
-                    break;
-                case 'springpschool2022':
-                    $tableData = DB::table('tbl_springpschool2022')
-                        ->select('id', 'name', 'agroup', 'vk', 'email', 'reg_date', 'project')
-                        ->get();
-                    break;
-                default:
-                    return abort(404);
-            }
-            $row = $tableData->first();
-            return view('adminTable', ['user' => $user, 'tableData' => $tableData, 'keys' => array_keys(get_object_vars($row)), 'data' => $this->getAdminData()]);
-        }
-        else {
-            return redirect()->route('home');
-        }
+
+        $users = DB::table('users')
+            ->select('id', 'login', 'name', 'agroup', 'email', 'email_verified_at')
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        $row = $users->first();
+
+        return view('admin.users', ['users' => $users, 'keys' => (!empty($row)) ? array_keys(get_object_vars($row)) : null]);
     }
 
+    public function view(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->socialData = [
+            'vk' => VkApiService::getVkData($user->socials()->where('type', 'vk')->first()->link)
+        ];
 
+        return view('admin.view', ['user' => $user]);
+    }
+
+    public function events(Request $request)
+    {
+
+        $events = DB::table('events')
+            ->orderBy('id', 'DESC')
+            ->join('users as u1', 'events.updated_by', '=', 'u1.id')
+            ->join('users as u2', 'events.created_by', '=', 'u2.id')
+            ->select('events.id', 'events.name', 'events.register_until', 'events.updated_at', 'u1.login as updated_by', 'events.created_at', 'u2.login as created_by')
+            ->get();
+
+        $row = $events->first();
+
+        return view('admin.events', ['events' => $events, 'keys' => (!empty($row)) ? array_keys(get_object_vars($row)) : null]);
+    }
+
+    public function eventCreate(Request $request)
+    {
+        return view('admin.eventCreate');
+    }
+
+    public function eventSave(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|unique:events|max:255',
+            'register_until' => 'required',
+            'recaptcha' => 'recaptcha',
+        ]);
+
+        Event::create($validated);
+
+        request()->session()->flash('status', 'Мероприятие успешно создано');
+        return redirect()->route('admin.events');
+    }
 }

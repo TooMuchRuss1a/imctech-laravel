@@ -8,9 +8,22 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    protected static function boot() {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->created_by = auth()->check() ? auth()->user()->id : 1;
+            $model->updated_by = auth()->check() ? auth()->user()->id : 1;
+        });
+
+        static::updating(function ($model) {
+            $model->updated_by = auth()->user()->id;
+        });
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +31,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'login',
         'name',
+        'agroup',
         'email',
         'password',
     ];
@@ -41,4 +56,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function socials()
+    {
+        return $this->hasMany('App\Models\Social');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Role', 'id', 'user_id');
+    }
+
+    public function activity()
+    {
+        return $this->hasMany('App\Models\Activity');
+    }
 }

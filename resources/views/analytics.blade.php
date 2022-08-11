@@ -62,21 +62,21 @@
     </a>
 
     <div class="intro_title">АНАЛИТИКА</div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ПРОЕКТ</th>
-            <th>ЗАКАЗЧИК</th>
-            <th>КОМАНДА</th>
-            <th>ИСПОЛНИТЕЛИ</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($projects as $row)
-            <tr><td>{{{$row->project}}}</td><td>{{{$row->customer}}}</td><td>{{{$row->team}}}</td><td>{{{$row->students}}}</td></tr>
-        @endforeach
-        </tbody>
-    </table>
+{{--    <table class="table">--}}
+{{--        <thead>--}}
+{{--        <tr>--}}
+{{--            <th>ПРОЕКТ</th>--}}
+{{--            <th>ЗАКАЗЧИК</th>--}}
+{{--            <th>КОМАНДА</th>--}}
+{{--            <th>ИСПОЛНИТЕЛИ</th>--}}
+{{--        </tr>--}}
+{{--        </thead>--}}
+{{--        <tbody>--}}
+{{--        @foreach($projects as $row)--}}
+{{--            <tr><td>{{{$row->project}}}</td><td>{{{$row->customer}}}</td><td>{{{$row->team}}}</td><td>{{{$row->students}}}</td></tr>--}}
+{{--        @endforeach--}}
+{{--        </tbody>--}}
+{{--    </table>--}}
     <div id="top_x_div" class="gstat"></div>
 
     <script>
