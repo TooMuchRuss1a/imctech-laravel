@@ -62,6 +62,7 @@ class Handler extends ExceptionHandler
         $post = $request->post();
         unset($post['recaptcha']);
         unset($post['_token']);
+        unset($post['Submit']);
         if (!empty($post['password'])) {
             $post['password'] = str_repeat("*", strlen($post['password']));
         }

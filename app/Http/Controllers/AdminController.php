@@ -10,12 +10,26 @@ use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
+    protected function sanitizer($object, $column) {
+        foreach ($object as $row) {
+            if (empty($row->$column)) continue;
+            $array = json_decode($row->$column);
+            foreach ($array as $key => $value) {
+                $array->$key = htmlspecialchars($value);
+            }
+            $row->$column = json_encode($array);
+        }
+        return $object;
+    }
+
     public function admin(Request $request)
     {
         $errors = DB::table('errors')
             ->orderBy('id', 'DESC')
+            ->limit(200)
             ->get();
 
+        $errors = $this->sanitizer($errors, 'data');
         $row = $errors->first();
 
         return view('admin.admin', ['errors' => $errors, 'keys' => (!empty($row)) ? array_keys(get_object_vars($row)) : null]);
