@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\User;
 use App\Services\VkApiService;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {

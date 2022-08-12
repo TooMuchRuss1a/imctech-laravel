@@ -62,6 +62,9 @@ class Handler extends ExceptionHandler
         $post = $request->post();
         unset($post['recaptcha']);
         unset($post['_token']);
+        if (!empty($post['password'])) {
+            $post['password'] = str_repeat("*", strlen($post['password']));
+        }
 
         $data = [
             'status' => (method_exists($exception, 'getStatusCode')) ?  $exception->getStatusCode() : ((isset($exception->status)) ? $exception->status : 500),
