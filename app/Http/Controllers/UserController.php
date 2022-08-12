@@ -52,4 +52,37 @@ class UserController extends Controller
             'groups' => $groups
         ]);
     }
+
+    public function service(Request $request)
+    {
+        return view('service.service');
+    }
+
+    public function activityCreate(Request $request)
+    {
+        $events = Event::where('register_until', '>', now())->get();
+
+        return view('service.activityCreate', ['events' => $events]);
+    }
+
+    public function activitySave(Request $request)
+    {
+        $validated = $request->validate([
+            'event_id' => 'required|register_actual',
+            'recaptcha' => 'recaptcha',
+        ]);
+
+        if (!empty(Activity::where('user_id', auth()->id()))) {
+            request()->session()->flash('error', 'Вы уже записаны на мероприятие "' . Event::findOrFail($validated['event_id'])->first()->name .'"');
+            return redirect()->route('service');
+        }
+
+        Activity::create([
+            'user_id' => auth()->id(),
+            'event_id' => $validated['event_id']
+        ]);
+
+        request()->session()->flash('status', 'Запись на мероприятие "' . Event::findOrFail($validated['event_id'])->first()->name .'" успешно создана');
+        return redirect()->route('service');
+    }
 }

@@ -6,10 +6,11 @@ namespace App\Services;
 class VkApiService
 {
     public static function getVkData($link) {
-        $nickname = explode("/", $link)[3];
-        $request_params = [
-            'user_ids' => $nickname,
-            'fields' => 'activities,
+        if (isset(explode("/", $link)[3])) {
+            $nickname = explode("/", $link)[3];
+            $request_params = [
+                'user_ids' => $nickname,
+                'fields' => 'activities,
                         about,
                         blacklisted,
                         blacklisted_by_me,
@@ -70,15 +71,17 @@ class VkApiService
                         timezone,
                         tv,
                         universities',
-            'access_token' => env('ACCESS_TOKEN'),
-            'v' => '5.85',
-            'lang' => 'ru'
-        ];
+                'access_token' => env('ACCESS_TOKEN'),
+                'v' => '5.85',
+                'lang' => 'ru'
+            ];
 
-        $response = json_decode(file_get_contents('https://api.vk.com/method/getProfiles?' . http_build_query($request_params)));
-        if (isset($response->error)) {
-            return null;
+            $response = json_decode(file_get_contents('https://api.vk.com/method/getProfiles?' . http_build_query($request_params)));
+            if (isset($response->error)) {
+                return null;
+            }
+            return $response->response[0];
         }
-        return $response->response[0];
+        return null;
     }
 }

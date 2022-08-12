@@ -67,8 +67,18 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo('App\Models\Role', 'id', 'user_id');
     }
 
-    public function activity()
+    public function activities()
     {
         return $this->hasMany('App\Models\Activity');
+    }
+
+    public function created_by()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by');
+    }
+
+    public function updated_by()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by');
     }
 }

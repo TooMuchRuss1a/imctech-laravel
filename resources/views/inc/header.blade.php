@@ -20,7 +20,7 @@
                         @else
                             <div style="text-transform:lowercase; color:rgb(255,50,50);" class="dd-text-description">не подтвержден</div>
                         @endif
-                        <div class="dd-text"><a href="profile">Профиль</a>@if(App\Models\User::findOrFail(auth()->user()->id)->role()->first())<a href={{{route('admin')}}}>Админка</a>@endif<a href={{{route('logout')}}}>Выход</a></div>
+                        <div class="dd-text"><a href="{{route('service')}}">Сервис</a><a href={{{route('logout')}}}>Выход</a></div>
                     </div>
                 </div>
             @else <a class="nav_link" href="/login">Войти</a>

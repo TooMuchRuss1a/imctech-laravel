@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Event;
 use App\Models\User;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -55,6 +57,36 @@ class AppServiceProvider extends ServiceProvider
             info($response);
 
             return $response['success'];
+        });
+
+        Validator::extend('register_actual', function ($attribute, $value)
+        {
+            if (!empty($event = Event::findOrFail($value)->first())) {
+                if (now() < $event->register_until) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        Validator::extend('email_verified', function ($attribute, $value)
+        {
+            if (!empty($user = User::findOrFail($value)->first())) {
+                if (!empty($user->email_verified_at)) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
+
+        Blade::if('hasrole', function () {
+            if (auth()->check()) {
+                if (!empty(User::findOrFail(auth()->user()->id)->role()->first())) {
+                    return true;
+                }
+            }
+            return false;
         });
     }
 }

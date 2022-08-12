@@ -28,8 +28,8 @@ class Activity extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'register_until',
+        'user_id',
+        'event_id',
     ];
 
     /**

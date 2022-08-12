@@ -6779,6 +6779,7 @@ textarea.form-control-lg {
 
 .link-primary {
   color: #0d6efd !important;
+  text-decoration: none;
 }
 .link-primary:hover, .link-primary:focus {
   color: #0a58ca !important;

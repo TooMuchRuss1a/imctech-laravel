@@ -45,11 +45,21 @@ Route::get('email/verify', [VerificationController::class, 'show'])->name('verif
 Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
-Route::group(['middleware' => 'hasRole'], function () {
-    Route::get('/admin', [AdminController::class, 'admin'])->name('admin');
-    Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::get('/admin/view/{id}', [AdminController::class, 'view'])->name('admin.view');
-    Route::get('/admin/events', [AdminController::class, 'events'])->name('admin.events');
-    Route::get('/admin/events/create', [AdminController::class, 'eventCreate'])->name('admin.events.create');
-    Route::post('/admin/events/create', [AdminController::class, 'eventSave']);
+Route::group(['middleware' => 'emailVerified', 'prefix' => '/service',
+], function () {
+    Route::get('/', [UserController::class, 'service'])->name('service');
+    Route::get('/activity/create', [UserController::class, 'activityCreate'])->name('service.activity');
+    Route::post('/activity/create', [UserController::class, 'activitySave']);
+
+    Route::group(['middleware' => 'hasRole', 'prefix' => '/admin',], function () {
+        Route::get('/errors', [AdminController::class, 'errors'])->name('admin.errors');
+        Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+        Route::get('/view/{id}', [AdminController::class, 'view'])->name('admin.view');
+        Route::get('/events', [AdminController::class, 'events'])->name('admin.events');
+        Route::get('/events/create', [AdminController::class, 'eventCreate'])->name('admin.events.create');
+        Route::post('/events/create', [AdminController::class, 'eventSave']);
+        Route::get('/roles', [AdminController::class, 'roles'])->name('admin.roles');
+        Route::get('/roles/create', [AdminController::class, 'roleCreate'])->name('admin.roles.create');
+        Route::post('/roles/create', [AdminController::class, 'roleSave']);
+    });
 });
