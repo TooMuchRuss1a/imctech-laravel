@@ -61,5 +61,9 @@ Route::group(['middleware' => 'emailVerified', 'prefix' => '/service',
         Route::get('/roles', [AdminController::class, 'roles'])->name('admin.roles');
         Route::get('/roles/create', [AdminController::class, 'roleCreate'])->name('admin.roles.create');
         Route::post('/roles/create', [AdminController::class, 'roleSave']);
+        Route::get('/edit/{table}/{id}', [AdminController::class, 'edit'])->name('admin.edit');
+        Route::post('/edit/{table}/{id}', [AdminController::class, 'editSave']);
+        Route::get('/getlost', [AdminController::class, 'getLostUsers'])->name('admin.getlost');
+        Route::post('/getlost', [AdminController::class, 'getLostUsersPost']);
     });
 });

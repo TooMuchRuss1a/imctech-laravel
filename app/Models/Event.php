@@ -29,6 +29,7 @@ class Event extends Model
      */
     protected $fillable = [
         'name',
+        'conversation_id',
         'register_until',
     ];
 

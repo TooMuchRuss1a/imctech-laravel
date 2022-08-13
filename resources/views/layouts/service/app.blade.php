@@ -85,6 +85,7 @@
                             <hr style="margin: 8px 0;">
                             <a class="nav-link" href="{{ route('admin.errors') }}">Ошибки</a>
                             <a class="nav-link" href="{{ route('admin.users') }}">Пользователи</a>
+                            <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
                             <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
                             <a class="nav-link" href="{{ route('admin.roles') }}">Роли</a>
                         @endhasrole

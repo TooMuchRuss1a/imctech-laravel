@@ -69,6 +69,16 @@ class AppServiceProvider extends ServiceProvider
             return false;
         });
 
+        Validator::extend('event_has_conversation', function ($attribute, $value)
+        {
+            if (!empty($event = Event::findOrFail($value)->first())) {
+                if (!empty($event->conversation_id)) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
         Validator::extend('email_verified', function ($attribute, $value)
         {
             if (!empty($user = User::findOrFail($value)->first())) {
