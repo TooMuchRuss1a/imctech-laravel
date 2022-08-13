@@ -24,4 +24,4 @@ jobs:
       - name: Deploy with rsync
         run: rsync -avz /home/runner/work/imctech-laravel/imctech-laravel/imctech-laravel/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/${{ secrets.SSH_USER }}/data/www/imctech.ru
       - name: Artisan migration
-        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} && cd www/imctech.ru && php artisan migrate
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} && cd /var/www/${{ secrets.SSH_USER }}/data/www/imctech.ru && php artisan migrate
