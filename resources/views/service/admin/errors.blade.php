@@ -19,7 +19,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($errors as $row)
-                                    <tr @if($row->status == 500) style="background-color: pink;"@endif>
+                                    <tr @if(in_array($row->status, [405, 500]) || in_array($row->uri, ['/.env'])) style="background-color: pink;"@endif>
                                         @foreach(get_object_vars($row) as $item)
                                             @if(in_array($loop->index, [5, 6, 7, 8]) && !empty($item))
                                                 <td>

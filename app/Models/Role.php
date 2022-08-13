@@ -46,7 +46,7 @@ class Role extends Model
      */
     protected $primaryKey = 'id';
 
-    public function rolesuser()
+    public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }

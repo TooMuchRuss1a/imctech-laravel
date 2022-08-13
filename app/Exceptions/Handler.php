@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use App\Models\Error;
+use App\Models\Role;
+use App\Services\VkApiService;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -79,5 +81,17 @@ class Handler extends ExceptionHandler
         ];
 
         Error::create($data);
+
+        if (in_array($data['status'], [405, 500]) || in_array($data['uri'], ['/.env'])) {
+            $vkApiService = new VkApiService();
+            $message = $data['status'] . " \n" . $data['username'] . " \n" . $data['method'] . ' ' . $data['uri'] . " \n" . $data['message'] . " \n" . $data['data'] . " \n" . route('admin.errors');
+            $root_vk = Role::where(['name' => 'root'])->first()->user()->first()->socials()->where(['type' => 'vk'])->first()->link;
+
+            $vk_id = $vkApiService->getVkDataViaLink($root_vk);
+            if (!empty($vk_id)) {
+                $vkApiService->sendMsg($vk_id[0]['id'], $message);
+            }
+        }
+
     }
 }
