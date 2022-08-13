@@ -18,7 +18,10 @@ class AdminController extends Controller
             if (empty($row->$column)) continue;
             $array = json_decode($row->$column);
             foreach ($array as $key => $value) {
-                $array->$key = htmlspecialchars($value);
+                if (is_array($value) || is_object($value)) {
+                    $array->$key = json_encode($value);
+                }
+                else $array->$key = htmlspecialchars($value);
             }
             $row->$column = json_encode($array);
         }
