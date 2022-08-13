@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-11">
                 <div class="card">
-                    <div class="card-header">{{ __('Информация') }}</div>
+                    <div class="card-header">{{ __('Ошибки') }}</div>
 
                     <div class="card-body">
                         @if(!empty($keys))
@@ -19,7 +19,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($errors as $row)
-                                    <tr>
+                                    <tr @if($row->status == 500) style="background-color: pink;"@endif>
                                         @foreach(get_object_vars($row) as $item)
                                             @if(in_array($loop->index, [5, 6, 7, 8]) && !empty($item))
                                                 <td>
@@ -35,7 +35,7 @@
                                                                 <a class="dropdown-item" title="Скопировать"
                                                                    id="{{$keys[$loop->index].$row->id }}"
                                                                    onclick="copyToClipboard('#{{$keys[$loop->index].$row->id }}')">
-                                                                    <pre>{{{var_dump(json_decode($item))}}}</pre>
+                                                                    <pre>{{{var_dump($item)}}}</pre>
                                                                 </a>
                                                             @else
                                                                 <a class="dropdown-item" title="Скопировать"

@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Role;
 use App\Models\Social;
 use App\Models\User;
+use App\Services\SanitizerService;
 use App\Services\VkApiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,20 +14,6 @@ use Illuminate\Support\Arr;
 
 class AdminController extends Controller
 {
-    protected function sanitizer($object, $column) {
-        foreach ($object as $row) {
-            if (empty($row->$column)) continue;
-            $array = json_decode($row->$column);
-            foreach ($array as $key => $value) {
-                if (is_array($value) || is_object($value)) {
-                    $array->$key = json_encode($value);
-                }
-                else $array->$key = htmlspecialchars($value);
-            }
-            $row->$column = json_encode($array);
-        }
-        return $object;
-    }
 
     public function errors(Request $request)
     {
@@ -35,12 +22,12 @@ class AdminController extends Controller
             ->limit(200)
             ->get();
 
-        $errors = $this->sanitizer($errors, 'data');
+        $sanitizer = new SanitizerService();
+        $errors = $sanitizer->sanitizer($errors, 'data');
         $row = $errors->first();
 
         return view('service.admin.errors', ['errors' => $errors, 'keys' => (!empty($row)) ? array_keys(get_object_vars($row)) : null]);
     }
-
 
     public function users(Request $request)
     {
