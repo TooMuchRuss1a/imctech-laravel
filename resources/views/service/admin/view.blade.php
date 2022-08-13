@@ -21,15 +21,15 @@
                         <div class="container p-2">
                             <div class="container"
                                  style="display: flex;flex-direction: row;justify-content: flex-start;">
-                                <div><img src="{{$user->socialData['vk']->photo_50}}" class="rounded-5 p-1 d-inline"
+                                <div><img src="{{$user->socialData['vk']['photo_50']}}" class="rounded-5 p-1 d-inline"
                                           style="width: 50px"></div>
                                 <div style="padding-left: 5px">
-                                    <div>{{$user->socialData['vk']->first_name . ' ' . $user->socialData['vk']->last_name}}</div>
-                                    <div>{{$user->socialData['vk']->status}}</div>
+                                    <div>{{$user->socialData['vk']['first_name'] . ' ' . $user->socialData['vk']['last_name']}}</div>
+                                    <div>{{$user->socialData['vk']['status']}}</div>
                                 </div>
                                 <a class="btn btn-primary position-absolute" rel="noopener noreferrer" target="_blank"
                                    style="right: 10px; margin-top: 5px"
-                                   href="https://vk.com/id{{$user->socialData['vk']->id}}" role="button">Открыть</a>
+                                   href="https://vk.com/id{{$user->socialData['vk']['id']}}" role="button">Открыть</a>
                             </div>
                         </div>
                     </div>
