@@ -65,5 +65,7 @@ Route::group(['middleware' => 'emailVerified', 'prefix' => '/service',
         Route::post('/edit/{table}/{id}', [AdminController::class, 'editSave']);
         Route::get('/getlost', [AdminController::class, 'getLostUsers'])->name('admin.getlost');
         Route::post('/getlost', [AdminController::class, 'getLostUsersPost']);
+        Route::get('/removechatuser/{chat_id}', [AdminController::class, 'removeChatUser'])->name('admin.removeChatUser');
+        Route::post('/removechatuser/{chat_id}', [AdminController::class, 'removeChatUserPost']);
     });
 });

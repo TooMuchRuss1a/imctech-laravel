@@ -40,7 +40,11 @@
                                 @foreach($events as $event)
                                     <tr @if($event->register_until > now()) style="background-color: palegreen;"@endif>
                                         @foreach(get_object_vars($event) as $item)
-                                            <td>{{{$item}}}</td>
+                                            @if(!empty($item) && $loop->index == 2)
+                                                <td><a href="{{route('admin.removeChatUser', ['chat_id' => $item])}}" class="link-primary">{{$item}}</a></td>
+                                            @else
+                                                <td>{{{$item}}}</td>
+                                            @endif
                                         @endforeach
                                         <td>
                                             <a href="{{route('admin.edit', ['table' => 'events', 'id' => $event->id])}}" type="button" class="btn btn-outline-secondary">

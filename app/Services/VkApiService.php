@@ -146,4 +146,12 @@ class VkApiService
             $this->sendMsg($vk_id[0]['id'], $message);
         }
     }
+
+    public function removeChatUser($chat_id, $user_id) {
+        return $this->execVkApiRequest('messages.removeChatUser', [
+            'chat_id' => $chat_id,
+            'user_id' => $user_id,
+            'access_token' => env('VK_API_COMMUNITY_TOKEN')
+        ]);
+    }
 }
