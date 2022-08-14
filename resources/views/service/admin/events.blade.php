@@ -18,6 +18,12 @@
                         </div>
                     @endif
 
+                    @if (session('error'))
+                        <div class="alert alert-danger m-2" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     <div class="card-body">
                         @if(!empty($keys))
                             <table class="table table-hover">
@@ -32,7 +38,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($events as $event)
-                                    <tr>
+                                    <tr @if($event->register_until > now()) style="background-color: palegreen;"@endif>
                                         @foreach(get_object_vars($event) as $item)
                                             <td>{{{$item}}}</td>
                                         @endforeach

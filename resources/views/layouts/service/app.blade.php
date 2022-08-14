@@ -21,6 +21,28 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 </head>
 <body>
+
+    @if(session('modal'))
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">{{session('modal')['title']}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    @foreach(session('modal')['links'] as $key => $value)
+                        <div class="modal-body">
+                            {{$key}} - <a target="_blank" href="{{$value}}">{{$value}}</a>
+                        </div>
+                    @endforeach
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Сделано</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -131,5 +153,11 @@
             $temp.remove();
         }
     </script>
+    <script type="text/javascript">
+        $(window).on('load', function() {
+            $('#staticBackdrop').modal('show');
+        });
+    </script>
+
 </body>
 </html>

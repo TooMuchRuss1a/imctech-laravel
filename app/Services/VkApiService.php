@@ -3,6 +3,8 @@
 namespace App\Services;
 
 
+use App\Models\Role;
+
 class VkApiService
 {
     public function execVkApiRequest($method, $params = array()) {
@@ -119,5 +121,29 @@ class VkApiService
             'message'    => $message,
             'access_token' => env('VK_API_COMMUNITY_TOKEN')
         ]);
+    }
+
+    public function createChat($title) {
+        return $this->execVkApiRequest('messages.createChat', [
+            'title'    => $title,
+            'access_token' => env('VK_API_COMMUNITY_TOKEN')
+        ]);
+    }
+
+    public function getInviteLink($chat_id) {
+        return $this->execVkApiRequest('messages.getInviteLink', [
+            'peer_id'    => 2000000000 + $chat_id,
+            'access_token' => env('VK_API_COMMUNITY_TOKEN')
+        ]);
+    }
+
+    public function notifyRoot($data): void {
+        $message = now() . " \n" . $data['status'] . " \n" . $data['username'] . " \n" . $data['method'] . ' ' . $data['uri'] . " \n" . $data['message'] . " \n" . $data['data'] . " \n" . route('admin.errors');
+        $root_vk = Role::where(['name' => 'root'])->first()->user()->first()->socials()->where(['type' => 'vk'])->first()->link;
+
+        $vk_id = $this->getVkDataViaLink($root_vk);
+        if (!empty($vk_id)) {
+            $this->sendMsg($vk_id[0]['id'], $message);
+        }
     }
 }

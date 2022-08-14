@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use App\Models\Event;
+use App\Services\VkApiService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -60,7 +61,7 @@ class UserController extends Controller
 
     public function activityCreate(Request $request)
     {
-        $events = Event::where('register_until', '>', now())->get();
+        $events = Event::where('register_until', '>', now())->orderBy('name')->get();
 
         return view('service.activityCreate', ['events' => $events]);
     }
@@ -72,8 +73,16 @@ class UserController extends Controller
             'recaptcha' => 'recaptcha',
         ]);
 
-        if (!empty(Activity::where('user_id', auth()->id()))) {
-            request()->session()->flash('error', 'Вы уже записаны на мероприятие "' . Event::findOrFail($validated['event_id'])->first()->name .'"');
+        $event = Event::where('id', $validated['event_id'])->first();
+        $vkApiService = new VkApiService();
+        $chat_id = $event->conversation_id;
+        if (!empty($chat_id)) {
+            $chat_link = $vkApiService->getInviteLink($chat_id);
+            request()->session()->flash('modal', ['title' => 'Остается только...', 'links' => ['Вступить в беседу ВК' => $chat_link['link'], 'Подписаться на телегам канал' => 'https://t.me/imctech']]);
+        }
+
+        if (!empty(Activity::where(['user_id' => auth()->id(), 'event_id' => $validated['event_id']])->first())) {
+            request()->session()->flash('error', 'Вы уже записаны на мероприятие "' . $event->name .'"');
             return redirect()->route('service');
         }
 
@@ -82,7 +91,7 @@ class UserController extends Controller
             'event_id' => $validated['event_id']
         ]);
 
-        request()->session()->flash('status', 'Запись на мероприятие "' . Event::findOrFail($validated['event_id'])->first()->name .'" успешно создана');
+        request()->session()->flash('status', 'Запись на мероприятие "' .$event->name .'" успешно создана');
         return redirect()->route('service');
     }
 }
