@@ -17,9 +17,9 @@ class UserController extends Controller
 
     public function pschool(Request $request)
     {
-        $students = Event::findOrFail(2)->activities()->count();
+        $event = Event::findOrFail(2);
 
-        return view('pschool', ['students' => $students]);
+        return view('pschool', ['event' => $event]);
     }
 
     public function psession(Request $request)

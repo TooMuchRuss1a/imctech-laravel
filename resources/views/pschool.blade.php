@@ -22,10 +22,6 @@
         <div id="scrup" class="scroll-up"></div>
     </a>
 
-    <a href="#">
-        <div id="scrup" class="scroll-up"></div>
-    </a>
-
     <a href="{{route('analytics')}}"><img class="charts" src="/img/chart.png"></a>
 
     <div class="intro">
@@ -37,15 +33,19 @@
             </div>
             <h1 class="intro_subtitle">join us</h1>
         </div>
-        <a class="btn-grey">Участвовать
+        @if($event->register_until > now())
+            <a class="btn" href="{{route('service.activity')}}">Участвовать</a>
+            <img src="/img/pointer.png" class="pointer">
+        @else
+            <a class="btn-grey">Участвовать
                 <div class="btn-grey_popup">регистрация закрыта</div>
             </a>
-        <img src="/img/pointer.png" class="pointer">
+        @endif
     </div>
 
     <div class="projects_bg">
         <div class="projects">
-            <div class="reged"><text>{{{$students}}}</text> студентов приняло участие в Весенней проектной школе 2022</div>
+            <div class="reged"><text>{{{$event->activities()->count()}}}</text> студентов приняло участие в Весенней проектной школе 2022</div>
             <div class="wrapper">
                 <div class="marquee">
                     <p>
