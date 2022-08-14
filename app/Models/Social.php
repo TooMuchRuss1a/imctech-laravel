@@ -18,7 +18,7 @@ class Social extends Model
         });
 
         static::updating(function ($model) {
-            $model->updated_by = auth()->user()->id;
+            $model->updated_by = auth()->check() ? auth()->user()->id : 1;
         });
     }
 
