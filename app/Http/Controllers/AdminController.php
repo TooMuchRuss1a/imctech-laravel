@@ -97,7 +97,7 @@ class AdminController extends Controller
             $chat_link = $vkApiService->getInviteLink($chat_id);
             $event->update(['conversation_id' => $chat_id]);
             if (!empty($chat_link)) {
-                request()->session()->flash('status', 'Мероприятие успешно создано - '.$chat_link['link']);
+                request()->session()->flash('modal', ['title' => 'Уведомление', 'links' => ['Беседа ВК создана' => $chat_link['link']]]);
             }
             else request()->session()->flash('error', 'Возникла проблема при получении ссылки на беседу ВК');
         }
