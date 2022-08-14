@@ -96,13 +96,13 @@ class VkApiService
         $nicknames = [];
         if (is_array($links) || is_object($links)) {
             foreach ($links as $link) {
-                if (isset(explode("/", $link)[3])) {
-                    $nicknames[] = explode("/", $link)[3];
-                }
+                $array = explode("/", $link);
+                $nicknames[] = $array[array_key_last($array)];
             }
         }
-        else if (isset(explode("/", $links)[3])) {
-            $nicknames[] = explode("/", $links)[3];
+        else {
+            $array = explode("/", $links);
+            $nicknames[] = $array[array_key_last($array)];
         }
 
         return $this->getVkData($nicknames);
