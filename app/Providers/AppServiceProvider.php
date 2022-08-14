@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Event;
 use App\Models\User;
+use App\Services\VkApiService;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -85,6 +86,15 @@ class AppServiceProvider extends ServiceProvider
                 if (!empty($user->email_verified_at)) {
                     return true;
                 }
+            }
+            return false;
+        });
+
+        Validator::extend('valid_vk', function ($attribute, $value)
+        {
+            $vkApiService = new VkApiService();
+            if (!empty($vkApiService->getVkDataViaLink($value))) {
+                return true;
             }
             return false;
         });

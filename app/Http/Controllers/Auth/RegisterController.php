@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Services\VkApiService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -55,6 +56,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'dvfu_email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'vk' => ['required', 'string', 'valid_vk'],
             'recaptcha' => ['recaptcha'],
         ]);
     }
@@ -75,9 +77,11 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
+        $vkApiService = new VkApiService();
+        $vk_id = $vkApiService->getVkDataViaLink($data['vk'])[0]['id'];
         $user->socials()->create([
             'type' => 'vk',
-            'link' => $data['vk']
+            'link' => 'https://vk.com/id'.$vk_id
         ]);
 
         return $user;
