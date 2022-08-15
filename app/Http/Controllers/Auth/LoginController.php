@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -51,5 +53,13 @@ class LoginController extends Controller
             'password' => ['required', 'string'],
             'recaptcha' => ['recaptcha'],
         ]);
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        $redirect_to = (cache('redirect_to')) ? cache('redirect_to') : 'service';
+        cache()->forget('redirect_to');
+
+        return redirect($redirect_to);
     }
 }

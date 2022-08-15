@@ -23,6 +23,6 @@ class HasRole
             }
         }
 
-        return redirect()->home();
+        return redirect()->route('service');
     }
 }

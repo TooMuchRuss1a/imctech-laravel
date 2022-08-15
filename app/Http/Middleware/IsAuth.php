@@ -2,11 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
-class EmailVerified
+class IsAuth
 {
     /**
      * Handle an incoming request.
@@ -18,11 +17,10 @@ class EmailVerified
     public function handle($request, Closure $next)
     {
         if (auth()->check()) {
-            if (!empty(auth()->user()->email_verified_at)) {
-                return $next($request);
-            }
+            return $next($request);
         }
+        cache()->put('redirect_to', $request->getRequestUri());
 
-        return redirect()->route('verification.notice');
+        return redirect()->route('login');
     }
 }
