@@ -62,7 +62,7 @@ class AppServiceProvider extends ServiceProvider
 
         Validator::extend('register_actual', function ($attribute, $value)
         {
-            if (!empty($event = Event::findOrFail($value)->first())) {
+            if (!empty($event = Event::findOrFail($value))) {
                 if (now() < $event->register_until) {
                     return true;
                 }
@@ -72,7 +72,7 @@ class AppServiceProvider extends ServiceProvider
 
         Validator::extend('event_has_conversation', function ($attribute, $value)
         {
-            if (!empty($event = Event::findOrFail($value)->first())) {
+            if (!empty($event = Event::findOrFail($value))) {
                 if (!empty($event->conversation_id)) {
                     return true;
                 }
@@ -82,7 +82,7 @@ class AppServiceProvider extends ServiceProvider
 
         Validator::extend('email_verified', function ($attribute, $value)
         {
-            if (!empty($user = User::findOrFail($value)->first())) {
+            if (!empty($user = User::findOrFail($value))) {
                 if (!empty($user->email_verified_at)) {
                     return true;
                 }
