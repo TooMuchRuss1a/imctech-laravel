@@ -68,6 +68,9 @@ class Handler extends ExceptionHandler
         if (!empty($post['password'])) {
             $post['password'] = str_repeat("*", strlen($post['password']));
         }
+        if (!empty($post['password_confirmation'])) {
+            $post['password_confirmation'] = str_repeat("*", strlen($post['password_confirmation']));
+        }
 
         $data = [
             'status' => (method_exists($exception, 'getStatusCode')) ?  $exception->getStatusCode() : ((isset($exception->status)) ? $exception->status : 500),

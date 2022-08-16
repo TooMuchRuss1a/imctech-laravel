@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-11">
                 <div class="card">
-                    <div class="card-header">{{ __('Ошибки') }}</div>
+                    <div class="card-header">{{ __('Аудит') }}</div>
 
                     <div class="card-body">
                         @if(!empty($keys))
@@ -18,10 +18,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($errors as $row)
-                                    <tr @if(in_array($row->status, [405, 500]) || in_array($row->uri, ['/.env'])) style="background-color: pink;"@endif>
+                                @foreach($audits as $row)
+                                    <tr>
                                         @foreach(get_object_vars($row) as $item)
-                                            @if(in_array($loop->index, [5, 6, 7, 8]) && !empty($item))
+                                            @if(in_array($loop->index, [5, 6]) && !empty($item))
                                                 <td>
                                                     <div class="nav-item dropdown">
                                                         <a class="nav-link dropdown-toggle text-primary"
@@ -29,26 +29,19 @@
                                                            data-bs-toggle="dropdown" aria-expanded="false">
                                                             Показать
                                                         </a>
-                                                        <ul class="dropdown-menu"
-                                                            aria-labelledby="navbarDropdownMenuLink">
-                                                            @if($loop->index == 8)
-                                                                <a class="dropdown-item" title="Скопировать"
-                                                                   id="{{$keys[$loop->index].$row->id }}"
-                                                                   onclick="copyToClipboard('#{{$keys[$loop->index].$row->id }}')">
-                                                                    <pre>{{{print_r($item)}}}</pre>
-                                                                </a>
-                                                            @else
-                                                                <a class="dropdown-item" title="Скопировать"
-                                                                   id="{{$keys[$loop->index].$row->id }}"
-                                                                   onclick="copyToClipboard('#{{$keys[$loop->index].$row->id }}')">
-                                                                    <pre>{{{$item}}}</pre>
-                                                                </a>
-                                                            @endif
+                                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                            <a class="dropdown-item" title="Скопировать"
+                                                               id="{{$keys[$loop->index].$row->id }}"
+                                                               onclick="copyToClipboard('#{{$keys[$loop->index].$row->id }}')">
+                                                                <pre>{{{print_r($item)}}}</pre>
+                                                            </a>
                                                         </ul>
                                                     </div>
                                                 </td>
-                                            @else
+                                            @elseif(!empty($item))
                                                 <td>{{{$item}}}</td>
+                                            @else
+                                                <td></td>
                                             @endif
                                         @endforeach
                                     </tr>

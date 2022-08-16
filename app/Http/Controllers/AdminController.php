@@ -14,6 +14,25 @@ use Illuminate\Support\Arr;
 
 class AdminController extends Controller
 {
+    public function audits(Request $request)
+    {
+        $audits = DB::table('audits')
+            ->orderBy('id', 'DESC')
+            ->join('users', 'audits.user_id', '=', 'users.id')
+            ->addSelect('audits.id', 'users.login as user', 'audits.event')
+            ->selectRaw('SUBSTRING(audits.auditable_type, 12) as auditable_type')
+            ->addSelect('audits.auditable_id', 'audits.old_values', 'audits.new_values', 'audits.updated_at')
+            ->limit(200)
+            ->get();
+
+        $sanitizer = new SanitizerService();
+        $audits = $sanitizer->sanitizer($audits, 'old_values');
+        $audits = $sanitizer->sanitizer($audits, 'new_values');
+
+        $row = $audits->first();
+
+        return view('service.admin.audits', ['audits' => $audits, 'keys' => (!empty($row)) ? array_keys(get_object_vars($row)) : null]);
+    }
 
     public function errors(Request $request)
     {

@@ -53,6 +53,7 @@ Route::group(['middleware' => 'isAuth'], function () {
         Route::post('/activity/create', [UserController::class, 'activitySave']);
 
         Route::group(['middleware' => 'hasRole', 'prefix' => '/admin',], function () {
+            Route::get('/audits', [AdminController::class, 'audits'])->name('admin.audits');
             Route::get('/errors', [AdminController::class, 'errors'])->name('admin.errors');
             Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
             Route::get('/view/{id}', [AdminController::class, 'view'])->name('admin.view');
