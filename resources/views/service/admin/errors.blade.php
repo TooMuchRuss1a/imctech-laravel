@@ -13,6 +13,7 @@
                                 <thead>
                                 <tr>
                                     @foreach($keys as $key)
+                                        @if($loop->index == 10)@continue;@endif
                                         <th scope="col">{{{$key}}}</th>
                                     @endforeach
                                 </tr>
@@ -21,6 +22,7 @@
                                 @foreach($errors as $row)
                                     <tr @if(in_array($row->status, [405, 500]) || in_array($row->uri, ['/.env'])) style="background-color: pink;"@endif>
                                         @foreach(get_object_vars($row) as $item)
+                                            @if($loop->index == 10)@continue;@endif
                                             @if(in_array($loop->index, [5, 6, 7, 8]) && !empty($item))
                                                 <td>
                                                     <div class="nav-item dropdown">
@@ -47,6 +49,8 @@
                                                         </ul>
                                                     </div>
                                                 </td>
+                                            @elseif($loop->index == 2)
+                                                <td title="{{$row->ip}}">{{{$item}}}</td>
                                             @else
                                                 <td>{{{$item}}}</td>
                                             @endif

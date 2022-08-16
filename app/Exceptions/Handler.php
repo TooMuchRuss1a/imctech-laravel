@@ -74,13 +74,14 @@ class Handler extends ExceptionHandler
 
         $data = [
             'status' => (method_exists($exception, 'getStatusCode')) ?  $exception->getStatusCode() : ((isset($exception->status)) ? $exception->status : 500),
-            'username' => (auth()->check()) ? auth()->user()->login : 'unknown',
+            'username' => (auth()->check()) ? auth()->user()->login : $request->ip(),
             'method' => $request->getMethod(),
             'uri' => $request->getRequestUri(),
             'where' => $exception->getFile() . ' ' . $exception->getLine(),
             'agent' => $request->header()['user-agent'][0],
             'message' => $exception->getMessage(),
             'data' => (!empty($post)) ? json_encode($post, JSON_UNESCAPED_UNICODE) : null,
+            'ip' => $request->ip(),
         ];
 
         Error::create($data);

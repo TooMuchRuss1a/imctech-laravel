@@ -22,7 +22,8 @@ class Error extends Model
         'where',
         'agent',
         'message',
-        'data'
+        'data',
+        'ip'
     ];
 
     protected static function boot() {
