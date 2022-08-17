@@ -3,6 +3,7 @@
 namespace App\Services;
 
 
+use App\Models\ApiRequest;
 use App\Models\Role;
 
 class VkApiService
@@ -16,7 +17,23 @@ class VkApiService
         $json = curl_exec($curl);
         curl_close($curl);
         $response = json_decode($json, true);
+        $this->logRequest($method, $params, $response);
+
         return (isset($response['error'])) ? null : $response['response'];
+    }
+
+    protected function logRequest($method, $params, $response) {
+        unset($params['access_token']);
+        $data = [
+            'username' => (auth()->check()) ? auth()->user()->login : request()->ip(),
+            'api' => 'vk',
+            'method' => $method,
+            'params' => json_encode($params, JSON_UNESCAPED_UNICODE),
+            'response' => json_encode($response, JSON_UNESCAPED_UNICODE),
+            'ip' => request()->ip(),
+        ];
+
+        info(ApiRequest::create($data));
     }
 
     public function getVkData(array $nicknames) {
@@ -25,19 +42,9 @@ class VkApiService
                 'user_ids' => $nicknames,
                 'fields' => 'activities,
                     about,
-                    blacklisted,
-                    blacklisted_by_me,
-                    books,
                     bdate,
-                    can_be_invited_group,
-                    can_post,
-                    can_see_all_posts,
-                    can_see_audio,
-                    can_send_friend_request,
-                    can_write_private_message,
                     career,
-                    common_count,
-                    connections,
+                    counters,
                     contacts,
                     city,
                     country,
@@ -63,8 +70,6 @@ class VkApiService
                     verified,
                     games,
                     interests,
-                    is_favorite,
-                    is_friend,
                     is_hidden_from_feed,
                     last_seen,
                     maiden_name,

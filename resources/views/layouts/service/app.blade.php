@@ -106,6 +106,7 @@
                         @hasrole
                             <hr style="margin: 8px 0;">
                             <a class="nav-link" href="{{ route('admin.audits') }}">Аудит</a>
+                            <a class="nav-link" href="{{ route('admin.api') }}">Api</a>
                             <a class="nav-link" href="{{ route('admin.errors') }}">Ошибки</a>
                             <a class="nav-link" href="{{ route('admin.users') }}">Пользователи</a>
                             <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>

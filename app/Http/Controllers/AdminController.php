@@ -34,6 +34,21 @@ class AdminController extends Controller
         return view('service.admin.audits', ['audits' => $audits, 'keys' => (!empty($row)) ? array_keys(get_object_vars($row)) : null]);
     }
 
+    public function api(Request $request)
+    {
+        $api = DB::table('api_requests')
+            ->orderBy('id', 'DESC')
+            ->limit(200)
+            ->get();
+
+        $sanitizer = new SanitizerService();
+        $api = $sanitizer->sanitizer($api, 'params');
+        $api = $sanitizer->sanitizer($api, 'response');
+        $row = $api->first();
+
+        return view('service.admin.api', ['api' => $api, 'keys' => (!empty($row)) ? array_keys(get_object_vars($row)) : null]);
+    }
+
     public function errors(Request $request)
     {
         $errors = DB::table('errors')
@@ -242,22 +257,22 @@ class AdminController extends Controller
                     ->pluck('socials.link');
 
                 if (!empty($conversation_users_data = $vkApiService->getConversationMembers($event->conversation_id))) {
-                    $conversation_users = Arr::pluck($conversation_users_data['profiles'], 'id');
-                    if (!empty($users_vk = $vkApiService->getVkDataViaLink($users_vk_links))) {
-                        $users_vk_ids = Arr::pluck($users_vk, 'id');
-                        $lost_users_id = (array_diff($users_vk_ids, $conversation_users));
-                        $message = "Потеряшки \n". $event->name. " \n";
-                        $lost_data = $vkApiService->getVkData($lost_users_id);
-                        foreach ($lost_data as $data) {
-                            $message .= "@id" . $data['id'] . "(" . $data['first_name'] . ' ' . $data['last_name'] . ") \n";
-                        }
-                        if(!empty($vkApiService->sendMsg($admin_vk_id, $message))) {
-                            request()->session()->flash('status', 'Сообщение отправлено');
-                        }
-                        else request()->session()->flash('error', 'Необходимо разрешить боту отправлять вам сообщение - https://vk.com/imctechservice');
+                    if (isset($conversation_users_data['profiles'])) {
+                        $conversation_users = Arr::pluck($conversation_users_data['profiles'], 'id');
+                        if (!empty($users_vk = $vkApiService->getVkDataViaLink($users_vk_links))) {
+                            $users_vk_ids = Arr::pluck($users_vk, 'id');
+                            $lost_users_id = (array_diff($users_vk_ids, $conversation_users));
+                            $message = "Потеряшки \n" . $event->name . " \n";
+                            $lost_data = $vkApiService->getVkData($lost_users_id);
+                            foreach ($lost_data as $data) {
+                                $message .= "@id" . $data['id'] . "(" . $data['first_name'] . ' ' . $data['last_name'] . ") \n";
+                            }
+                            if (!empty($vkApiService->sendMsg($admin_vk_id, $message))) {
+                                request()->session()->flash('status', 'Сообщение отправлено');
+                            } else request()->session()->flash('error', 'Необходимо разрешить боту отправлять вам сообщение - https://vk.com/imctechservice');
 
-                    }
-                    else request()->session()->flash('error', 'Проблема с доступом к профилям ВК');
+                        } else request()->session()->flash('error', 'Проблема с доступом к профилям ВК');
+                    } else request()->session()->flash('error', 'В беседе нет пользователей');
 
                 }
                 else request()->session()->flash('error', 'Проблема с доступом к беседе');
