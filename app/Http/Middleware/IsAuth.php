@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class IsAuth
 {
@@ -19,7 +20,7 @@ class IsAuth
         if (auth()->check()) {
             return $next($request);
         }
-        cache()->put('redirect_to', $request->getRequestUri());
+        Cookie::queue('redirect_to', $request->getRequestUri(), 2880);
 
         return redirect()->route('login');
     }

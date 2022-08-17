@@ -57,8 +57,8 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        $redirect_to = (cache('redirect_to')) ? cache('redirect_to') : 'service';
-        cache()->forget('redirect_to');
+        $redirect_to = (Cookie::get('redirect_to')) ? Cookie::get('redirect_to') : 'service';
+        Cookie::queue(Cookie::forget('redirect_to'));
 
         return redirect($redirect_to);
     }
