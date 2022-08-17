@@ -28,8 +28,8 @@ class VkApiService
             'username' => (auth()->check()) ? auth()->user()->login : request()->ip(),
             'api' => 'vk',
             'method' => $method,
-            'params' => json_encode($params, JSON_UNESCAPED_UNICODE),
-            'response' => json_encode($response, JSON_UNESCAPED_UNICODE),
+            'params' => (strlen(json_encode($params, JSON_UNESCAPED_UNICODE)) < 65536) ? json_encode($params, JSON_UNESCAPED_UNICODE) : '{"Data":"is too big"}',
+            'response' => (strlen(json_encode($response, JSON_UNESCAPED_UNICODE)) < 65536) ? json_encode($response, JSON_UNESCAPED_UNICODE) : '{"Data":"is too big"}',
             'ip' => request()->ip(),
         ];
 
