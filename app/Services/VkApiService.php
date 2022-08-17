@@ -104,13 +104,23 @@ class VkApiService
                 $array = explode("/", $link);
                 $nicknames[] = $array[array_key_last($array)];
             }
+            return $this->getVkData($nicknames);
         }
         else {
             $array = explode("/", $links);
             $nicknames[] = $array[array_key_last($array)];
+
+            if (cache($nicknames[0])) {
+                return cache($nicknames[0]);
+            }
+        }
+        $response = $this->getVkData($nicknames);
+
+        if (!empty($response)) {
+            cache()->put($nicknames[0], $response, now()->addDay());
         }
 
-        return $this->getVkData($nicknames);
+        return $response;
     }
 
     public function getConversationMembers($peer_id) {
