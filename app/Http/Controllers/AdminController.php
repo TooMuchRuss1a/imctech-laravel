@@ -21,7 +21,7 @@ class AdminController extends Controller
             ->join('users', 'audits.user_id', '=', 'users.id')
             ->addSelect('audits.id', 'users.login as user', 'audits.event')
             ->selectRaw('SUBSTRING(audits.auditable_type, 12) as auditable_type')
-            ->addSelect('audits.auditable_id', 'audits.old_values', 'audits.new_values', 'audits.updated_at')
+            ->addSelect('audits.auditable_id', 'audits.old_values', 'audits.new_values', 'audits.updated_at', 'audits.ip_address as ip')
             ->limit(200)
             ->get();
 

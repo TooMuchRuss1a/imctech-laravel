@@ -13,6 +13,7 @@
                                 <thead>
                                 <tr>
                                     @foreach($keys as $key)
+                                        @if($key == 'ip')@continue;@endif
                                         <th scope="col">{{{$key}}}</th>
                                     @endforeach
                                 </tr>
@@ -20,7 +21,8 @@
                                 <tbody>
                                 @foreach($audits as $row)
                                     <tr>
-                                        @foreach(get_object_vars($row) as $item)
+                                        @foreach(get_object_vars($row) as $key => $item)
+                                            @if($key == 'ip')@continue;@endif
                                             @if(in_array($loop->index, [5, 6]) && !empty($item))
                                                 <td>
                                                     <div class="nav-item dropdown">
@@ -39,7 +41,11 @@
                                                     </div>
                                                 </td>
                                             @elseif(!empty($item))
-                                                <td>{{{$item}}}</td>
+                                                @if($key == 'user')
+                                                    <td title="{{$row->ip}}">{{{$item}}}</td>
+                                                @else
+                                                    <td>{{{$item}}}</td>
+                                                @endif
                                             @else
                                                 <td></td>
                                             @endif
