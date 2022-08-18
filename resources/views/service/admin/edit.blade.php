@@ -32,8 +32,17 @@
                                 <label for="text" class="col-md-4 col-form-label text-md-end">{{ $key }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="{{ $key }}" type="text" class="form-control @error($key) is-invalid @enderror" name="{{$key}}" value="{{ (!empty(old($key))) ? old($key) : $item->$key }}" autofocus>
-
+                                    @if($key == 'user_id')
+                                        <select class="form-select @error($key) is-invalid @enderror" name="{{$key}}">
+                                            @foreach ($params['users'] as $user)
+                                                <option value="{{ $user->id }}" @if($user->id == $item->$key) selected @endif>
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    @else
+                                        <input id="{{ $key }}" type="text" class="form-control @error($key) is-invalid @enderror" name="{{$key}}" value="{{ (!empty(old($key))) ? old($key) : $item->$key }}" autofocus>
+                                    @endif
                                     @error($key)
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

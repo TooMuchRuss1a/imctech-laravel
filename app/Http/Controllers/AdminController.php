@@ -188,12 +188,20 @@ class AdminController extends Controller
             case 'events':
                 $item = Event::findOrFail($id);
                 break;
+            case 'roles':
+                $item = Role::findOrFail($id);
+                $params['users'] = DB::table('users')
+                    ->whereNotNull('email_verified_at')
+                    ->orderBy('users.name')
+                    ->select('users.id', 'users.name')
+                    ->get();
+                break;
             default:
                 $item = null;
         }
 
         if (!empty($item)) {
-            return view('service.admin.edit', ['item' => $item]);
+            return view('service.admin.edit', ['item' => $item, 'params' => (isset($params)) ? $params : null]);
         }
 
         request()->session()->flash('error', 'Экземпляр не существует');
@@ -211,7 +219,16 @@ class AdminController extends Controller
                     'recaptcha' => 'recaptcha',
                 ]);
 
-                $item = Event::findOrFail($id);
+                $item = Event::find($id);
+                break;
+            case 'roles':
+                $validated = $request->validate([
+                    'name' => 'required|max:255',
+                    'user_id' => 'required|max:255|email_verified',
+                    'recaptcha' => 'recaptcha',
+                ]);
+
+                $item = Role::find($id);
                 break;
             default:
                 $validated = $item = null;
