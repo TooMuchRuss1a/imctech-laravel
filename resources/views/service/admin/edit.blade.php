@@ -40,6 +40,8 @@
                                                 </option>
                                             @endforeach
                                         </select>
+                                    @elseif(in_array($key, ['register_until']))
+                                        <input id="register_until" type="text" class="form-control datepicker @error($key) is-invalid @enderror" name="register_until" value="{{ (!empty(old($key))) ? old($key) : $item->$key }}" required autocomplete="register_until">
                                     @else
                                         <input id="{{ $key }}" type="text" class="form-control @error($key) is-invalid @enderror" name="{{$key}}" value="{{ (!empty(old($key))) ? old($key) : $item->$key }}" autofocus>
                                     @endif
