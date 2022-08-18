@@ -11,6 +11,7 @@ use App\Services\VkApiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
+use OwenIt\Auditing\Models\Audit;
 
 class AdminController extends Controller
 {
@@ -196,6 +197,9 @@ class AdminController extends Controller
                     ->select('users.id', 'users.name')
                     ->get();
                 break;
+            case 'users':
+                $item = User::findOrFail($id);
+                break;
             default:
                 $item = null;
         }
@@ -230,11 +234,32 @@ class AdminController extends Controller
 
                 $item = Role::find($id);
                 break;
+            case 'users':
+                $validated = $request->validate([
+                    'name' => 'required|max:255',
+                    'agroup' => 'required|max:255',
+                    'recaptcha' => 'recaptcha',
+                ]);
+
+                $item = User::find($id);
+                break;
             default:
                 $validated = $item = null;
         }
 
         if (!empty($item)) {
+            if ($table == 'users') {
+                Audit::create([
+                    'user_type' => 'App\Models\User',
+                    'user_id' => auth()->id(),
+                    'event' => 'updated',
+                    'auditable_type' => 'App\Models\User',
+                    'auditable_id' => $item->id,
+                    'old_values' => ['name' => $item->name, 'agroup' => $item->agroup],
+                    'new_values' => ['name' => $validated['name'], 'agroup' => $validated['agroup']],
+                    'url' => request()->getRequestUri()
+                ]);
+            }
             $item->update($validated);
             request()->session()->flash('status', 'Экземпляр обновлен');
 

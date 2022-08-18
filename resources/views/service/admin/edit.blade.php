@@ -28,6 +28,7 @@
                         @enderror
 
                         @foreach($item->getFillable() as $key)
+                            @if(in_array($key, ['password', 'email', 'login']))@continue;@endif
                             <div class="row mb-3">
                                 <label for="text" class="col-md-4 col-form-label text-md-end">{{ $key }}</label>
 

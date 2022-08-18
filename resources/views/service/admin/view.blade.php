@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-11">
                 <div class="card">
-                    <div class="card-header">{{ __('Информация ') }}</span></div>
+                    <div class="card-header">{{ __('Информация ') }}</span>  <a class="btn btn-primary p-1 position-absolute" style="top: 2px; right: 10px" href="{{route('admin.edit', ['table' => 'users', 'id' => $user->id])}}" role="button">Редактировать</a></div>
                     <div class="container m-2">
                         <div>Логин: {{$user->login}}</div>
                         <div>Почта: {{$user->email}}</div>

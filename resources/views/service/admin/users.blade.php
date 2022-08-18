@@ -8,6 +8,11 @@
                     <div class="card-header">{{ __('Пользователи ') }}<span
                                 class="badge bg-primary rounded-pill">{{{$users->count()}}}</span></div>
                     <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert alert-success m-2" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                         @if(!empty($keys))
                             <table class="table table-hover">
                                 <thead>
