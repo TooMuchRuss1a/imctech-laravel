@@ -200,6 +200,14 @@ class AdminController extends Controller
             case 'users':
                 $item = User::findOrFail($id);
                 break;
+            case 'socials':
+                $item = Social::findOrFail($id);
+                $params['users'] = DB::table('users')
+                    ->whereNotNull('email_verified_at')
+                    ->orderBy('users.name')
+                    ->select('users.id', 'users.name')
+                    ->get();
+                break;
             default:
                 $item = null;
         }
@@ -222,7 +230,6 @@ class AdminController extends Controller
                     'conversation_id' => 'numeric|nullable',
                     'recaptcha' => 'recaptcha',
                 ]);
-
                 $item = Event::find($id);
                 break;
             case 'roles':
@@ -231,7 +238,6 @@ class AdminController extends Controller
                     'user_id' => 'required|max:255|email_verified',
                     'recaptcha' => 'recaptcha',
                 ]);
-
                 $item = Role::find($id);
                 break;
             case 'users':
@@ -240,8 +246,15 @@ class AdminController extends Controller
                     'agroup' => 'required|max:255',
                     'recaptcha' => 'recaptcha',
                 ]);
-
                 $item = User::find($id);
+                break;
+            case 'socials':
+                $validated = $request->validate([
+                    'type' => 'required|max:255',
+                    'link' => 'required|max:255',
+                    'recaptcha' => 'recaptcha',
+                ]);
+                $item = Social::find($id);
                 break;
             default:
                 $validated = $item = null;
@@ -263,6 +276,9 @@ class AdminController extends Controller
             $item->update($validated);
             request()->session()->flash('status', 'Экземпляр обновлен');
 
+            if (in_array($table, ['socials'])) {
+                return redirect()->route('admin.view', ['id' => $item->user_id]);
+            }
             return redirect()->route('admin.'.$table);
         }
 
