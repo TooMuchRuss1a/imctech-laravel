@@ -94,4 +94,9 @@ class UserController extends Controller
         request()->session()->flash('status', 'Запись на мероприятие "' .$event->name .'" успешно создана');
         return redirect()->route('service');
     }
+
+    public function privacy(Request $request)
+    {
+        return view('service.privacy');
+    }
 }

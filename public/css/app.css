@@ -638,3 +638,57 @@ h6 {
         opacity: 1;
     }
 }
+
+.notice {
+    padding-inline: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    background-color: black;
+    width: 100%;
+    z-index: 1000;
+}
+
+.notice_text {
+    font-size: 0.18rem;
+    font-weight: 500;
+    padding: 20px 0 20px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 10px;
+    position: relative;
+
+    color: white;
+    text-decoration: none;
+
+    -webkit-transition: opacity .2s linear;
+}
+
+.close {
+    cursor: pointer;
+    padding: 20px 30px 20px;
+    width: 32px;
+    height: 40px;
+    background-color: black;
+    border: 0;
+    transition: opacity linear .2s;
+}
+.close:hover {
+    opacity: 0.6;
+}
+.close:before, .close:after {
+    position: absolute;
+    content: ' ';
+    top: 0.16rem;
+    height: 33px;
+    width: 2px;
+    background-color: white;
+}
+.close:before {
+    transform: rotate(45deg);
+}
+.close:after {
+    transform: rotate(-45deg);
+}

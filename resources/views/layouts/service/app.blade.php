@@ -30,6 +30,7 @@
         gtag('js', new Date());
         gtag('config', 'G-MPV9RSCKXV');
     </script>
+    <script src="/js/cookie.js"></script>
 
     <link rel="icon" href="/img/imctech_icon.png">
 </head>
@@ -57,6 +58,10 @@
     @endif
 
     <div id="app">
+        <div id="cookieNotice" class="alert alert-primary" style="display: none;flex-direction: row;justify-content: space-between;">
+            <div>Мы используем cookie! Оставаясь на сайте, вы соглашаетесь с <a class="link-primary" href="{{route('privacy')}}">Политикой в отношении обработки персональных данных</a></div>
+            <button type="button" class="btn-close" aria-label="Close" onclick="acceptCookie()"></button>
+        </div>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('service') }}">
@@ -133,6 +138,14 @@
         <main class="py-4">
             @yield('content')
         </main>
+    </div>
+    <div class="container">
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="{{route('privacy')}}" class="nav-link px-2 text-muted">Политика в отношении персональных данных</a></li>
+            </ul>
+            <p class="text-center text-muted">IMCTechService</p>
+        </footer>
     </div>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

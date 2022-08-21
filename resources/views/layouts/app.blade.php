@@ -27,11 +27,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/js/cookie.js"></script>
 
 @yield('head')
 </head>
 
 <body>
+    <div id="cookieNotice" class="notice">
+        <div class="notice_text">Мы используем cookie! Оставаясь на сайте, вы соглашаетесь с <a class="link" href="{{route('privacy')}}">Политикой в отношении обработки персональных данных</a></div>
+        <button type="button" class="close" aria-label="Close" onclick="acceptCookie()"></button>
+    </div>
     @include('inc.header')
     <div class="se-pre-con">
         <div class="gooey">

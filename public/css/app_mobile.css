@@ -5,23 +5,23 @@ html {
     -khtml-user-select: none;    /* Konqueror */
     -moz-user-select: none;      /* Firefox */
     -ms-user-select: none;       /* Internet Explorer/Edge */
-    user-select: none;    
+    user-select: none;
   }
 
   .header {
     height: 68px;
   }
-  
+
   .header_inner {
     padding: 25px 0 25px;
     padding-inline: 4px;
     height: 64px;
   }
-  
+
   .header_logo {
     font-size: 0.4rem;
   }
-  
+
   .header_logo_link {
     padding: 20px 0 20px;
   }
@@ -29,41 +29,41 @@ html {
   .header_logo_link text{
     display: none;
   }
-  
+
   .header_logo_link:hover {
     opacity: 0.6;
   }
-  
+
   .nav {
     font-size: 0.26rem;
   }
-  
+
   .nav_link {
       padding: 25px 0 25px;
       margin: 0 6px;
   }
-  
+
   .dropbtn1 {
     padding: 30px 0 26px;
     font-size: 0.22rem;
   }
-  
+
   .dropbtn1:hover, .dropbtn1:focus {
     opacity: 0.5;
   }
-  
+
   .dropdown1 {
     position: relative;
     display: inline-block;
   }
-  
+
   .dropdown1-content {
     margin-top: 0;
     font-size: 0.22rem;
     width: 100%;
     max-width: 100%;
   }
-  
+
   .ava {
   width: .5rem;
   }
@@ -82,7 +82,7 @@ html {
     font-size: 0.2rem;
     max-width: 80vw;
   }
-  
+
   .footer-subtext {
     font-size: 0.18rem;
     margin-top: 16px;
@@ -142,13 +142,13 @@ html {
     width:90%;
     display: table;
     margin: 0 auto;
-  
+
     align-items: center;
-  
+
     background-color: rgba(0,0,0,0.5);
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
   }
-  
+
   .box-container{
     width: 96%;
     font-size: 0.2rem;
@@ -157,7 +157,7 @@ html {
     height: auto;
     margin-bottom: 0px;
   }
-  
+
   .box-container img{
     /* height: 1; */
     position: relative;
@@ -167,7 +167,7 @@ html {
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   .box-name{
     margin-top: 10px;
     position: relative;
@@ -175,7 +175,7 @@ html {
     text-align: center;
     margin-bottom: 10px;
   }
-  
+
   .box-text{
     line-height: 1.5;
     position: relative;
@@ -189,3 +189,12 @@ html {
     top: 2px;
     position: absolute;
   }
+
+.close {
+    height: 50px;
+    width: 50px;
+}
+
+.close:before, .close:after {
+    top: 0.36rem;
+}

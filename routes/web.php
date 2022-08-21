@@ -23,6 +23,7 @@ Route::get('/', [UserController::class, 'home'])->name('home');
 Route::get('/pschool', [UserController::class, 'pschool'])->name('pschool');
 Route::get('/psession', [UserController::class, 'psession'])->name('psession');
 Route::get('/pschool/analytics', [UserController::class, 'analytics'])->name('analytics');
+Route::get('/privacy', [UserController::class, 'privacy'])->name('privacy');
 
 // Login Routes...
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
