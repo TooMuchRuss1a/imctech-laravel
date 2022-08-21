@@ -19,6 +19,19 @@
     <!-- Styles -->
     <link href="{{ asset('css/ui/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MPV9RSCKXV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-MPV9RSCKXV');
+    </script>
+
+    <link rel="icon" href="/img/imctech_icon.png">
 </head>
 <body>
 
