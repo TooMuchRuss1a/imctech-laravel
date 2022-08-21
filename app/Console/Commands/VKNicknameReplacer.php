@@ -34,7 +34,7 @@ class VKNicknameReplacer extends Command
         foreach ($vks as $vk) {
             $this->info($vk->id);
             $response = $vkApiService->getVkDataViaLink($vk->link);
-            sleep(0.4);
+            sleep(1);
             if (!empty($response)) {
                 $vk->update(['link' => 'https://vk.com/id'.$response[0]['id']]);
             }
