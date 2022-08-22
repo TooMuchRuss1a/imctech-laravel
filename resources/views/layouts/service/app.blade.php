@@ -110,6 +110,21 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-bar nav-item">
+                                <hr style="margin: 8px 0;">
+                                <a class="nav-link" href="{{ route('home') }}">Вернуться</a>
+                                <a class="nav-link" href="{{ route('service.activity') }}">Записаться на мероприятие</a>
+                                @hasrole
+                                <hr style="margin: 8px 0;">
+                                <a class="nav-link" href="{{ route('admin.audits') }}">Аудит</a>
+                                <a class="nav-link" href="{{ route('admin.api') }}">Api</a>
+                                <a class="nav-link" href="{{ route('admin.errors') }}">Ошибки</a>
+                                <a class="nav-link" href="{{ route('admin.users') }}">Пользователи</a>
+                                <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
+                                <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
+                                <a class="nav-link" href="{{ route('admin.roles') }}">Роли</a>
+                                @endhasrole
+                            </li>
                         @endguest
                     </ul>
                 </div>
@@ -117,7 +132,7 @@
         </nav>
         @if(auth()->check())
             @if(!empty(auth()->user()->email_verified_at))
-                <div class="leftpanel border-top card m-lg-4 position-absolute" style="width: 15vw;">
+                <div class="side-bar border-top card m-lg-4 position-absolute" style="width: 15vw">
                     <nav class="nav flex-column">
                         <a class="nav-link" href="{{ route('home') }}">Вернуться</a>
                         <a class="nav-link" href="{{ route('service.activity') }}">Записаться на мероприятие</a>
