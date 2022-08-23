@@ -3874,6 +3874,9 @@ textarea.form-control-lg {
 .nav-bar {
     display: list-item !important;
 }
+main {
+ width: 100%;
+}
 @media (prefers-reduced-motion: reduce) {
   .navbar-toggler {
     transition: none;
@@ -4004,6 +4007,14 @@ textarea.form-control-lg {
 
     .nav-bar {
         display: none !important;
+    }
+
+    main {
+        width: 84.7%;
+    }
+
+    .card-body {
+        overflow: hidden !important;
     }
 }
 @media (min-width: 992px) {

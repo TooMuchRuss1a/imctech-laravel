@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-11">
+            <div class="col-md">
                 <div class="card">
                     <div class="card-header">{{ __('Ошибки') }}</div>
 
@@ -50,9 +50,9 @@
                                                     </div>
                                                 </td>
                                             @elseif($loop->index == 2)
-                                                <td title="{{$row->ip}}">{{{$item}}}</td>
+                                                <td title="{{$row->ip}}">{{{(strlen($item) > 20) ? substr($item, 0, 20).'...' : $item}}}</td>
                                             @else
-                                                <td>{{{$item}}}</td>
+                                                @if(strlen($item) > 26)<td title="{{$item}}">{{{substr($item, 0, 26).'...'}}}</td>@else<td>{{{$item}}}</td>@endif
                                             @endif
                                         @endforeach
                                     </tr>
