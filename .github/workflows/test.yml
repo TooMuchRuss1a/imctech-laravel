@@ -28,7 +28,6 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script_stop: true
           script: |
-            cd www/dev.imctech.ru/
-            composer install
-            php artisan migrate
-            php artisan test
+            cd www/dev.imctech.ru/ && composer install
+            cd www/dev.imctech.ru/ && php artisan migrate
+            cd www/dev.imctech.ru/ && php artisan test
