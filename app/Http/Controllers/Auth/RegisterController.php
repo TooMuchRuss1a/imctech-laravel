@@ -70,10 +70,10 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user = User::create([
-            'login' => explode("@", $data['email'])[0],
-            'email' => $data['email'],
+            'login' => strtolower(explode("@", $data['email'])[0]),
+            'email' => strtolower($data['email']),
             'name' => $data['name'],
-            'agroup' => $data['agroup'],
+            'agroup' => mb_strtoupper(mb_substr(str_replace(' ', '', $data['agroup']), 0, 1, 'UTF-8'), 'UTF-8') . mb_strtolower(mb_substr(str_replace(' ', '', $data['agroup']), 1, strlen(str_replace(' ', '', $data['agroup'])) - 1, 'UTF-8'), 'UTF-8'),
             'password' => bcrypt($data['password']),
         ]);
 
