@@ -101,11 +101,10 @@ class AppServiceProvider extends ServiceProvider
 
 
         Blade::if('hasrole', function () {
-            if (auth()->check()) {
-                if (!empty(User::findOrFail(auth()->user()->id)->role()->first())) {
-                    return true;
-                }
+            if (!empty(auth()->user()->role)) {
+                return true;
             }
+
             return false;
         });
     }

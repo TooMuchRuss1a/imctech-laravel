@@ -17,10 +17,8 @@ class HasRole
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->check()) {
-            if (!empty(User::findOrFail(auth()->user()->id)->role()->first())) {
-                return $next($request);
-            }
+        if (!empty(auth()->user()->role)) {
+            return $next($request);
         }
 
         return redirect()->route('service');
