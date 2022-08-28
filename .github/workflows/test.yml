@@ -36,6 +36,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script_stop: true
           script: |
+            ./db.sh
             cd www/dev.imctech.ru/
             php artisan migrate
             php artisan test
