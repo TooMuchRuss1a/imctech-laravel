@@ -18,11 +18,10 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
       - name: Git clone
         run: git clone git@github.com:TooMuchRuss1a/imctech-laravel.git
-      - name: PHP install
+      - name: Composer install
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "latest"
-      - name: Composer install
       - uses: ramsey/composer-install@v2
       - name: Deploy with rsync
         run: rsync -avz /home/runner/work/imctech-laravel/imctech-laravel/imctech-laravel/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/${{ secrets.SSH_USER }}/data/www/dev.imctech.ru
