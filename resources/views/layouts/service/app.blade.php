@@ -80,7 +80,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
-                        @if(auth()->check())
+                        @auth
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->login }}
@@ -98,7 +98,7 @@
                                     </form>
                                 </div>
                             </li>
-                        @endif
+                        @endauth
                         <li class="nav-bar nav-item">
                             <a class="nav-link" href="{{ route('home') }}">Вернуться</a>
                             @guest
@@ -106,18 +106,20 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Войти') }}</a>
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
                             @else
-                                <hr style="margin: 8px 0;">
-                                <a class="nav-link" href="{{ route('service.activity') }}">Записаться на мероприятие</a>
-                                @hasrole
+                                @if(auth()->user()->hasVerifiedEmail())
                                     <hr style="margin: 8px 0;">
-                                    <a class="nav-link" href="{{ route('admin.audits') }}">Аудит</a>
-                                    <a class="nav-link" href="{{ route('admin.api') }}">Api</a>
-                                    <a class="nav-link" href="{{ route('admin.errors') }}">Ошибки</a>
-                                    <a class="nav-link" href="{{ route('admin.users') }}">Пользователи</a>
-                                    <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
-                                    <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
-                                    <a class="nav-link" href="{{ route('admin.roles') }}">Роли</a>
-                                @endhasrole
+                                    <a class="nav-link" href="{{ route('service.activity') }}">Записаться на мероприятие</a>
+                                    @hasrole
+                                        <hr style="margin: 8px 0;">
+                                        <a class="nav-link" href="{{ route('admin.audits') }}">Аудит</a>
+                                        <a class="nav-link" href="{{ route('admin.api') }}">Api</a>
+                                        <a class="nav-link" href="{{ route('admin.errors') }}">Ошибки</a>
+                                        <a class="nav-link" href="{{ route('admin.users') }}">Пользователи</a>
+                                        <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
+                                        <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
+                                        <a class="nav-link" href="{{ route('admin.roles') }}">Роли</a>
+                                    @endhasrole
+                                @endif
                             @endguest
                         </li>
                     </ul>
@@ -128,13 +130,14 @@
                     <div class="side-bar border-top card m-lg-4" style="width: 16%">
                         <nav class="nav flex-column">
                             <a class="nav-link" href="{{ route('home') }}">Вернуться</a>
-                            <hr style="margin: 2px 0;">
                             @guest
+                                <hr style="margin: 2px 0;">
                                 <a class="nav-link" href="{{ route('login') }}">Войти</a>
                                 <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
                             @endguest
-                            @if(auth()->check())
-                                @if(!empty(auth()->user()->email_verified_at))
+                            @auth
+                                @if(auth()->user()->hasVerifiedEmail())
+                                    <hr style="margin: 2px 0;">
                                     <a class="nav-link" href="{{ route('service.activity') }}">Записаться на мероприятие</a>
                                     @hasrole
                                         <hr style="margin: 2px 0;">
@@ -147,7 +150,7 @@
                                         <a class="nav-link" href="{{ route('admin.roles') }}">Роли</a>
                                     @endhasrole
                                 @endif
-                            @endif
+                            @endauth
                         </nav>
                     </div>
             @yield('content')
