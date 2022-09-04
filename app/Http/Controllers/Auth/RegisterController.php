@@ -52,13 +52,23 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        request()->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'dvfu_email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'vk' => ['required', 'string', 'valid_vk'],
             'recaptcha' => ['recaptcha'],
         ]);
+
+        request()->validate([
+            'vk' => ['required', 'string', 'valid_vk'],
+        ]);
+
+        return Validator::make($data, [
+            'name' => ['required'],
+            'email' => ['required'],
+            'password' => ['required'],
+            'vk' => ['required'],
+            ]);
     }
 
     /**
