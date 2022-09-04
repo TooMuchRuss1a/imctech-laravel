@@ -72,12 +72,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Models\Activity');
     }
 
-    public function created_by()
+    public function creator()
     {
         return $this->belongsTo('App\Models\User', 'created_by');
     }
 
-    public function updated_by()
+    public function updater()
     {
         return $this->belongsTo('App\Models\User', 'updated_by');
     }

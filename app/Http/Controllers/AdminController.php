@@ -81,15 +81,10 @@ class AdminController extends Controller
     {
         $vkApiService = new VkApiService();
 
-        $user = User::findOrFail($id);
+        $user = User::with('socials', 'activities.event', 'creator', 'updater')->findOrFail($id);
         $user->socialData = [
-            'vk' => (!empty($vk = $user->socials()->where('type', 'vk')->first())) ? ((!empty($vk_data = $vkApiService->getVkDataViaLink($vk->link))) ? $vk_data[0] : null) : null,
+            'vk' => (!empty($vk = $user->socials->where('type', 'vk')->first())) ? ((!empty($vk_data = $vkApiService->getVkDataViaLink($vk->link))) ? $vk_data[0] : null) : null,
         ];
-        $user->activities = DB::table('activities')
-            ->where('user_id', '=', $user->id)
-            ->join('events', 'activities.event_id', '=', 'events.id')
-            ->select('events.name')
-            ->get();
 
         return view('service.admin.view', ['user' => $user]);
     }

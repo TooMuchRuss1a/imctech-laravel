@@ -11,8 +11,8 @@
                         <div>Почта: {{$user->email}}</div>
                         <div>ФИО: {{$user->name}}</div>
                         <div>Группа: {{$user->agroup}}</div>
-                        <div>Создан: <a class="link-primary" href="{{route('admin.view', ['id' => $user->created_by()->first()->id])}}">{{$user->created_by()->first()->login}}</a> в {{$user->created_at}}</div>
-                        <div>Изменен: <a class="link-primary" href="{{route('admin.view', ['id' => $user->updated_by()->first()->id])}}">{{$user->updated_by()->first()->login}}</a> в {{$user->updated_at}}</div>
+                        <div>Создан: <a class="link-primary" href="{{route('admin.view', ['id' => $user->creator->id])}}">{{$user->creator->login}}</a> в {{$user->created_at}}</div>
+                        <div>Изменен: <a class="link-primary" href="{{route('admin.view', ['id' => $user->updater->id])}}">{{$user->updater->login}}</a> в {{$user->updated_at}}</div>
                     </div>
                 </div>
                 @if(!empty($user->socialData['vk']))
@@ -51,7 +51,7 @@
                             <div class="container">
                                 @foreach($user->activities as $activity)
                                     <div style="padding-left: 5px">
-                                        <div>{{$activity->name}}</div>
+                                        <div>{{$activity->event->name}}</div>
                                     </div>
                                 @endforeach
                             </div>

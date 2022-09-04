@@ -50,7 +50,7 @@ class Activity extends Model implements AuditableContract
 
     public function event()
     {
-        return $this->belongsTo('App\Models\Event');
+        return $this->hasOne('App\Models\Event', 'id', 'event_id');
     }
 
     public function user()
