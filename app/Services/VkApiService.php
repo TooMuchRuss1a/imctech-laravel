@@ -117,7 +117,7 @@ class VkApiService
         $response = $this->getVkData($nicknames);
 
         if (!empty($response)) {
-            cache()->put($nicknames[0], $response, now()->addDay());
+            cache()->put($nicknames[0], $response, now()->addDay()->addHour());
         }
 
         return $response;
@@ -168,5 +168,10 @@ class VkApiService
             'user_id' => $user_id,
             'access_token' => env('VK_API_COMMUNITY_TOKEN')
         ]);
+    }
+
+    public function updateCache (array $nicknames) {
+
+        return $this->getVkData($nicknames);
     }
 }
