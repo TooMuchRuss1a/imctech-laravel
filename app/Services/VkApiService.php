@@ -33,7 +33,7 @@ class VkApiService
             'ip' => request()->ip(),
         ];
 
-        info(ApiRequest::create($data));
+        ApiRequest::create($data);
     }
 
     public function getVkData(array $nicknames) {
