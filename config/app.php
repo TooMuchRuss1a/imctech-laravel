@@ -181,11 +181,12 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        OwenIt\Auditing\AuditingServiceProvider::class,
 
         /*
          * Package Service Providers...
          */
+        OwenIt\Auditing\AuditingServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use App\Models\Error;
-use App\Models\Role;
 use App\Services\VkApiService;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;

@@ -4,7 +4,8 @@ namespace App\Services;
 
 
 use App\Models\ApiRequest;
-use App\Models\Role;
+use App\Models\Social;
+use App\Models\User;
 
 class VkApiService
 {
@@ -154,7 +155,7 @@ class VkApiService
 
     public function notifyRoot($data): void {
         $message = now() . " \n" . $data['status'] . " \n" . $data['username'] . " \n" . $data['method'] . ' ' . $data['uri'] . " \n" . $data['message'] . " \n" . $data['data'] . " \n" . route('admin.errors');
-        $root_vk = Role::where(['name' => 'root'])->first()->user()->first()->socials()->where(['type' => 'vk'])->first()->link;
+        $root_vk = Social::where(['user_id' => User::where(['login' => 'demyanov.vv'])->first()->id, 'type' => 'vk'])->first()->link;
 
         $vk_id = $this->getVkDataViaLink($root_vk);
         if (!empty($vk_id)) {

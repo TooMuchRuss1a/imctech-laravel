@@ -53,24 +53,49 @@ Route::group(['middleware' => 'isAuth'], function () {
         Route::get('/activity/create', [UserController::class, 'activityCreate'])->name('service.activity');
         Route::post('/activity/create', [UserController::class, 'activitySave']);
 
-        Route::group(['middleware' => 'hasRole', 'prefix' => '/admin',], function () {
-            Route::get('/audits', [AdminController::class, 'audits'])->name('admin.audits');
-            Route::get('/api', [AdminController::class, 'api'])->name('admin.api');
-            Route::get('/errors', [AdminController::class, 'errors'])->name('admin.errors');
-            Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
-            Route::get('/view/{id}', [AdminController::class, 'view'])->name('admin.view');
-            Route::get('/events', [AdminController::class, 'events'])->name('admin.events');
-            Route::get('/events/create', [AdminController::class, 'eventCreate'])->name('admin.events.create');
-            Route::post('/events/create', [AdminController::class, 'eventSave']);
-            Route::get('/roles', [AdminController::class, 'roles'])->name('admin.roles');
-            Route::get('/roles/create', [AdminController::class, 'roleCreate'])->name('admin.roles.create');
-            Route::post('/roles/create', [AdminController::class, 'roleSave']);
-            Route::get('/edit/{table}/{id}', [AdminController::class, 'edit'])->name('admin.edit');
-            Route::post('/edit/{table}/{id}', [AdminController::class, 'editSave']);
-            Route::get('/getlost', [AdminController::class, 'getLostUsers'])->name('admin.getlost');
-            Route::post('/getlost', [AdminController::class, 'getLostUsersPost']);
-            Route::get('/removechatuser/{chat_id}', [AdminController::class, 'removeChatUser'])->name('admin.removeChatUser');
-            Route::post('/removechatuser/{chat_id}', [AdminController::class, 'removeChatUserPost']);
+        Route::group(['middleware' => 'can:view admin', 'prefix' => '/admin'], function () {
+            Route::group(['middleware' => 'can:view logs'], function () {
+                Route::get('/audits', [AdminController::class, 'audits'])->name('admin.audits');
+                Route::get('/api', [AdminController::class, 'api'])->name('admin.api');
+                Route::get('/errors', [AdminController::class, 'errors'])->name('admin.errors');
+            });
+
+            Route::group(['middleware' => 'can:view users'], function () {
+                Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+                Route::get('/view/{id}', [AdminController::class, 'view'])->name('admin.view');
+            });
+
+            Route::group(['middleware' => 'can:view events'], function () {
+                Route::get('/events', [AdminController::class, 'events'])->name('admin.events');
+            });
+            Route::group(['middleware' => 'can:create events'], function () {
+                Route::get('/events/create', [AdminController::class, 'eventCreate'])->name('admin.events.create');
+                Route::post('/events/create', [AdminController::class, 'eventSave']);
+            });
+            Route::group(['middleware' => 'can:edit'], function () {
+                Route::get('/edit/{table}/{id}', [AdminController::class, 'edit'])->name('admin.edit');
+                Route::post('/edit/{table}/{id}', [AdminController::class, 'editSave']);
+            });
+            Route::group(['middleware' => 'can:getlost'], function () {
+                Route::get('/getlost', [AdminController::class, 'getLostUsers'])->name('admin.getlost');
+                Route::post('/getlost', [AdminController::class, 'getLostUsersPost']);
+            });
+            Route::group(['middleware' => 'can:remove chat user'], function () {
+                Route::get('/removechatuser/{chat_id}', [AdminController::class, 'removeChatUser'])->name('admin.removeChatUser');
+                Route::post('/removechatuser/{chat_id}', [AdminController::class, 'removeChatUserPost']);
+            });
+            Route::group(['middleware' => 'can:edit roles'], function () {
+                Route::get('/roles', [AdminController::class, 'roles'])->name('admin.roles');
+                Route::get('/roles/create', [AdminController::class, 'roleCreate'])->name('admin.roles.create');
+                Route::post('/roles/create', [AdminController::class, 'roleSave']);
+                Route::get('/role/{id}/permission/add', [AdminController::class, 'permissionAdd'])->name('admin.permissionAdd');
+                Route::post('/role/{id}/permission/add', [AdminController::class, 'permissionAddPost']);
+                Route::get('/role/{id}/user/add', [AdminController::class, 'userAdd'])->name('admin.userAdd');
+                Route::post('/role/{id}/user/add', [AdminController::class, 'userAddPost']);
+                Route::get('/role/{id}/permission/remove/{permission_id}', [AdminController::class, 'permissionRemove'])->name('admin.permissionRemove');
+                Route::get('/role/{id}/user/remove/{user_id}', [AdminController::class, 'userRemove'])->name('admin.userRemove');
+                Route::get('/role/{id}/delete', [AdminController::class, 'roleDelete'])->name('admin.roleDelete');
+            });
         });
     });
 });

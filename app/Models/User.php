@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     protected static function boot() {
         parent::boot();
@@ -60,11 +61,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function socials()
     {
         return $this->hasMany('App\Models\Social');
-    }
-
-    public function role()
-    {
-        return $this->belongsTo('App\Models\Role', 'id', 'user_id');
     }
 
     public function activities()

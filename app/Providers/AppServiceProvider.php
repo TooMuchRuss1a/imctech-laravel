@@ -98,14 +98,5 @@ class AppServiceProvider extends ServiceProvider
             }
             return false;
         });
-
-
-        Blade::if('hasrole', function () {
-            if (!empty(auth()->user()->role)) {
-                return true;
-            }
-
-            return false;
-        });
     }
 }

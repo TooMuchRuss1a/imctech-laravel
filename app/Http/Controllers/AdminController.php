@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use App\Models\Role;
 use App\Models\Social;
 use App\Models\User;
 use App\Services\SanitizerService;
@@ -12,11 +11,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
 use OwenIt\Auditing\Models\Audit;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
     public function audits(Request $request)
     {
+        if (!$request->user()->can('view logs')) {
+            abort(403);
+        }
+
         $audits = DB::table('audits')
             ->orderBy('id', 'DESC')
             ->join('users', 'audits.user_id', '=', 'users.id')
@@ -37,6 +42,10 @@ class AdminController extends Controller
 
     public function api(Request $request)
     {
+        if (!$request->user()->can('view logs')) {
+            abort(403);
+        }
+
         $api = DB::table('api_requests')
             ->orderBy('id', 'DESC')
             ->limit(200)
@@ -52,6 +61,10 @@ class AdminController extends Controller
 
     public function errors(Request $request)
     {
+        if (!$request->user()->can('view logs')) {
+            abort(403);
+        }
+
         $errors = DB::table('errors')
             ->orderBy('id', 'DESC')
             ->limit(200)
@@ -66,6 +79,9 @@ class AdminController extends Controller
 
     public function users(Request $request)
     {
+        if (!$request->user()->can('view users')) {
+            abort(403);
+        }
 
         $users = DB::table('users')
             ->select('id', 'login', 'name', 'agroup', 'email', 'email_verified_at')
@@ -79,6 +95,10 @@ class AdminController extends Controller
 
     public function view(Request $request, $id)
     {
+        if (!$request->user()->can('view users')) {
+            abort(403);
+        }
+
         $vkApiService = new VkApiService();
 
         $user = User::with('socials', 'activities.event', 'creator', 'updater')->findOrFail($id);
@@ -91,6 +111,9 @@ class AdminController extends Controller
 
     public function events(Request $request)
     {
+        if (!$request->user()->can('view events')) {
+            abort(403);
+        }
 
         $events = DB::table('events')
             ->orderBy('id', 'DESC')
@@ -106,11 +129,19 @@ class AdminController extends Controller
 
     public function eventCreate(Request $request)
     {
+        if (!$request->user()->can('create events')) {
+            abort(403);
+        }
+
         return view('service.admin.eventCreate');
     }
 
     public function eventSave(Request $request)
     {
+        if (!$request->user()->can('create events')) {
+            abort(403);
+        }
+
         $validated = $request->validate([
             'name' => 'required|unique:events|max:255',
             'register_until' => 'required',
@@ -138,13 +169,11 @@ class AdminController extends Controller
 
     public function roles(Request $request)
     {
-        $roles = DB::table('roles')
-            ->join('users as u1', 'roles.user_id', '=', 'u1.id')
-            ->join('users as u2', 'roles.created_by', '=', 'u2.id')
-            ->join('users as u3', 'roles.updated_by', '=', 'u3.id')
-            ->orderBy('roles.id', 'DESC')
-            ->select('roles.id as id', 'roles.name as role', 'u1.login as user', 'roles.created_at as created_at', 'u2.login as created_by', 'roles.updated_at as updated_at', 'u3.login as updated_by')
-            ->get();
+        if (!$request->user()->can('edit roles')) {
+            abort(403);
+        }
+
+        $roles = Role::with('users', 'permissions')->get();
 
         $row = $roles->first();
 
@@ -153,33 +182,153 @@ class AdminController extends Controller
 
     public function roleCreate(Request $request)
     {
-        $users = DB::table('users')
-            ->whereNotNull('email_verified_at')
-            ->leftjoin('roles', 'roles.user_id', '=', 'users.id')
-            ->whereNull('roles.id')
-            ->orderBy('users.name')
-            ->select('users.id', 'users.name')
-            ->get();
+        if (!$request->user()->can('edit roles')) {
+            abort(403);
+        }
 
-        return view('service.admin.roleCreate', ['users' => $users]);
+        return view('service.admin.roleCreate');
     }
 
     public function roleSave(Request $request)
     {
+        if (!$request->user()->can('edit roles')) {
+            abort(403);
+        }
+
         $validated = $request->validate([
-            'user_id' => 'required|unique:roles|max:255|email_verified',
             'name' => 'required|max:255',
             'recaptcha' => 'recaptcha',
         ]);
 
-        Role::create($validated);
+        $role = Role::create(['name' => $validated['name']]);
+        $permission = Permission::firstOrCreate(['name' => 'view admin']);
+        $role->givePermissionTo($permission);
+        request()->session()->flash('status', 'Роль успешно создана');
 
-        request()->session()->flash('status', 'Роль успешно выдана');
+        return redirect()->route('admin.roles');
+    }
+
+    public function userAdd(Request $request, $id)
+    {
+        if (!$request->user()->can('edit roles')) {
+            abort(403);
+        }
+
+        $role = Role::findOrFail($id);
+        $users = DB::table('users')
+            ->whereNotNull('email_verified_at')
+            ->orderBy('name')
+            ->select('id', 'name')
+            ->get();
+
+        return view('service.admin.userAdd', ['users' => $users, 'role' => $role]);
+    }
+
+    public function userAddPost(Request $request, $id)
+    {
+        if (!$request->user()->can('edit roles')) {
+            abort(403);
+        }
+
+        $role = Role::findOrFail($id);
+
+        $validated = $request->validate([
+            'user_id' => 'required|max:255|email_verified',
+            'recaptcha' => 'recaptcha',
+        ]);
+
+        $user = User::findOrFail($validated['user_id']);
+        $user->assignRole($role->name);
+        request()->session()->flash('status', $user->login . ' выдана роль ' . $role->name);
+
+        return redirect()->route('admin.roles');
+    }
+
+    public function permissionAdd(Request $request, $id)
+    {
+        if (!$request->user()->can('edit roles')) {
+            abort(403);
+        }
+
+        $role = Role::findOrFail($id);
+
+        return view('service.admin.permissionAdd', ['role' => $role]);
+    }
+
+    public function permissionAddPost(Request $request, $id)
+    {
+        if (!$request->user()->can('edit roles')) {
+            abort(403);
+        }
+
+        $role = Role::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'recaptcha' => 'recaptcha',
+        ]);
+
+        $permission = Permission::firstOrCreate(['name' => $validated['name']]);
+        $role->givePermissionTo($permission);
+        request()->session()->flash('status', $role->name . ' выдано право ' . $permission->name);
+
+        return redirect()->route('admin.roles');
+    }
+
+    public function permissionRemove(Request $request, $id, $permission)
+    {
+        if (!$request->user()->can('edit roles')) {
+            abort(403);
+        }
+
+        $role = Role::findOrFail($id);
+        $permission = Permission::findOrFail($permission);
+
+        $role->revokePermissionTo($permission);
+        request()->session()->flash('status', $role->name . ' удалено право ' . $permission->name);
+
+        return redirect()->route('admin.roles');
+    }
+
+    public function userRemove(Request $request, $id, $user)
+    {
+        if (!$request->user()->can('edit roles')) {
+            abort(403);
+        }
+
+        $role = Role::findOrFail($id);
+        $user = User::findOrFail($user);
+
+        $user->removeRole($role);
+        request()->session()->flash('status', $role->name . ' удалена роль ' . $role->name);
+
+        return redirect()->route('admin.roles');
+    }
+
+    public function roleDelete(Request $request, $id)
+    {
+        if (!$request->user()->can('edit roles')) {
+            abort(403);
+        }
+
+        $role = Role::findOrFail($id);
+        if ($role->name == 'root') {
+            request()->session()->flash('error', 'root нельзя удалить');
+        }
+        else {
+            $role->delete();
+            request()->session()->flash('status', 'Удалена роль ' . $role->name);
+        }
+
         return redirect()->route('admin.roles');
     }
 
     public function edit(Request $request, $table, $id)
     {
+        if (!$request->user()->can('edit')) {
+            abort(403);
+        }
+
         switch ($table) {
             case 'events':
                 $item = Event::findOrFail($id);
@@ -217,6 +366,10 @@ class AdminController extends Controller
 
     public function editSave(Request $request, $table, $id)
     {
+        if (!$request->user()->can('edit')) {
+            abort(403);
+        }
+
         switch ($table) {
             case 'events':
                 $validated = $request->validate([
@@ -283,6 +436,10 @@ class AdminController extends Controller
 
     public function getLostUsers(Request $request)
     {
+        if (!$request->user()->can('getlost')) {
+            abort(403);
+        }
+
         $events = Event::whereNotNull('conversation_id')->get();
 
         return view('service.admin.getLostUsers', ['events' => $events]);
@@ -290,6 +447,10 @@ class AdminController extends Controller
 
     public function getLostUsersPost(Request $request)
     {
+        if (!$request->user()->can('getlost')) {
+            abort(403);
+        }
+
         $validated = $request->validate([
             'event_id' => 'event_has_conversation',
             'recaptcha' => 'recaptcha',
@@ -341,6 +502,10 @@ class AdminController extends Controller
 
     public function removeChatUser(Request $request, $chat_id)
     {
+        if (!$request->user()->can('remove chat user')) {
+            abort(403);
+        }
+
         $vkApiService = new VkApiService();
         $event = Event::where('conversation_id', $chat_id)->first();
         if(!empty($event)) {
@@ -358,6 +523,10 @@ class AdminController extends Controller
 
     public function removeChatUserPost(Request $request, $chat_id)
     {
+        if (!$request->user()->can('remove chat user')) {
+            abort(403);
+        }
+
         $validated = $request->validate([
             'user_id' => 'required',
             'recaptcha' => 'recaptcha',

@@ -109,16 +109,26 @@
                                 @if(auth()->user()->hasVerifiedEmail())
                                     <hr style="margin: 8px 0;">
                                     <a class="nav-link" href="{{ route('service.activity') }}">Записаться на мероприятие</a>
-                                    @hasrole
+                                    @can('view admin')
                                         <hr style="margin: 8px 0;">
-                                        <a class="nav-link" href="{{ route('admin.audits') }}">Аудит</a>
-                                        <a class="nav-link" href="{{ route('admin.api') }}">Api</a>
-                                        <a class="nav-link" href="{{ route('admin.errors') }}">Ошибки</a>
-                                        <a class="nav-link" href="{{ route('admin.users') }}">Пользователи</a>
-                                        <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
-                                        <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
-                                        <a class="nav-link" href="{{ route('admin.roles') }}">Роли</a>
-                                    @endhasrole
+                                        @can('view logs')
+                                            <a class="nav-link" href="{{ route('admin.audits') }}">Аудит</a>
+                                            <a class="nav-link" href="{{ route('admin.api') }}">Api</a>
+                                            <a class="nav-link" href="{{ route('admin.errors') }}">Ошибки</a>
+                                        @endcan
+                                        @can('view users')
+                                            <a class="nav-link" href="{{ route('admin.users') }}">Пользователи</a>
+                                        @endcan
+                                        @can('getlost')
+                                            <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
+                                        @endcan
+                                        @can('view events')
+                                            <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
+                                        @endcan
+                                        @can('edit roles')
+                                            <a class="nav-link" href="{{ route('admin.roles') }}">Роли</a>
+                                        @endcan
+                                    @endcan
                                 @endif
                             @endguest
                         </li>
@@ -139,16 +149,26 @@
                                 @if(auth()->user()->hasVerifiedEmail())
                                     <hr style="margin: 2px 0;">
                                     <a class="nav-link" href="{{ route('service.activity') }}">Записаться на мероприятие</a>
-                                    @hasrole
-                                        <hr style="margin: 2px 0;">
-                                        <a class="nav-link" href="{{ route('admin.audits') }}">Аудит</a>
-                                        <a class="nav-link" href="{{ route('admin.api') }}">Api</a>
-                                        <a class="nav-link" href="{{ route('admin.errors') }}">Ошибки</a>
-                                        <a class="nav-link" href="{{ route('admin.users') }}">Пользователи</a>
-                                        <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
-                                        <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
-                                        <a class="nav-link" href="{{ route('admin.roles') }}">Роли</a>
-                                    @endhasrole
+                                    @can('view admin')
+                                        <hr style="margin: 8px 0;">
+                                        @can('view logs')
+                                            <a class="nav-link" href="{{ route('admin.audits') }}">Аудит</a>
+                                            <a class="nav-link" href="{{ route('admin.api') }}">Api</a>
+                                            <a class="nav-link" href="{{ route('admin.errors') }}">Ошибки</a>
+                                        @endcan
+                                        @can('view users')
+                                            <a class="nav-link" href="{{ route('admin.users') }}">Пользователи</a>
+                                        @endcan
+                                        @can('getlost')
+                                            <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
+                                        @endcan
+                                        @can('view events')
+                                            <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
+                                        @endcan
+                                        @can('edit roles')
+                                            <a class="nav-link" href="{{ route('admin.roles') }}">Роли</a>
+                                        @endcan
+                                    @endcan
                                 @endif
                             @endauth
                         </nav>

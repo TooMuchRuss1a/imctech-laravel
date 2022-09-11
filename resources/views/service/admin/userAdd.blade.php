@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Создать роль') }}</div>
+                <div class="card-header">{{ __('Выдать роль - ') . $role->name }}</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.roles.create') }}">
+                    <form method="POST" action="{{ route('admin.userAdd', ['id' => $role->id]) }}">
                         @csrf
                         <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.sitekey') }}"></script>
                         <script>
@@ -27,12 +27,18 @@
                         @enderror
 
                         <div class="row mb-3">
-                            <label for="text" class="col-md-4 col-form-label text-md-end">{{ __('Название') }}</label>
+                            <label for="text" class="col-md-4 col-form-label text-md-end">{{ __('Выберите пользователя') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <select id="user_id" type="text" class="form-select @error('user_id') is-invalid @enderror" name="user_id" required>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">
+                                            {{ $user->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
 
-                                @error('name')
+                                @error('user_id')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -57,7 +63,7 @@
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" name="Submit" class="btn btn-primary">
-                                    {{ __('Создать') }}
+                                    {{ __('Выдать') }}
                                 </button>
                             </div>
                         </div>
