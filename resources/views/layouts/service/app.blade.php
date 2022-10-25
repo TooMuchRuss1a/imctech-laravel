@@ -125,6 +125,9 @@
                                         @can('view events')
                                             <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
                                         @endcan
+                                        @can('edit timetable')
+                                            <a class="nav-link" href="{{ route('admin.timetable.index') }}">Расписание</a>
+                                        @endcan
                                         @can('edit roles')
                                             <a class="nav-link" href="{{ route('admin.roles') }}">Роли</a>
                                         @endcan
@@ -164,6 +167,9 @@
                                         @endcan
                                         @can('view events')
                                             <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
+                                        @endcan
+                                        @can('edit timetable')
+                                            <a class="nav-link" href="{{ route('admin.timetable.index') }}">Расписание</a>
                                         @endcan
                                         @can('edit roles')
                                             <a class="nav-link" href="{{ route('admin.roles') }}">Роли</a>

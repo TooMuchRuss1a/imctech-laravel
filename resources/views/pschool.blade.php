@@ -44,67 +44,128 @@
     </div>
 
     <div class="projects_bg">
-        <div class="projects">
-            <div class="reged"><text>{{{$event->activities()->count()}}}</text> студентов приняло участие в Весенней проектной школе 2022</div>
-            <div class="wrapper">
-                <div class="marquee">
-                    <p>
-                        VR/AR GameDev blockchain web data science VR/AR GameDev blockchain web data science
-                    </p>
-                    <p>
-                        VR/AR GameDev blockchain web data science VR/AR GameDev blockchain web data science
-                    </p>
+        @if(cache('timetable'))
+            <div class="projects">
+                <div class="reged"><text>{{{$event->activities()->count()}}}</text> студентов приняло участие в Весенней проектной школе 2022</div>
+                <div class="wrapper">
+                    <div class="marquee">
+                        <p>
+                            РАСПИСАНИЕ РАСПИСАНИЕ РАСПИСАНИЕ РАСПИСАНИЕ РАСПИСАНИЕ РАСПИСАНИЕ РАСПИСАНИЕ РАСПИСАНИЕ
+                        </p>
+                        <p>
+                            РАСПИСАНИЕ РАСПИСАНИЕ РАСПИСАНИЕ РАСПИСАНИЕ РАСПИСАНИЕ РАСПИСАНИЕ РАСПИСАНИЕ РАСПИСАНИЕ
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="flex-parent">
+                <div class="input-flex-container">
+                    @forelse($days as $day)
+                        <div class="input @if($loop->index == $activeDay) active @endif">
+                            <span data-year="{{{$day->date->locale('ru')->isoFormat('D MMM')}}}" data-info="{{{$day->name}}}"></span>
+                        </div>
+                    @empty
+                    @endforelse
+                </div>
+                <div class="description-flex-container">
+                    @forelse($days as $day)
+                        <div class="container @if($loop->index == $activeDay) active @endif">
+                            <div class="wrapper">
+                                <h3>{{{$day->date->locale('ru')->isoFormat('D MMMM')}}} - {{{$day->place}}}</h3>
+                                <ul class="sessions">
+                                    @forelse($day->timelines as $timeline)
+                                        <li>
+                                            <div class="time">{{{$timeline->from->format('H:i')}}} - {{{$timeline->to->format('H:i')}}}</div>
+                                            <div class="textarea">
+                                                {!!nl2br(htmlspecialchars($timeline->description))!!}
+                                            </div>
+                                        </li>
+                                    @empty
+                                        <div class="textarea">Похоже тут пусто ¯\_(ツ)_/¯</div>
+                                    @endforelse
+                                </ul>
+                            </div>
+                        </div>
+                    @empty
+                    @endforelse
+                </div>
+            </div>
+            <script>
+                $(function(){
+                    var inputs = $('.input');
+                    var paras = $('.description-flex-container').find('.container');
+                    inputs.click(function(){
+                        var t = $(this),
+                            ind = t.index(),
+                            matchedPara = paras.eq(ind);
 
-        <div class="program">
-            <div class="program-box">
-                <img src="/img/msh.jpg"></img>
-                <div>Мозгоштурм<div>Проектная школа подразумевает под собой выявление существующих проблем и их решение. Для этого и проводится мозгоштурм, во время которого студенты выявляют проблемы и предлагают свой вариант их решения. Также студенты могут выбрать предложенный внешними IT-компаниями кейс</div>
+                        t.add(matchedPara).addClass('active');
+                        inputs.not(t).add(paras.not(matchedPara)).removeClass('active');
+                    });
+                });
+            </script>
+        @else
+            <div class="projects">
+                <div class="reged"><text>{{{$event->activities()->count()}}}</text> студентов приняло участие в Весенней проектной школе 2022</div>
+                <div class="wrapper">
+                    <div class="marquee">
+                        <p>
+                            VR/AR GameDev blockchain web data science VR/AR GameDev blockchain web data science
+                        </p>
+                        <p>
+                            VR/AR GameDev blockchain web data science VR/AR GameDev blockchain web data science
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div class="program-box">
-                <img src="/img/vrar.jpg"></img>
-                <div>VR/AR<div>Виртуальная реальность — та отрасль, в которой инфраструктура и технологии развиваются параллельно с развитием контента. Поэтому ей требуется постоянная разработка того, что пользователи через них будут смотреть и делать. Центр НТИ ДВФУ VR/AR предоставляет возможность студентам войти в VR/AR</div>
-                </div>
-            </div>
-            <div class="program-box">
-                <img src="/img/gamedev.jpg"></img>
-                <div>GameDev<div>В современном мире создание видеоигр является одним из наиболее крупных сегментов индустрии развлечений и ежегодно приносит миллиарды долларов. Директор ИМКТ и технический директор компании Game Forest Алексанин Григорий Анатольевич с радостью расскажет вам за GameDev</div>
-                </div>
-            </div>
-        </div>
-        <div class="program">
-            <div class="program-box">
-                <img src="/img/other.jpg"></img>
-                <div>Прочее<div>Во время проектной школы команда IMCTech проводит интенсивы и по другим IT направлениям: Blockchain, Data Science, Web и другие. Также выступают спикеры из IT компаний: Farpost, Game Forest, Kaspersky, Яндекс и другие - и общественных организаций ДВФУ: Code WORK, ASAP.IT и другие</div>
-                </div>
-            </div>
-            <div class="program-box">
-                <img src="/img/pres.jpg"></img>
-                <div>Презентация<div>По окончании проектной школы студенты и/или команды презентуют свои проекты. Это не значит, что нужно полностью реализовать проект к этому времени. Вы можете выбрать проект, который придется реализовывать довольно продолжительное время, поэтому на презентации можно представить от проработанной идеи решения проблемы до полностью готового продукта</div>
-                </div>
-            </div>
-            <div class="program-box">
-                <img src="/img/zak.jpg"></img>
-                <div>Закрытие<div>После активной работы хочется отдохнуть, не так ли? Для этого команда IMCTech выделяет специальный день, когда студенты смогут забыть про все свои заботы и оторваться на всю катушку: настолки, пицца, VR игры и прочие крутые развлечения, которые не заставят тебя заскучать</div>
-                </div>
-            </div>
-        </div>
-        <div class="program" style="max-width: 55%;">
-            <div class="program-box">
-                <img src="/img/cov.jpg"></img>
-                <div>Коворкинг<div>Институт математики и компьютерных технологий любезно предоставляет студентам коворкинг в G464 и прочие технические возможности по просьбе. Пока что коворкинг не отличается чем-то прям сверхъестественным, но мы точно им когда-то займемся. Если у вас есть желание нам помочь, то свяжитесь с нами, пожалуйста</div>
-                </div>
-            </div>
-            <div class="program-box">
-                <img src="/img/farpost.jpg"></img>
-                <div>Сотрудничество<div>Команда IMCTech активно сотрудничает с компаниями: Farpost, Red Bull, Додо Пицца, Slavda Group и другими - и продолжает расширять этот круг. После Зимней проектной школы 2022 студенты, успешно защитившие свои проекты, были приглашены на экскурсию в офис Farpost</div>
-                </div>
-            </div>
-        </div>
 
+            <div class="program">
+                <div class="program-box">
+                    <img src="/img/msh.jpg"></img>
+                    <div>Мозгоштурм<div>Проектная школа подразумевает под собой выявление существующих проблем и их решение. Для этого и проводится мозгоштурм, во время которого студенты выявляют проблемы и предлагают свой вариант их решения. Также студенты могут выбрать предложенный внешними IT-компаниями кейс</div>
+                    </div>
+                </div>
+                <div class="program-box">
+                    <img src="/img/vrar.jpg"></img>
+                    <div>VR/AR<div>Виртуальная реальность — та отрасль, в которой инфраструктура и технологии развиваются параллельно с развитием контента. Поэтому ей требуется постоянная разработка того, что пользователи через них будут смотреть и делать. Центр НТИ ДВФУ VR/AR предоставляет возможность студентам войти в VR/AR</div>
+                    </div>
+                </div>
+                <div class="program-box">
+                    <img src="/img/gamedev.jpg"></img>
+                    <div>GameDev<div>В современном мире создание видеоигр является одним из наиболее крупных сегментов индустрии развлечений и ежегодно приносит миллиарды долларов. Директор ИМКТ и технический директор компании Game Forest Алексанин Григорий Анатольевич с радостью расскажет вам за GameDev</div>
+                    </div>
+                </div>
+            </div>
+            <div class="program">
+                <div class="program-box">
+                    <img src="/img/other.jpg"></img>
+                    <div>Прочее<div>Во время проектной школы команда IMCTech проводит интенсивы и по другим IT направлениям: Blockchain, Data Science, Web и другие. Также выступают спикеры из IT компаний: Farpost, Game Forest, Kaspersky, Яндекс и другие - и общественных организаций ДВФУ: Code WORK, ASAP.IT и другие</div>
+                    </div>
+                </div>
+                <div class="program-box">
+                    <img src="/img/pres.jpg"></img>
+                    <div>Презентация<div>По окончании проектной школы студенты и/или команды презентуют свои проекты. Это не значит, что нужно полностью реализовать проект к этому времени. Вы можете выбрать проект, который придется реализовывать довольно продолжительное время, поэтому на презентации можно представить от проработанной идеи решения проблемы до полностью готового продукта</div>
+                    </div>
+                </div>
+                <div class="program-box">
+                    <img src="/img/zak.jpg"></img>
+                    <div>Закрытие<div>После активной работы хочется отдохнуть, не так ли? Для этого команда IMCTech выделяет специальный день, когда студенты смогут забыть про все свои заботы и оторваться на всю катушку: настолки, пицца, VR игры и прочие крутые развлечения, которые не заставят тебя заскучать</div>
+                    </div>
+                </div>
+            </div>
+            <div class="program" style="max-width: 55%;">
+                <div class="program-box">
+                    <img src="/img/cov.jpg"></img>
+                    <div>Коворкинг<div>Институт математики и компьютерных технологий любезно предоставляет студентам коворкинг в G464 и прочие технические возможности по просьбе. Пока что коворкинг не отличается чем-то прям сверхъестественным, но мы точно им когда-то займемся. Если у вас есть желание нам помочь, то свяжитесь с нами, пожалуйста</div>
+                    </div>
+                </div>
+                <div class="program-box">
+                    <img src="/img/farpost.jpg"></img>
+                    <div>Сотрудничество<div>Команда IMCTech активно сотрудничает с компаниями: Farpost, Red Bull, Додо Пицца, Slavda Group и другими - и продолжает расширять этот круг. После Зимней проектной школы 2022 студенты, успешно защитившие свои проекты, были приглашены на экскурсию в офис Farpost</div>
+                    </div>
+                </div>
+            </div>
+       @endif
     </div>
 
     <div class="projects_bg">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\Day;
 use App\Models\Event;
 use App\Services\VkApiService;
 use Illuminate\Http\Request;
@@ -18,8 +19,14 @@ class UserController extends Controller
     public function pschool(Request $request)
     {
         $event = Event::findOrFail(2);
+        if (cache('timetable')) {
+            $days = Day::with('timelines')->orderBy('date')->get();
+            $nextDay = $days->where('date', '>=', now())->first();
+            $activeDay = !empty($nextDay) ? array_search($nextDay->date, $days->pluck('date')->toArray()) : 0;
+            return view('pschool', compact('event', 'days', 'activeDay'));
+        }
 
-        return view('pschool', ['event' => $event]);
+        return view('pschool', compact('event'));
     }
 
     public function psession(Request $request)

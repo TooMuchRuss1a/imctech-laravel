@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TimetableController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +96,15 @@ Route::group(['middleware' => 'isAuth'], function () {
                 Route::get('/role/{id}/permission/remove/{permission_id}', [AdminController::class, 'permissionRemove'])->name('admin.permissionRemove');
                 Route::get('/role/{id}/user/remove/{user_id}', [AdminController::class, 'userRemove'])->name('admin.userRemove');
                 Route::get('/role/{id}/delete', [AdminController::class, 'roleDelete'])->name('admin.roleDelete');
+            });
+            Route::group(['middleware' => 'can:edit timetable', 'prefix' => '/timetable'], function () {
+                Route::get('/', [TimetableController::class, 'index'])->name('admin.timetable.index');
+                Route::get('/create', [TimetableController::class, 'create'])->name('admin.timetable.create');
+                Route::post('/create', [TimetableController::class, 'store']);
+                Route::get('/edit/{id}', [TimetableController::class, 'edit'])->name('admin.timetable.edit');
+                Route::post('/edit/{id}', [TimetableController::class, 'update']);
+                Route::get('/delete/{id}', [TimetableController::class, 'delete'])->name('admin.timetable.delete');
+                Route::get('/toggle', [TimetableController::class, 'toggle'])->name('admin.timetable.toggle');
             });
         });
     });
