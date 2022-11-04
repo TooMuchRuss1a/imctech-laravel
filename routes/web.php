@@ -74,6 +74,7 @@ Route::group(['middleware' => 'isAuth'], function () {
                 Route::get('/edit/{id}', [EventController::class, 'edit'])->name('admin.events.edit');
                 Route::post('/edit/{id}', [EventController::class, 'update']);
                 Route::get('/delete/{id}', [EventController::class, 'delete'])->name('admin.events.delete');
+                Route::get('/view/{id}', [EventController::class, 'view'])->name('admin.events.view');
             });
             Route::group(['middleware' => 'can:edit'], function () {
                 Route::get('/edit/{table}/{id}', [AdminController::class, 'edit'])->name('admin.edit');

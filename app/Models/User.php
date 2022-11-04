@@ -77,4 +77,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo('App\Models\User', 'updated_by');
     }
+
+    public function vk()
+    {
+        return $this->hasOne('App\Models\Social')->where('type', '=', 'vk');
+    }
 }

@@ -105,4 +105,24 @@ class EventController extends Controller
 
         return redirect()->route('admin.events');
     }
+
+    public function view(Request $request, $id)
+    {
+        if (!$request->user()->can('view events')) {
+            abort(403);
+        }
+
+        $event = Event::with('updater', 'creator', 'activities.user.vk')->orderBy('id', 'desc')->findOrFail($id);
+        $vkApiService = new VkApiService();
+        $response = $vkApiService->getConversationById($event->conversation_id);
+        if ($response == null) $event->conversation = null;
+        else $event->conversation = [
+            'id' => $response['items'][0]['peer']['local_id'],
+            'name' => $response['items'][0]['chat_settings']['title'],
+            'photo' => $response['items'][0]['chat_settings']['photo']['photo_50'],
+            'members_count' => $response['items'][0]['chat_settings']['members_count'],
+        ];
+
+        return view('service.admin.events.view', compact('event'));
+    }
 }

@@ -43,7 +43,11 @@
                                     @forelse($events as $event)
                                         <tr @if($event->register_until > now()) style="background-color: palegreen;"@endif>
                                             <td>{{{$event->id}}}</td>
-                                            <td>{{{$event->name}}}</td>
+                                            <td>
+                                                {{{$event->name}}}
+                                                <br>
+                                                <a class="link-primary" href="{{route('admin.events.view', ['id' => $event->id])}}">Подробнее</a>
+                                            </td>
                                             <td>
                                                 @if(empty($event->conversation_id))
                                                     <a class="link-danger text-decoration-none" href="{{route('admin.events.edit', ['id' => $event->id])}}">Пусто</a>
