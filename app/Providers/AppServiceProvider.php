@@ -98,5 +98,14 @@ class AppServiceProvider extends ServiceProvider
             }
             return false;
         });
+
+        Validator::extend('valid_conversation_id', function ($attribute, $value)
+        {
+            $vkApiService = new VkApiService();
+            if (!empty($vkApiService->getInviteLink($value))) {
+                return true;
+            }
+            return false;
+        });
     }
 }

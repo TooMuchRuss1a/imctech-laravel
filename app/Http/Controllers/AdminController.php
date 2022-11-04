@@ -48,7 +48,7 @@ class AdminController extends Controller
 
         $api = DB::table('api_requests')
             ->orderBy('id', 'DESC')
-            ->limit(200)
+            ->limit(100)
             ->get();
 
         $sanitizer = new SanitizerService();
@@ -107,64 +107,6 @@ class AdminController extends Controller
         ];
 
         return view('service.admin.view', ['user' => $user]);
-    }
-
-    public function events(Request $request)
-    {
-        if (!$request->user()->can('view events')) {
-            abort(403);
-        }
-
-        $events = DB::table('events')
-            ->orderBy('id', 'DESC')
-            ->join('users as u1', 'events.updated_by', '=', 'u1.id')
-            ->join('users as u2', 'events.created_by', '=', 'u2.id')
-            ->select('events.id', 'events.name', 'events.conversation_id', 'events.register_until', 'events.updated_at', 'u1.login as updated_by', 'events.created_at', 'u2.login as created_by')
-            ->get();
-
-        $row = $events->first();
-
-        return view('service.admin.events', ['events' => $events, 'keys' => (!empty($row)) ? array_keys(get_object_vars($row)) : null]);
-    }
-
-    public function eventCreate(Request $request)
-    {
-        if (!$request->user()->can('create events')) {
-            abort(403);
-        }
-
-        return view('service.admin.eventCreate');
-    }
-
-    public function eventSave(Request $request)
-    {
-        if (!$request->user()->can('create events')) {
-            abort(403);
-        }
-
-        $validated = $request->validate([
-            'name' => 'required|unique:events|max:255',
-            'register_until' => 'required',
-            'recaptcha' => 'recaptcha',
-        ]);
-
-        $event = Event::create($validated);
-        request()->session()->flash('status', 'Мероприятие успешно создано');
-
-        $vkApiService = new VkApiService();
-        $chat_id = $vkApiService->createChat($event->name);
-
-        if (!empty($chat_id)) {
-            $chat_link = $vkApiService->getInviteLink($chat_id);
-            $event->update(['conversation_id' => $chat_id]);
-            if (!empty($chat_link)) {
-                request()->session()->flash('modal', ['title' => 'Уведомление', 'links' => ['Беседа ВК создана' => $chat_link['link']]]);
-            }
-            else request()->session()->flash('error', 'Возникла проблема при получении ссылки на беседу ВК');
-        }
-        else request()->session()->flash('error', 'Возникла проблема при создании беседы ВК');
-
-        return redirect()->route('admin.events');
     }
 
     public function roles(Request $request)
@@ -330,9 +272,6 @@ class AdminController extends Controller
         }
 
         switch ($table) {
-            case 'events':
-                $item = Event::findOrFail($id);
-                break;
             case 'roles':
                 $item = Role::findOrFail($id);
                 $params['users'] = DB::table('users')
@@ -371,15 +310,6 @@ class AdminController extends Controller
         }
 
         switch ($table) {
-            case 'events':
-                $validated = $request->validate([
-                    'name' => 'required|max:255',
-                    'register_until' => 'required',
-                    'conversation_id' => 'numeric|nullable',
-                    'recaptcha' => 'recaptcha',
-                ]);
-                $item = Event::find($id);
-                break;
             case 'roles':
                 $validated = $request->validate([
                     'name' => 'required|max:255',
@@ -502,44 +432,48 @@ class AdminController extends Controller
 
     public function removeChatUser(Request $request, $chat_id)
     {
-        if (!$request->user()->can('remove chat user')) {
-            abort(403);
-        }
-
-        $vkApiService = new VkApiService();
-        $event = Event::where('conversation_id', $chat_id)->first();
-        if(!empty($event)) {
-            $members = $vkApiService->getConversationMembers($chat_id);
-            if (isset($members['profiles'])) {
-                array_multisort(array_column($members['profiles'], 'first_name'), SORT_ASC, $members['profiles']);
-                return view('service.admin.removeChatUser', ['users' => $members['profiles'], 'event' => $event]);
-            }
-            else request()->session()->flash('error', 'В беседе нет пользователей');
-        }
-        else request()->session()->flash('error', 'Мероприятие не существует');
-
-        return redirect()->route('admin.events');
+        /** Отключаем из-за отключения создания беседы ВК при создании мероприятия */
+        abort(403, 'Отключено');
+//        if (!$request->user()->can('remove chat user')) {
+//            abort(403);
+//        }
+//
+//        $vkApiService = new VkApiService();
+//        $event = Event::where('conversation_id', $chat_id)->first();
+//        if(!empty($event)) {
+//            $members = $vkApiService->getConversationMembers($chat_id);
+//            if (isset($members['profiles'])) {
+//                array_multisort(array_column($members['profiles'], 'first_name'), SORT_ASC, $members['profiles']);
+//                return view('service.admin.removeChatUser', ['users' => $members['profiles'], 'event' => $event]);
+//            }
+//            else request()->session()->flash('error', 'В беседе нет пользователей');
+//        }
+//        else request()->session()->flash('error', 'Мероприятие не существует');
+//
+//        return redirect()->route('admin.events');
     }
 
     public function removeChatUserPost(Request $request, $chat_id)
     {
-        if (!$request->user()->can('remove chat user')) {
-            abort(403);
-        }
-
-        $validated = $request->validate([
-            'user_id' => 'required',
-            'recaptcha' => 'recaptcha',
-        ]);
-
-        $vkApiService = new VkApiService();
-        if ($vkApiService->removeChatUser($chat_id, $validated['user_id']) == 1) {
-            $user = $vkApiService->getVkData([$validated['user_id']])[0];
-            $event = Event::where('conversation_id', $chat_id)->first();
-            request()->session()->flash('status', 'Пользователь ' . $user['first_name']. ' ' . $user['last_name'] . ' успешно исключен из беседы "'.$event->name.'"');
-        }
-        else request()->session()->flash('error', 'Возникла проблема при исключении пользователя');
-
-        return redirect()->route('service');
+        /** Отключаем из-за отключения создания беседы ВК при создании мероприятия */
+        abort(403, 'Отключено');
+//        if (!$request->user()->can('remove chat user')) {
+//            abort(403);
+//        }
+//
+//        $validated = $request->validate([
+//            'user_id' => 'required',
+//            'recaptcha' => 'recaptcha',
+//        ]);
+//
+//        $vkApiService = new VkApiService();
+//        if ($vkApiService->removeChatUser($chat_id, $validated['user_id']) == 1) {
+//            $user = $vkApiService->getVkData([$validated['user_id']])[0];
+//            $event = Event::where('conversation_id', $chat_id)->first();
+//            request()->session()->flash('status', 'Пользователь ' . $user['first_name']. ' ' . $user['last_name'] . ' успешно исключен из беседы "'.$event->name.'"');
+//        }
+//        else request()->session()->flash('error', 'Возникла проблема при исключении пользователя');
+//
+//        return redirect()->route('service');
     }
 }

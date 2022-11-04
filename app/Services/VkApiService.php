@@ -175,4 +175,26 @@ class VkApiService
 
         return $this->getVkData($nicknames);
     }
+
+    public function getConversationById(string|int $id) {
+        return $this->execVkApiRequest('messages.getConversationsById', [
+            'peer_ids' => $id,
+            'access_token' => env('VK_API_COMMUNITY_TOKEN')
+        ]);
+    }
+
+    public function getConversations(): array {
+        $counter = 2000000001;
+        $conversations = [];
+        while (($response = $this->getConversationById($counter)) != null) {
+            $conversations[] = [
+                'id' => $response['items'][0]['peer']['local_id'],
+                'name' => $response['items'][0]['chat_settings']['title'],
+            ];
+            if ($counter % 10 == 0) sleep(1);
+            $counter++;
+        }
+
+        return $conversations;
+    }
 }

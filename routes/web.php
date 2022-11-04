@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TimetableController;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,12 +67,13 @@ Route::group(['middleware' => 'isAuth'], function () {
                 Route::get('/view/{id}', [AdminController::class, 'view'])->name('admin.view');
             });
 
-            Route::group(['middleware' => 'can:view events'], function () {
-                Route::get('/events', [AdminController::class, 'events'])->name('admin.events');
-            });
-            Route::group(['middleware' => 'can:create events'], function () {
-                Route::get('/events/create', [AdminController::class, 'eventCreate'])->name('admin.events.create');
-                Route::post('/events/create', [AdminController::class, 'eventSave']);
+            Route::group(['prefix' => '/events'], function () {
+                Route::get('/', [EventController::class, 'index'])->name('admin.events');
+                Route::get('/create', [EventController::class, 'create'])->name('admin.events.create');
+                Route::post('/create', [EventController::class, 'save']);
+                Route::get('/edit/{id}', [EventController::class, 'edit'])->name('admin.events.edit');
+                Route::post('/edit/{id}', [EventController::class, 'update']);
+                Route::get('/delete/{id}', [EventController::class, 'delete'])->name('admin.events.delete');
             });
             Route::group(['middleware' => 'can:edit'], function () {
                 Route::get('/edit/{table}/{id}', [AdminController::class, 'edit'])->name('admin.edit');
