@@ -54,12 +54,4 @@ class LoginController extends Controller
             'recaptcha' => ['recaptcha'],
         ]);
     }
-
-    protected function authenticated(Request $request, $user)
-    {
-        $redirect_to = (Cookie::get('redirect_to')) ? Cookie::get('redirect_to') : 'service';
-        Cookie::queue(Cookie::forget('redirect_to'));
-
-        return redirect($redirect_to);
-    }
 }
