@@ -18,7 +18,7 @@ class UserController extends Controller
 
     public function pschool(Request $request)
     {
-        $event = Event::findOrFail(2);
+        $event = Event::findOrFail(4);
         if (cache('timetable')) {
             $days = Day::with('timelines')->orderBy('date')->get();
             $nextDay = $days->where('date', '>=', now())->first();
@@ -77,10 +77,9 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'event_id' => 'required|register_actual',
-            'recaptcha' => 'recaptcha',
         ]);
 
-        $event = Event::where('id', $validated['event_id'])->first();
+        $event = Event::where('id', $validated['event_id'])->firstOrFail();
         $vkApiService = new VkApiService();
         $chat_id = $event->conversation_id;
         if (!empty($chat_id)) {

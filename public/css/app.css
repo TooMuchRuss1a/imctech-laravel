@@ -263,10 +263,8 @@ h6 {
 }
 
 .flogo_container {
-    margin-left: auto;
-    margin-right: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 1vmax;
     margin: 0 42vmax;

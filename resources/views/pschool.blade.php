@@ -46,7 +46,7 @@
     <div class="projects_bg">
         @if(cache('timetable'))
             <div class="projects">
-                <div class="reged"><text>{{{$event->activities()->count()}}}</text> студентов приняло участие в Весенней проектной школе 2022</div>
+                <div class="reged"><text>{{{$event->activities()->count()}}}</text> студентов уже записалось на Осеннюю проектную школу 2022</div>
                 <div class="wrapper">
                     <div class="marquee">
                         <p>
@@ -106,7 +106,7 @@
             </script>
         @else
             <div class="projects">
-                <div class="reged"><text>{{{$event->activities()->count()}}}</text> студентов приняло участие в Весенней проектной школе 2022</div>
+                <div class="reged"><text>{{{$event->activities()->count()}}}</text> студентов уже записалось на Осеннюю проектную школу 2022</div>
                 <div class="wrapper">
                     <div class="marquee">
                         <p>
@@ -121,46 +121,46 @@
 
             <div class="program">
                 <div class="program-box">
-                    <img src="/img/msh.jpg"></img>
+                    <img src="/img/msh.jpg">
                     <div>Мозгоштурм<div>Проектная школа подразумевает под собой выявление существующих проблем и их решение. Для этого и проводится мозгоштурм, во время которого студенты выявляют проблемы и предлагают свой вариант их решения. Также студенты могут выбрать предложенный внешними IT-компаниями кейс</div>
                     </div>
                 </div>
                 <div class="program-box">
-                    <img src="/img/vrar.jpg"></img>
+                    <img src="/img/vrar.jpg">
                     <div>VR/AR<div>Виртуальная реальность — та отрасль, в которой инфраструктура и технологии развиваются параллельно с развитием контента. Поэтому ей требуется постоянная разработка того, что пользователи через них будут смотреть и делать. Центр НТИ ДВФУ VR/AR предоставляет возможность студентам войти в VR/AR</div>
                     </div>
                 </div>
                 <div class="program-box">
-                    <img src="/img/gamedev.jpg"></img>
+                    <img src="/img/gamedev.jpg">
                     <div>GameDev<div>В современном мире создание видеоигр является одним из наиболее крупных сегментов индустрии развлечений и ежегодно приносит миллиарды долларов. Директор ИМКТ и технический директор компании Game Forest Алексанин Григорий Анатольевич с радостью расскажет вам за GameDev</div>
                     </div>
                 </div>
             </div>
             <div class="program">
                 <div class="program-box">
-                    <img src="/img/other.jpg"></img>
+                    <img src="/img/other.jpg">
                     <div>Прочее<div>Во время проектной школы команда IMCTech проводит интенсивы и по другим IT направлениям: Blockchain, Data Science, Web и другие. Также выступают спикеры из IT компаний: Farpost, Game Forest, Kaspersky, Яндекс и другие - и общественных организаций ДВФУ: Code WORK, ASAP.IT и другие</div>
                     </div>
                 </div>
                 <div class="program-box">
-                    <img src="/img/pres.jpg"></img>
+                    <img src="/img/pres.jpg">
                     <div>Презентация<div>По окончании проектной школы студенты и/или команды презентуют свои проекты. Это не значит, что нужно полностью реализовать проект к этому времени. Вы можете выбрать проект, который придется реализовывать довольно продолжительное время, поэтому на презентации можно представить от проработанной идеи решения проблемы до полностью готового продукта</div>
                     </div>
                 </div>
                 <div class="program-box">
-                    <img src="/img/zak.jpg"></img>
+                    <img src="/img/zak.jpg">
                     <div>Закрытие<div>После активной работы хочется отдохнуть, не так ли? Для этого команда IMCTech выделяет специальный день, когда студенты смогут забыть про все свои заботы и оторваться на всю катушку: настолки, пицца, VR игры и прочие крутые развлечения, которые не заставят тебя заскучать</div>
                     </div>
                 </div>
             </div>
             <div class="program" style="max-width: 55%;">
                 <div class="program-box">
-                    <img src="/img/cov.jpg"></img>
+                    <img src="/img/cov.jpg">
                     <div>Коворкинг<div>Институт математики и компьютерных технологий любезно предоставляет студентам коворкинг в G464 и прочие технические возможности по просьбе. Пока что коворкинг не отличается чем-то прям сверхъестественным, но мы точно им когда-то займемся. Если у вас есть желание нам помочь, то свяжитесь с нами, пожалуйста</div>
                     </div>
                 </div>
                 <div class="program-box">
-                    <img src="/img/farpost.jpg"></img>
+                    <img src="/img/farpost.jpg">
                     <div>Сотрудничество<div>Команда IMCTech активно сотрудничает с компаниями: Farpost, Red Bull, Додо Пицца, Slavda Group и другими - и продолжает расширять этот круг. После Зимней проектной школы 2022 студенты, успешно защитившие свои проекты, были приглашены на экскурсию в офис Farpost</div>
                     </div>
                 </div>
@@ -169,7 +169,7 @@
     </div>
 
     <div class="projects_bg">
-        <img src="/img/Abobus.png" class="abobus"></img>
+        <img src="/img/Abobus.png" class="abobus">
 
         <div class="projects">
             <div class="wrapper">
@@ -197,22 +197,22 @@
                 <div class="pj-team">Команда:</div>
                 <div>
                     <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/pepegger">
-                        <img class="vk" src="/img/vk.png"></img>
+                        <img class="vk" src="/img/vk.png">
                         <text>Степанов Владислав - PM</text>
                     </a>
                     <br>
                     <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/kysssssska">
-                        <img class="vk" src="/img/vk.png"></img>
+                        <img class="vk" src="/img/vk.png">
                         <text>Сайфутдинова Илюза</text>
                     </a>
                 </div>
             </div>
-            <img class="pj-img-d" src="/img/e8npOp9YoRY.jpg"></img>
-            <img class="pj-img-m" src="/img/fc.jpg"></img>
+            <img class="pj-img-d" src="/img/e8npOp9YoRY.jpg">
+            <img class="pj-img-m" src="/img/fc.jpg">
         </div>
 
         <div class="pj">
-            <img class="pj-img-d" src="https://images.wbstatic.net/big/new/33510000/33518126-6.jpg"></img>
+            <img class="pj-img-d" src="https://images.wbstatic.net/big/new/33510000/33518126-6.jpg">
             <div class="pj-container">
                 <div class="pj-name">VoiceN</div>
                 <div class="pj-subname">Социальный проект</div>
@@ -236,7 +236,7 @@
                     <a class="pj-team-none"><text>• Похорукова Алина</text></a>
                 </div>
             </div>
-            <img class="pj-img-m" src="https://s0.rbk.ru/v6_top_pics/media/img/8/34/755276725589348.jpg"></img>
+            <img class="pj-img-m" src="https://s0.rbk.ru/v6_top_pics/media/img/8/34/755276725589348.jpg">
         </div>
 
         <div class="pj">
@@ -250,21 +250,21 @@
                 </div>
                 <div class="pj-team">Команда:</div>
                 <div>
-                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/lakmm"><img class="vk" src="/img/vk.png"></img> <text>Кучеров Валентин - PM</text></a>
+                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/lakmm"><img class="vk" src="/img/vk.png"> <text>Кучеров Валентин - PM</text></a>
                     <br>
-                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/vcitich"><img class="vk" src="/img/vk.png"></img><text>Нехорошев Виктор</text></a>
+                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/vcitich"><img class="vk" src="/img/vk.png"><text>Нехорошев Виктор</text></a>
                     <br>
-                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/k.matrosova2000"><img class="vk" src="/img/vk.png"></img> <text>Потега Ксения</text></a>
+                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/k.matrosova2000"><img class="vk" src="/img/vk.png"> <text>Потега Ксения</text></a>
                     <br>
-                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/e.maslichenko"><img class="vk" src="/img/vk.png"></img><text>Масличенко Елизавета</text></a>
+                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/e.maslichenko"><img class="vk" src="/img/vk.png"><text>Масличенко Елизавета</text></a>
                 </div>
             </div>
-            <img class="pj-img-m" src="/img/rntm.png"></img>
-            <img class="pj-img-d" src="/img/rnt.png"></img>
+            <img class="pj-img-m" src="/img/rntm.png">
+            <img class="pj-img-d" src="/img/rnt.png">
         </div>
 
         <div class="pj" style="margin-bottom: 0;">
-            <img class="pj-img-d" src="/img/fpw.jpg"></img>
+            <img class="pj-img-d" src="/img/fpw.jpg">
             <div class="pj-container">
                 <div class="pj-name">FEFU Prepod Wiki</div>
                 <div class="pj-subname">Социальный проект</div>
@@ -276,16 +276,15 @@
                 </div>
                 <div class="pj-team">Команда:</div>
                 <div>
-                    <a class="pj-team-c" href="https://vk.com/va_hahahaha" rel="noopener noreferrer" target="_blank"><img class="vk" src="/img/vk.png"></img> <text>Юрина Валентина - PM</text></a>
+                    <a class="pj-team-c" href="https://vk.com/va_hahahaha" rel="noopener noreferrer" target="_blank"><img class="vk" src="/img/vk.png"> <text>Юрина Валентина - PM</text></a>
                     <br>
-                    <a class="pj-team-c" href="https://vk.com/idlalexandro" rel="noopener noreferrer" target="_blank"><img class="vk" src="/img/vk.png"></img> <text>Пушкарев Александр</text></a>
+                    <a class="pj-team-c" href="https://vk.com/idlalexandro" rel="noopener noreferrer" target="_blank"><img class="vk" src="/img/vk.png"> <text>Пушкарев Александр</text></a>
                     <br>
-                    <a class="pj-team-c" href="https://m.vk.com/floorisslava" rel="noopener noreferrer" target="_blank"><img class="vk" src="/img/vk.png"></img> <text>Кадомцев Вячеслав</text></a>
+                    <a class="pj-team-c" href="https://m.vk.com/floorisslava" rel="noopener noreferrer" target="_blank"><img class="vk" src="/img/vk.png"> <text>Кадомцев Вячеслав</text></a>
                 </div>
             </div>
-            <img class="pj-img-m" src="/img/fpw_m.jpg"></img>
+            <img class="pj-img-m" src="/img/fpw_m.jpg">
         </div>
-    </div>
     </div>
 
     <script>
@@ -301,10 +300,8 @@
     <a rel="noopener noreferrer" target="_blank" href="https://www.dvfu.ru"><img class="flogo" src="/img/logos/dvfu.png"></a>
     <a rel="noopener noreferrer" target="_blank" href="https://vk.com/imct_fefu"><img class="flogo" src="/img/logos/imct.png"></a>
     <a rel="noopener noreferrer" target="_blank" href="https://russky.digital"><img class="flogo" src="/img/logos/rd.png"></a>
-    <a rel="noopener noreferrer" target="_blank" href="https://vrnti.ru"><img class="flogo" src="/img/logos/nti.png"></a>
     <a rel="noopener noreferrer" target="_blank" href="https://www.sberbank.ru"><img class="flogo" src="/img/logos/sber.png"></a>
     <a rel="noopener noreferrer" target="_blank" href="https://www.farpost.ru"><img class="flogo" src="/img/logos/farpost.png"></a>
-    <a rel="noopener noreferrer" target="_blank" href="https://www.slavda.ru"><img class="flogo" src="/img/logos/slavda.png"></a>
 </div>
 <div class="flogo_container-m">
     <a rel="noopener noreferrer" target="_blank" href="https://www.dvfu.ru"><img class="flogo" src="/img/logos/dvfu.png"></a>
@@ -314,7 +311,5 @@
 <div class="flogo_container-m" style="padding: 10px 70px;">
     <a rel="noopener noreferrer" target="_blank" href="https://www.sberbank.ru"><img class="flogo" src="/img/logos/sber.png"></a>
     <a rel="noopener noreferrer" target="_blank" href="https://www.farpost.ru"><img class="flogo" src="/img/logos/farpost.png"></a>
-    <a rel="noopener noreferrer" target="_blank" href="https://vrnti.ru"><img class="flogo" src="/img/logos/nti.png"></a>
-    <a rel="noopener noreferrer" target="_blank" href="https://www.slavda.ru"><img class="flogo" src="/img/logos/slavda.png"></a>
 </div>
 @endsection

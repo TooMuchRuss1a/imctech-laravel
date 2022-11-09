@@ -93,10 +93,8 @@ html {
   }
 
   .flogo_container-m {
-    margin-left: auto;
-    margin-right: auto;
     display:flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 10px 26vw;
     margin: 0 0 0 0;
