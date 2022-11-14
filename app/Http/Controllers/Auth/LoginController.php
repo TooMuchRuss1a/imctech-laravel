@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -52,6 +53,18 @@ class LoginController extends Controller
             'login' => ['required', 'string', 'max:20'],
             'password' => ['required', 'string'],
             'recaptcha' => ['recaptcha'],
+        ]);
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        if (stripos($request->login, '@'))
+            throw ValidationException::withMessages([
+                $this->username() => [trans('auth.email')],
+            ]);
+
+        throw ValidationException::withMessages([
+            $this->username() => [trans('auth.failed')],
         ]);
     }
 }
