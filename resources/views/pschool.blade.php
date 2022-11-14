@@ -110,10 +110,10 @@
                 <div class="wrapper">
                     <div class="marquee">
                         <p>
-                            VR/AR GameDev blockchain web data science VR/AR GameDev blockchain web data science
+                            VR/AR GameDev Hackathon web data science VR/AR GameDev Hackathon web data science
                         </p>
                         <p>
-                            VR/AR GameDev blockchain web data science VR/AR GameDev blockchain web data science
+                            VR/AR GameDev Hackathon web data science VR/AR GameDev Hackathon web data science
                         </p>
                     </div>
                 </div>
@@ -121,46 +121,37 @@
 
             <div class="program">
                 <div class="program-box">
-                    <img src="/img/msh.jpg">
-                    <div>Мозгоштурм<div>Проектная школа подразумевает под собой выявление существующих проблем и их решение. Для этого и проводится мозгоштурм, во время которого студенты выявляют проблемы и предлагают свой вариант их решения. Также студенты могут выбрать предложенный внешними IT-компаниями кейс</div>
+                    <img src="/img/1653718954_57b95b.jpg">
+                    <div>Обучение
+                        <div>В процессе обучения ты узнаешь, как эффективно работать в команде, как работать над кейсами и участвовать в хакатонах, что, для кого и как нужно разрабатывать, чтобы быть успешным. Подробное расписание ты сможешь посмотреть в чате, доступ к которому откроется после регистрации, и на сайте</div>
                     </div>
                 </div>
                 <div class="program-box">
-                    <img src="/img/vrar.jpg">
-                    <div>VR/AR<div>Виртуальная реальность — та отрасль, в которой инфраструктура и технологии развиваются параллельно с развитием контента. Поэтому ей требуется постоянная разработка того, что пользователи через них будут смотреть и делать. Центр НТИ ДВФУ VR/AR предоставляет возможность студентам войти в VR/AR</div>
+                    <img src="/img/1653721813_b64a7c.jpg">
+                    <div>Хакатон
+                        <div>24 часа, куча пиццы и напитков, команда светлых голов и проект готов! Вам предстоит выбрать предложенный компаниями или свой собственный проект и реализовать его минимальный жизнеспособный продукт за сутки. По истечению времени командам нужно будет представить свои проекты экспертам</div>
                     </div>
                 </div>
                 <div class="program-box">
-                    <img src="/img/gamedev.jpg">
-                    <div>GameDev<div>В современном мире создание видеоигр является одним из наиболее крупных сегментов индустрии развлечений и ежегодно приносит миллиарды долларов. Директор ИМКТ и технический директор компании Game Forest Алексанин Григорий Анатольевич с радостью расскажет вам за GameDev</div>
+                    <img src="/img/1653721794_0fa056.jpg">
+                    <div>Выставка
+                        <div>В промежутке между Хакатоном и Выставкой проектов вам предстоит доработаь свои проекты и подготовить их уже к публичной выставке в Аяксе. Сотни людей смогут посмотреть и потрогать твой проект и дать настоящий пользовательский фидбэк с искренними эмоциями. Приятно ведь, когда хвалят</div>
                     </div>
                 </div>
             </div>
             <div class="program">
                 <div class="program-box">
-                    <img src="/img/other.jpg">
-                    <div>Прочее<div>Во время проектной школы команда IMCTech проводит интенсивы и по другим IT направлениям: Blockchain, Data Science, Web и другие. Также выступают спикеры из IT компаний: Farpost, Game Forest, Kaspersky, Яндекс и другие - и общественных организаций ДВФУ: Code WORK, ASAP.IT и другие</div>
-                    </div>
-                </div>
-                <div class="program-box">
-                    <img src="/img/pres.jpg">
-                    <div>Презентация<div>По окончании проектной школы студенты и/или команды презентуют свои проекты. Это не значит, что нужно полностью реализовать проект к этому времени. Вы можете выбрать проект, который придется реализовывать довольно продолжительное время, поэтому на презентации можно представить от проработанной идеи решения проблемы до полностью готового продукта</div>
-                    </div>
-                </div>
-                <div class="program-box">
-                    <img src="/img/zak.jpg">
+                    <img src="/img/closing.jpg">
                     <div>Закрытие<div>После активной работы хочется отдохнуть, не так ли? Для этого команда IMCTech выделяет специальный день, когда студенты смогут забыть про все свои заботы и оторваться на всю катушку: настолки, пицца, VR игры и прочие крутые развлечения, которые не заставят тебя заскучать</div>
                     </div>
                 </div>
-            </div>
-            <div class="program" style="max-width: 55%;">
                 <div class="program-box">
-                    <img src="/img/cov.jpg">
+                    <img src="/img/coworking.jpg">
                     <div>Коворкинг<div>Институт математики и компьютерных технологий любезно предоставляет студентам коворкинг в G464 и прочие технические возможности по просьбе. Пока что коворкинг не отличается чем-то прям сверхъестественным, но мы точно им когда-то займемся. Если у вас есть желание нам помочь, то свяжитесь с нами, пожалуйста</div>
                     </div>
                 </div>
                 <div class="program-box">
-                    <img src="/img/farpost.jpg">
+                    <img src="/img/1653721841_fbdf42.jpg">
                     <div>Сотрудничество<div>Команда IMCTech активно сотрудничает с компаниями: Farpost, Red Bull, Додо Пицца, Slavda Group и другими - и продолжает расширять этот круг. После Зимней проектной школы 2022 студенты, успешно защитившие свои проекты, были приглашены на экскурсию в офис Farpost</div>
                     </div>
                 </div>
@@ -300,8 +291,9 @@
     <a rel="noopener noreferrer" target="_blank" href="https://www.dvfu.ru"><img class="flogo" src="/img/logos/dvfu.png"></a>
     <a rel="noopener noreferrer" target="_blank" href="https://vk.com/imct_fefu"><img class="flogo" src="/img/logos/imct.png"></a>
     <a rel="noopener noreferrer" target="_blank" href="https://russky.digital"><img class="flogo" src="/img/logos/rd.png"></a>
-    <a rel="noopener noreferrer" target="_blank" href="https://www.sberbank.ru"><img class="flogo" src="/img/logos/sber.png"></a>
     <a rel="noopener noreferrer" target="_blank" href="https://www.farpost.ru"><img class="flogo" src="/img/logos/farpost.png"></a>
+    <a rel="noopener noreferrer" target="_blank" href="https://dodopizza.ru"><img class="flogo" src="/img/logos/dodo.png"></a>
+    <a rel="noopener noreferrer" target="_blank" href="https://www.slavda.ru"><img class="flogo" src="/img/logos/slavda.png"></a>
 </div>
 <div class="flogo_container-m">
     <a rel="noopener noreferrer" target="_blank" href="https://www.dvfu.ru"><img class="flogo" src="/img/logos/dvfu.png"></a>
@@ -309,7 +301,8 @@
     <a rel="noopener noreferrer" target="_blank" href="https://russky.digital"><img class="flogo" src="/img/logos/rd.png"></a>
 </div>
 <div class="flogo_container-m" style="padding: 10px 70px;">
-    <a rel="noopener noreferrer" target="_blank" href="https://www.sberbank.ru"><img class="flogo" src="/img/logos/sber.png"></a>
     <a rel="noopener noreferrer" target="_blank" href="https://www.farpost.ru"><img class="flogo" src="/img/logos/farpost.png"></a>
+    <a rel="noopener noreferrer" target="_blank" href="https://dodopizza.ru"><img class="flogo" src="/img/logos/dodo.png"></a>
+    <a rel="noopener noreferrer" target="_blank" href="https://www.slavda.ru"><img class="flogo" src="/img/logos/slavda.png"></a>
 </div>
 @endsection
