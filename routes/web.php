@@ -109,6 +109,9 @@ Route::group(['middleware' => 'isAuth'], function () {
                 Route::get('/delete/{id}', [TimetableController::class, 'delete'])->name('admin.timetable.delete');
                 Route::get('/toggle', [TimetableController::class, 'toggle'])->name('admin.timetable.toggle');
             });
+            Route::group(['middleware' => 'can:dead_souls'], function () {
+                Route::get('/dead_souls', [AdminController::class, 'dead_souls'])->name('admin.dead_souls');
+            });
         });
     });
 });

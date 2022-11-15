@@ -77,6 +77,17 @@ class AdminController extends Controller
         return view('service.admin.errors', ['errors' => $errors, 'keys' => (!empty($row)) ? array_keys(get_object_vars($row)) : null]);
     }
 
+    public function dead_souls(Request $request)
+    {
+        if (!$request->user()->can('dead souls')) {
+            abort(403);
+        }
+
+        $users = User::doesntHave('activities')->with('vk')->get()->except(1);
+
+        return view('service.admin.dead_souls', compact('users'));
+    }
+
     public function users(Request $request)
     {
         if (!$request->user()->can('view users')) {

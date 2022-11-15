@@ -119,14 +119,17 @@
                                         @can('view users')
                                             <a class="nav-link" href="{{ route('admin.users') }}">Пользователи</a>
                                         @endcan
-                                        @can('getlost')
-                                            <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
-                                        @endcan
                                         @can('view events')
                                             <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
                                         @endcan
                                         @can('edit timetable')
                                             <a class="nav-link" href="{{ route('admin.timetable.index') }}">Расписание</a>
+                                        @endcan
+                                        @can('getlost')
+                                            <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
+                                        @endcan
+                                        @can('dead souls')
+                                            <a class="nav-link" href="{{ route('admin.dead_souls') }}">Мертвые души</a>
                                         @endcan
                                         @can('edit roles')
                                             <a class="nav-link" href="{{ route('admin.roles') }}">Роли</a>
@@ -162,14 +165,17 @@
                                         @can('view users')
                                             <a class="nav-link" href="{{ route('admin.users') }}">Пользователи</a>
                                         @endcan
-                                        @can('getlost')
-                                            <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
-                                        @endcan
                                         @can('view events')
                                             <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
                                         @endcan
                                         @can('edit timetable')
                                             <a class="nav-link" href="{{ route('admin.timetable.index') }}">Расписание</a>
+                                        @endcan
+                                        @can('getlost')
+                                            <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
+                                        @endcan
+                                        @can('dead souls')
+                                            <a class="nav-link" href="{{ route('admin.dead_souls') }}">Мертвые души</a>
                                         @endcan
                                         @can('edit roles')
                                             <a class="nav-link" href="{{ route('admin.roles') }}">Роли</a>
