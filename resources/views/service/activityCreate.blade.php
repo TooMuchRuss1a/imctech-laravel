@@ -16,7 +16,7 @@
                             <div class="col-md-6">
                                 <select class="form-select" name="event_id">
                                     @foreach ($events as $event)
-                                        <option value="{{ $event->id }}">
+                                        <option @if(request()->id == $event->id) selected @endif value="{{ $event->id }}">
                                             {{ $event->name }}
                                         </option>
                                     @endforeach
