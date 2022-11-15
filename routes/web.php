@@ -84,6 +84,7 @@ Route::group(['middleware' => 'isAuth'], function () {
                 Route::get('/getlost', [AdminController::class, 'getLostUsers'])->name('admin.getlost');
                 Route::post('/getlost', [AdminController::class, 'getLostUsersPost']);
             });
+            Route::get('/dead_souls', [AdminController::class, 'dead_souls'])->name('admin.dead_souls');
             Route::group(['middleware' => 'can:remove chat user'], function () {
                 Route::get('/removechatuser/{chat_id}', [AdminController::class, 'removeChatUser'])->name('admin.removeChatUser');
                 Route::post('/removechatuser/{chat_id}', [AdminController::class, 'removeChatUserPost']);
@@ -108,9 +109,6 @@ Route::group(['middleware' => 'isAuth'], function () {
                 Route::post('/edit/{id}', [TimetableController::class, 'update']);
                 Route::get('/delete/{id}', [TimetableController::class, 'delete'])->name('admin.timetable.delete');
                 Route::get('/toggle', [TimetableController::class, 'toggle'])->name('admin.timetable.toggle');
-            });
-            Route::group(['middleware' => 'can:dead_souls'], function () {
-                Route::get('/dead_souls', [AdminController::class, 'dead_souls'])->name('admin.dead_souls');
             });
         });
     });
