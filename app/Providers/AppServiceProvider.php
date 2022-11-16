@@ -107,5 +107,10 @@ class AppServiceProvider extends ServiceProvider
             }
             return false;
         });
+
+        Validator::extend('agroup', function ($attribute, $value)
+        {
+            return preg_match('/[А-я][0-9]{4,5}-[0-9]{2}.[0-9]{2}.[0-9]{2}/', $value);
+        });
     }
 }

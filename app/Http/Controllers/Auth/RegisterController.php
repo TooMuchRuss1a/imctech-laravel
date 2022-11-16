@@ -52,9 +52,17 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        if (in_array(request()->agroup[0], ['C', 'c']))
+            request()->merge(
+                [
+                    'agroup' => str_replace('C', 'С', str_replace('c', 'С', request()->agroup))
+                ]
+            );
+
         request()->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'dvfu_email'],
+            'agroup' => ['agroup'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'recaptcha' => ['recaptcha'],
         ]);
@@ -66,6 +74,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required'],
             'email' => ['required'],
+            'agroup' => ['required'],
             'password' => ['required'],
             'vk' => ['required'],
             ]);
