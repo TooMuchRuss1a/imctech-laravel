@@ -15,11 +15,7 @@
                         <div class="dd-text">Группа</div>
                         <div class="dd-text-description">{{{auth()->user()->agroup}}}</div>
                         <div class="dd-text">email</div>
-                        @if(auth()->user()->hasVerifiedEmail())
-                            <div style="text-transform:lowercase;" class="dd-text-description">{{{auth()->user()->email}}}</div>
-                        @else
-                            <div style="text-transform:lowercase; color:rgb(255,50,50);" class="dd-text-description">не подтвержден</div>
-                        @endif
+                        <div style="text-transform:lowercase; @if(!auth()->user()->hasVerifiedEmail()) color:rgb(255,50,50); @endif" class="dd-text-description">{{{auth()->user()->email}}}</div>
                         <div class="dd-text"><a href="{{route('service')}}">Сервис</a><a href={{{route('logout')}}}>Выход</a></div>
                     </div>
                 </div>

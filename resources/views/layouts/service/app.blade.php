@@ -109,6 +109,7 @@
                                 @if(auth()->user()->hasVerifiedEmail())
                                     <hr style="margin: 8px 0;">
                                     <a class="nav-link" href="{{ route('service.activity') }}">Записаться на мероприятие</a>
+                                    <a class="nav-link" href="{{ route('service.profile') }}">Профиль</a>
                                     @can('view admin')
                                         <hr style="margin: 8px 0;">
                                         @can('view logs')
@@ -155,6 +156,7 @@
                                 @if(auth()->user()->hasVerifiedEmail())
                                     <hr style="margin: 2px 0;">
                                     <a class="nav-link" href="{{ route('service.activity') }}">Записаться на мероприятие</a>
+                                    <a class="nav-link" href="{{ route('service.profile') }}">Профиль</a>
                                     @can('view admin')
                                         <hr style="margin: 8px 0;">
                                         @can('view logs')

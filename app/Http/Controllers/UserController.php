@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Activity;
 use App\Models\Day;
 use App\Models\Event;
+use App\Models\User;
 use App\Services\VkApiService;
 use Illuminate\Http\Request;
 
@@ -104,5 +105,16 @@ class UserController extends Controller
     public function privacy(Request $request)
     {
         return view('service.privacy');
+    }
+
+    public function profile(Request $request)
+    {
+        $vkApiService = new VkApiService();
+        $user = User::with('vk', 'activities.event')->findOrFail($request->user()->id);
+        $user->socialData = [
+            'vk' => (!empty($vk = $user->vk)) ? ((!empty($vk_data = $vkApiService->getVkDataViaLink($vk->link))) ? $vk_data[0] : null) : null,
+        ];
+
+        return view('service.profile', compact('user'));
     }
 }

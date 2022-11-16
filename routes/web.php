@@ -54,6 +54,7 @@ Route::group(['middleware' => 'isAuth'], function () {
         Route::get('/', [UserController::class, 'service'])->name('service');
         Route::get('/activity/create', [UserController::class, 'activityCreate'])->name('service.activity');
         Route::post('/activity/create', [UserController::class, 'activitySave']);
+        Route::get('/profile', [UserController::class, 'profile'])->name('service.profile');
 
         Route::group(['middleware' => 'can:view admin', 'prefix' => '/admin'], function () {
             Route::group(['middleware' => 'can:view logs'], function () {
