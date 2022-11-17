@@ -22,7 +22,7 @@
                             <tbody>
                             @forelse($users as $user)
                                 <tr>
-                                    <td><a class="link-primary" href="{{{route('admin.view', ['id' => $user->id])}}}">{{$user->id}}</a></td>
+                                    <td><a class="link-primary" href="{{{route('admin.users.view', ['id' => $user->id])}}}">{{$user->id}}</a></td>
                                     <td>{{{$user->name}}}</td>
                                     <td>{{{$user->email}}}</td>
                                     <td>{{{$user->email_verified_at}}}</td>
