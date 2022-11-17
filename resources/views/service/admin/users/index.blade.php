@@ -5,8 +5,10 @@
         <div class="row justify-content-center">
             <div class="col-md">
                 <div class="card">
-                    <div class="card-header">{{ __('Пользователи ') }}<span
-                                class="badge bg-primary rounded-pill">{{{$users->count()}}}</span></div>
+                    <div class="card-header">Пользователи
+                        <span class="badge bg-primary rounded-pill">{{{$users->count()}}}</span>
+                        <a class="btn btn-primary p-1 position-absolute" style="top: 2px; right: 10px" href="{{route('admin.users.create')}}" role="button">Создать</a>
+                    </div>
                     <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success m-2" role="alert">
@@ -31,8 +33,7 @@
                                             <td>{{{$item}}}</td>
                                         @endforeach
                                         <td>
-                                            <a class="btn btn-primary" href="{{route('admin.view', ['id' => $row->id])}}"
-                                               role="button">Подробнее</a>
+                                            <a class="btn btn-primary" href="{{route('admin.users.view', ['id' => $row->id])}}" role="button">Подробнее</a>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -101,7 +101,7 @@ class AdminController extends Controller
 
         $row = $users->first();
 
-        return view('service.admin.users', ['users' => $users, 'keys' => (!empty($row)) ? array_keys(get_object_vars($row)) : null]);
+        return view('service.admin.users.index', ['users' => $users, 'keys' => (!empty($row)) ? array_keys(get_object_vars($row)) : null]);
     }
 
     public function view(Request $request, $id)
@@ -117,7 +117,49 @@ class AdminController extends Controller
             'vk' => (!empty($vk = $user->socials->where('type', 'vk')->first())) ? ((!empty($vk_data = $vkApiService->getVkDataViaLink($vk->link))) ? $vk_data[0] : null) : null,
         ];
 
-        return view('service.admin.view', ['user' => $user]);
+        return view('service.admin.users.view', ['user' => $user]);
+    }
+
+    public function userCreate(Request $request)
+    {
+        if (!$request->user()->can('create users')) {
+            abort(403);
+        }
+
+        return view('service.admin.users.create');
+    }
+
+    public function userSave(Request $request)
+    {
+        if (!$request->user()->can('create users')) {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'login' => 'required|string|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'agroup' => 'required',
+            'password' => 'nullable|confirmed',
+            'vk' => 'required|string|valid_vk'
+        ]);
+
+        $user = User::create([
+            'login' => strtolower($validated['login']),
+            'email' => strtolower($validated['email']),
+            'name' => $validated['name'],
+            'agroup' => $validated['agroup'],
+            'password' => bcrypt($validated['password']),
+        ]);
+
+        $vkApiService = new VkApiService();
+        $vk_id = $vkApiService->getVkDataViaLink($validated['vk'])[0]['id'];
+        $user->socials()->create([
+            'type' => 'vk',
+            'link' => 'https://vk.com/id'.$vk_id
+        ]);
+
+        return redirect()->route('admin.users');
     }
 
     public function roles(Request $request)
@@ -366,7 +408,7 @@ class AdminController extends Controller
             request()->session()->flash('status', 'Экземпляр обновлен');
 
             if (in_array($table, ['socials'])) {
-                return redirect()->route('admin.view', ['id' => $item->user_id]);
+                return redirect()->route('admin.users.view', ['id' => $item->user_id]);
             }
             return redirect()->route('admin.'.$table);
         }

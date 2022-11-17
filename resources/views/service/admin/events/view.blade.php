@@ -9,8 +9,8 @@
                     <div class="container m-2">
                         <div>Название: {{$event->name}}</div>
                         <div>Регистрация до: {{$event->register_until}}</div>
-                        <div>Создан: <a class="link-primary" href="{{route('admin.view', ['id' => $event->creator->id])}}">{{$event->creator->login}}</a> в {{$event->created_at}}</div>
-                        <div>Изменен: <a class="link-primary" href="{{route('admin.view', ['id' => $event->updater->id])}}">{{$event->updater->login}}</a> в {{$event->updated_at}}</div>
+                        <div>Создан: <a class="link-primary" href="{{route('admin.users.view', ['id' => $event->creator->id])}}">{{$event->creator->login}}</a> в {{$event->created_at}}</div>
+                        <div>Изменен: <a class="link-primary" href="{{route('admin.users.view', ['id' => $event->updater->id])}}">{{$event->updater->login}}</a> в {{$event->updated_at}}</div>
                     </div>
                 </div>
                 @if(!empty($event->conversation))
@@ -53,7 +53,7 @@
                                     <td>{{{$activity->user->agroup}}}</td>
                                     <td><a class="link-primary" href="{{{$activity->user->vk->link}}}">{{$activity->user->vk->link}}</a></td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{route('admin.view', ['id' => $activity->user->id])}}" role="button">Подробнее</a>
+                                        <a class="btn btn-primary" href="{{route('admin.users.view', ['id' => $activity->user->id])}}" role="button">Подробнее</a>
                                     </td>
                                 </tr>
                             @empty

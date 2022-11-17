@@ -57,9 +57,9 @@
                                             </td>
                                             <td>{{{$event->register_until}}}</td>
                                             <td>{{{$event->updated_at}}}</td>
-                                            <td><a class="link-primary" href="{{route('admin.view', ['id' => $event->updater->id])}}">{{$event->updater->login}}</a></td>
+                                            <td><a class="link-primary" href="{{route('admin.users.view', ['id' => $event->updater->id])}}">{{$event->updater->login}}</a></td>
                                             <td>{{{$event->created_at}}}</td>
-                                            <td><a class="link-primary" href="{{route('admin.view', ['id' => $event->creator->id])}}">{{$event->creator->login}}</a></td>
+                                            <td><a class="link-primary" href="{{route('admin.users.view', ['id' => $event->creator->id])}}">{{$event->creator->login}}</a></td>
                                             <td>
                                                 <a class="btn btn-outline-secondary" href="{{route('admin.events.edit', ['id' => $event->id])}}" role="button">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">

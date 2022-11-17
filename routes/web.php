@@ -65,7 +65,9 @@ Route::group(['middleware' => 'isAuth'], function () {
 
             Route::group(['middleware' => 'can:view users'], function () {
                 Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
-                Route::get('/view/{id}', [AdminController::class, 'view'])->name('admin.view');
+                Route::get('/view/{id}', [AdminController::class, 'view'])->name('admin.users.view');
+                Route::get('/create', [AdminController::class, 'userCreate'])->name('admin.users.create');
+                Route::post('/create', [AdminController::class, 'userSave']);
             });
 
             Route::group(['prefix' => '/events'], function () {
