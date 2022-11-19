@@ -11,7 +11,6 @@
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
-                        @csrf
                         <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.sitekey') }}"></script>
                         <script>
                             grecaptcha.ready(function() {
