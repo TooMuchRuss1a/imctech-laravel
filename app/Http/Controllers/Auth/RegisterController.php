@@ -64,7 +64,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'dvfu_email'],
             'agroup' => ['agroup'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'recaptcha' => ['recaptcha'],
+            'recaptcha' => ['required', 'recaptcha'],
         ]);
 
         request()->validate([

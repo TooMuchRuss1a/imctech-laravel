@@ -47,12 +47,12 @@ class LoginController extends Controller
         return 'login';
     }
 
-    protected function validator(array $data)
+    protected function validateLogin(Request $request)
     {
-        return Validator::make($data, [
-            'login' => ['required', 'string', 'max:20'],
-            'password' => ['required', 'string'],
-            'recaptcha' => ['recaptcha'],
+        $request->validate([
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+            'recaptcha' => 'required|recaptcha'
         ]);
     }
 
