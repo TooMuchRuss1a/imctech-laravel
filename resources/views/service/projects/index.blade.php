@@ -50,7 +50,6 @@
                             @endforelse
                             </tbody>
                         </table>
-                        <a href="{{{route('admin.projects.create')}}}" role="button" class="btn btn-primary p-1">Создать</a>
                     </div>
                 </div>
             </div>
