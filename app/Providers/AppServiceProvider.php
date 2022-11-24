@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Event;
+use App\Models\Project;
 use App\Models\User;
+use App\Observers\ProjectObserver;
 use App\Services\VkApiService;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Project::observe(ProjectObserver::class);
+
         Validator::extend('unique_email', function ($attribute, $value)
         {
             return User::where('email', $value)->whereNotNull('email_verified_at')->count() == 0;

@@ -82,4 +82,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne('App\Models\Social')->where('type', '=', 'vk');
     }
+
+    public function getFIAttribute() {
+        $temp = explode(' ' ,$this->name);
+        return (count($temp) >= 2) ? $temp[0] . ' ' . $temp[1] : $this->name;
+    }
+
+    public function userProjects()
+    {
+        return $this->hasMany('App\Models\ProjectUser');
+    }
 }

@@ -5,11 +5,14 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\AdminProjectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\Api\ApiProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +58,14 @@ Route::group(['middleware' => 'isAuth'], function () {
         Route::get('/activity/create', [UserController::class, 'activityCreate'])->name('service.activity');
         Route::post('/activity/create', [UserController::class, 'activitySave']);
         Route::get('/profile', [UserController::class, 'profile'])->name('service.profile');
+        Route::get('/projects', [ProjectController::class, 'index'])->name('service.projects');
+        Route::get('/projects/join/{id}', [ProjectController::class, 'join'])->name('service.projects.join');
+        Route::get('/projects/view/{id}', [ProjectController::class, 'view'])->name('service.projects.view');
+        Route::get('/projects/publish/{id}', [ProjectController::class, 'publish'])->name('projects.publish');
+        Route::post('/projects/publish/{id}', [ProjectController::class, 'publishPost']);
+        Route::get('/projects/agree/{id}', [ProjectController::class, 'toggleAgreement'])->name('projects.toggleAgreement');
+        Route::get('/projects/exit/{id}', [ProjectController::class, 'exit'])->name('projects.exit');
+        Route::get('/projects/{id}/remove/{user_id}', [ProjectController::class, 'removeUser'])->name('projects.removeUser');
 
         Route::group(['middleware' => 'can:view admin', 'prefix' => '/admin'], function () {
             Route::group(['middleware' => 'can:view logs'], function () {
@@ -113,6 +124,20 @@ Route::group(['middleware' => 'isAuth'], function () {
                 Route::get('/delete/{id}', [TimetableController::class, 'delete'])->name('admin.timetable.delete');
                 Route::get('/toggle', [TimetableController::class, 'toggle'])->name('admin.timetable.toggle');
             });
+            Route::group(['middleware' => 'can:edit projects', 'prefix' => '/projects'], function () {
+                Route::get('/', [AdminProjectController::class, 'index'])->name('admin.projects');
+                Route::get('/create', [AdminProjectController::class, 'create'])->name('admin.projects.create');
+                Route::post('/create', [AdminProjectController::class, 'store']);
+                Route::get('/edit/{id}', [AdminProjectController::class, 'edit'])->name('admin.projects.edit');
+                Route::post('/edit/{id}', [AdminProjectController::class, 'update']);
+                Route::get('/delete/{id}', [AdminProjectController::class, 'delete'])->name('admin.projects.delete');
+                Route::get('/view/{id}', [AdminProjectController::class, 'view'])->name('admin.projects.view');
+                Route::get('/testView/{id}', [AdminProjectController::class, 'testView'])->name('admin.projects.testView');
+            });
         });
     });
+});
+
+Route::group(['prefix' => 'api'], function () {
+    Route::get('like/project/{id}', [ApiProjectController::class, 'likeProject'])->name('like.project');
 });

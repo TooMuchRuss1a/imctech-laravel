@@ -733,3 +733,39 @@ li:before {
         font-size: 20px;
     }
 }
+
+.like-d {
+    position: absolute;
+    top: 0;
+    margin: 32px 32px 32px 32px;
+    width: 2vmax;
+    font-size: 0.16rem;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    transition: all .2s linear;
+    z-index: 1;
+}
+
+.like-m {
+    display: none;
+}
+
+.loading {
+    opacity: 1;
+    animation: loading 1s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+

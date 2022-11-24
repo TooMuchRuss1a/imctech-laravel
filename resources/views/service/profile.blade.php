@@ -51,6 +51,16 @@
                         </div>
                     </div>
                 @endif
+                @if(!empty($user->userProjects->first()))
+                    <div class="card mt-3">
+                        <div class="card-header">Проекты</div>
+                        <div class="container m-2">
+                            @foreach($user->userProjects as $userProjects)
+                                <div><a class="link-primary" href="{{route('service.projects.view', ['id' => $userProjects->project->id])}}">{{$userProjects->project->name}}</a></div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

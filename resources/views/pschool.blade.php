@@ -158,127 +158,102 @@
         </div>
     </div>
 
-    <div class="projects_bg">
-        <img src="/img/Abobus.png" class="abobus">
-
-        <div class="projects">
-            <div class="wrapper">
-                <div class="marquee">
-                    <p>
-                        ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ
-                    </p>
-                    <p>
-                        ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ
-                    </p>
+    @if($projects->count() != 0)
+        <div class="projects_bg">
+            <div class="projects">
+                <div class="wrapper">
+                    <div class="marquee">
+                        <p>
+                            ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ
+                        </p>
+                        <p>
+                            ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ ПРОЕКТЫ СТУДЕНТОВ
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-
-        <div class="pj" style="margin-top: 40px;">
-            <div class="pj-container">
-                <div class="pj-name">FEFU-Сalypse</div>
-                <div class="pj-subname">GameDev</div>
-                <div class="pj-text">
-                    <div class="pj-text-a">Команда "FIniSH Square D" создает игру "FEFU-calypse". В данный момент были разработаны концепты и базовый прототип игры.</div>
-                    <div class="pj-text-a">Сюжет: 2042 год, Владивосток, Covid-19 мутировал из-за чего люди стали превращаться в зомби подобных существ. Одним из последних безопасных мест оставался Русский остров, но вирус проник и туда. И теперь главному герою - студенту, напрочь позабывшему об учёбе, предстоит раздобыть вакцину, спасти мир и сдать экзамен по программированию, который может оказаться для него последним.</div>
-                    <div class="pj-text-a">Цель проекта: получить конкурентно-способный продукт на видеоигровом рынке. Привлечь внимание потенциальных абитуриентов к университету. Проект - игра в жанре beat'em up, опирающаюся на атмосферу ДВФУ, с использованием платформы для разработки игр: Unity. С реализацией на языке программирования C#. Мотивацией для реализации данного проекта послужила наша любовь к видеоиграм и ДВФУ.</div>
+            @foreach($projects as $project)
+                <div class="pj" style="margin-top: 40px;">
+                    <div onclick="like({{{$project->id}}})" class="like-d" id="d-{{$project->id}}" @if($loop->iteration % 2 == 0) style="right: 0 !important;" @endif>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" @if(auth()->check() && in_array(request()->user()->id, $project->projectLikes->pluck('user_id')->toArray())) color="cornflowerblue" @endif class="bi bi-heart" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                        </svg>
+                        <div>{{{$project->project_likes_count}}}</div>
+                    </div>
+                    <div onclick="like({{{$project->id}}})" class="like-m" id="m-{{$project->id}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40%" height="40%" fill="currentColor" @if(auth()->check() && in_array(request()->user()->id, $project->projectLikes->pluck('user_id')->toArray())) color="cornflowerblue" @endif class="bi bi-heart" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                        </svg>
+                        <div>{{{$project->project_likes_count}}}</div>
+                    </div>
+                    @if($loop->iteration % 2 == 0)
+                        <img class="pj-img-d" src="{{{$project->image_d}}}">
+                    @endif
+                    <div class="pj-container">
+                        <div class="pj-name">{{{$project->name}}}</div>
+                        <div class="pj-subname">{{{$project->subname}}}</div>
+                        <div class="pj-text">
+                            <div class="pj-text-a">{!!$project->text!!}</div>
+                        </div>
+                        @if($project->publicProjectUsers->count() != 0)
+                            <div class="pj-team">Команда:</div>
+                            <div>
+                                @foreach($project->publicProjectUsers->sortBy('user.name') as $projectUser)
+                                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="{{{$projectUser->user->vk->link}}}">
+                                        <img class="vk" src="/img/vk.png">
+                                        <text>{{{$projectUser->user->FI}}}</text>
+                                    </a>
+                                    <br>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+                    @if($loop->iteration % 2 != 0)
+                        <img class="pj-img-d" src="{{{$project->image_d}}}">
+                    @endif
+                    <img class="pj-img-m" src="{{{$project->image_m}}}">
                 </div>
-                <div class="pj-team">Команда:</div>
-                <div>
-                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/pepegger">
-                        <img class="vk" src="/img/vk.png">
-                        <text>Степанов Владислав - PM</text>
-                    </a>
-                    <br>
-                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/kysssssska">
-                        <img class="vk" src="/img/vk.png">
-                        <text>Сайфутдинова Илюза</text>
-                    </a>
-                </div>
-            </div>
-            <img class="pj-img-d" src="/img/e8npOp9YoRY.jpg">
-            <img class="pj-img-m" src="/img/fc.jpg">
+            @endforeach
         </div>
-
-        <div class="pj">
-            <img class="pj-img-d" src="https://images.wbstatic.net/big/new/33510000/33518126-6.jpg">
-            <div class="pj-container">
-                <div class="pj-name">VoiceN</div>
-                <div class="pj-subname">Социальный проект</div>
-                <div class="pj-text">
-                    <div class="pj-text-a">Команда "VoiceN", в рамках проектной школы, разработала прототип навыка для Алисы, который включает в себя функционал поиска книг и показ новых поступлений в библиотеке "Логос". </div>
-                    <div class="pj-text-a">Цель проекта: предоставить слабовидящим людям продукт, с помощью которого они смогут посредством голоса управлять библиотекой. В том числе прослушивать (перематывать, ставить на паузу и тд.) "говорящие книги", ставить их на книжную полку, слушать записанные радиопередачи и пользоваться прочим функционалом библиотеки "Логос".</div>
-                    <div class="pj-text-c">"По большей части нашу команду заинтересовала тема работы с голосовым помощником, а также помощь людям с ограниченными возможностями. Этот проект показал, что действительно, люди заинтересованные в достижении цели, способны за короткий срок погрузиться в тему и показать неплохой результат. Естественно, мы будем продолжать работу над проектом."</div>
-                </div>
-                <div class="pj-team">Команда:</div>
-                <div>
-                    <a class="pj-team-none"><text>• Грозецкий Денис - PM</text></a>
-                    <br>
-                    <a class="pj-team-none"><text>• Гребенников Владимир</text></a>
-                    <br>
-                    <a class="pj-team-none"><text>• Голобородько Димитрий</text></a>
-                    <br>
-                    <a class="pj-team-none"><text>• Стефановский Артём</text></a>
-                    <br>
-                    <a class="pj-team-none"><text>• Святова Марина</text></a>
-                    <br>
-                    <a class="pj-team-none"><text>• Похорукова Алина</text></a>
-                </div>
-            </div>
-            <img class="pj-img-m" src="https://s0.rbk.ru/v6_top_pics/media/img/8/34/755276725589348.jpg">
-        </div>
-
-        <div class="pj">
-            <div class="pj-container">
-                <div class="pj-name">2D платформер</div>
-                <div class="pj-subname">GameDev</div>
-                <div class="pj-text">
-                    <div class="pj-text-a">Команда "RandomName_Team" разрабатывает 2D платформер с элементами Rouge like.</div>
-                    <div class="pj-text-a">Сюжет: некоторые люди постигли тайны ментальных боёв, за победу в которых победитель получает все знания проигравшего, а разум проигравшего стирается. Правила боя задаёт тот, на кого напали/вызвали на бой, сам бой происходит в сознании принимающей стороны, от сюда и правила боя.</div>
-                    <div class="pj-text-c">"Участие в зимней проектной школе дало мне и моим товарищам много того, чего, просто учась на отлично, не получишь, и я благодарен ребятам из Академии цифровой трансформации и Студенческого совета ИМКТ за то, что смог стать участником такого классного проекта!"</div>
-                </div>
-                <div class="pj-team">Команда:</div>
-                <div>
-                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/lakmm"><img class="vk" src="/img/vk.png"> <text>Кучеров Валентин - PM</text></a>
-                    <br>
-                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/vcitich"><img class="vk" src="/img/vk.png"><text>Нехорошев Виктор</text></a>
-                    <br>
-                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/k.matrosova2000"><img class="vk" src="/img/vk.png"> <text>Потега Ксения</text></a>
-                    <br>
-                    <a class="pj-team-c" rel="noopener noreferrer" target="_blank" href="https://vk.com/e.maslichenko"><img class="vk" src="/img/vk.png"><text>Масличенко Елизавета</text></a>
-                </div>
-            </div>
-            <img class="pj-img-m" src="/img/rntm.png">
-            <img class="pj-img-d" src="/img/rnt.png">
-        </div>
-
-        <div class="pj" style="margin-bottom: 0;">
-            <img class="pj-img-d" src="/img/fpw.jpg">
-            <div class="pj-container">
-                <div class="pj-name">FEFU Prepod Wiki</div>
-                <div class="pj-subname">Социальный проект</div>
-                <div class="pj-text">
-                    <div class="pj-text-a">Команда "FEFU Prepod Wiki" разработала одноименного <a class="link" rel="noopener noreferrer" target="_blank" href="https://t.me/fefu_prepod_bot">telegram-бота,</a> который по запросу студента выдает основную информацию о преподавателе.</div>
-                    <div class="pj-text-a">Для соблюдения этики по отношению к преподавателям они отказались от простой публикации отзывов, так как на эмоциях студент может написать некорректную или неточную информацию. Поэтому они выкладывают в карточки только сухие факты, исходя из статистики. </div>
-                    <div class="pj-text-c">"Сама идея у меня возникла после того, как я, будучи первокурсницей, столкнулась с большим количеством новых преподавателей. Неизвестно, что ждёт в новом семестре, непонятно, к чему готовиться, хотелось бы иметь какую-то небольшую базу знаний для того, чтобы найти правильный подход к обучению... Пока мы действуем только внутри ИМКТ, но если другие школы и институты заинтересуются данным проектом, то наша команда всегда открыта к обсуждению и дальнейшему расширению базы данных преподавателей."</div>
-                    <div class="pj-text-a">Оставить отзыв о преподавателе можно в <a class="link" rel="noopener noreferrer" target="_blank" href="https://forms.gle/HDTXgY6gjUb1WLKw5">гугл-форме.</a></div>
-                </div>
-                <div class="pj-team">Команда:</div>
-                <div>
-                    <a class="pj-team-c" href="https://vk.com/va_hahahaha" rel="noopener noreferrer" target="_blank"><img class="vk" src="/img/vk.png"> <text>Юрина Валентина - PM</text></a>
-                    <br>
-                    <a class="pj-team-c" href="https://vk.com/idlalexandro" rel="noopener noreferrer" target="_blank"><img class="vk" src="/img/vk.png"> <text>Пушкарев Александр</text></a>
-                    <br>
-                    <a class="pj-team-c" href="https://m.vk.com/floorisslava" rel="noopener noreferrer" target="_blank"><img class="vk" src="/img/vk.png"> <text>Кадомцев Вячеслав</text></a>
-                </div>
-            </div>
-            <img class="pj-img-m" src="/img/fpw_m.jpg">
-        </div>
-    </div>
+    @endif
 
     <script>
         var scrUp = document.getElementById("scrup");
+    </script>
+    <script>
+        function like(id)
+        {
+            let likeM = document.getElementById('m-' + id);
+            let likeD = document.getElementById('d-' + id);
+            likeM.classList.add('loading')
+            likeD.classList.add('loading')
+            $.ajax({
+                type: "GET",
+                url: "api/like/project/"+id,
+                success: function(result) {
+                    if (result === 'login') {
+                        window.location.href = '{{{route('login')}}}';
+                    }
+                    else if (result === null) {
+                        likeM.classList.remove('loading')
+                        likeD.classList.remove('loading')
+                    }
+                    else {
+                        likeM.firstElementChild.setAttribute("color", result.action === 'liked' ? 'cornflowerblue' : 'white');
+                        likeM.lastElementChild.innerHTML = result.value;
+                        likeD.firstElementChild.setAttribute("color", result.action === 'liked' ? 'cornflowerblue' : 'white');
+                        likeD.lastElementChild.innerHTML = result.value;
+                        likeM.classList.remove('loading')
+                        likeD.classList.remove('loading')
+                    }
+                },
+                error: function(result) {
+                    likeM.classList.remove('loading')
+                    likeD.classList.remove('loading')
+                }
+            });
+        }
     </script>
 
 

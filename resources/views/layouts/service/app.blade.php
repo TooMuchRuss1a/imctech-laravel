@@ -31,6 +31,9 @@
         gtag('config', 'G-MPV9RSCKXV');
     </script>
     <script src="/js/cookie.js"></script>
+    <script src="https://cdn.tiny.cloud/1/q1md7evbfw0uxwpxlv2manpv5s9ha7ex9egq6kaqfffjzz0h/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Montserrat:wght@400;800&family=Press+Start+2P&display=swap" rel="stylesheet">
 
     <link rel="icon" href="/img/imctech_icon.png">
 </head>
@@ -110,6 +113,7 @@
                                     <hr style="margin: 8px 0;">
                                     <a class="nav-link" href="{{ route('service.activity') }}">Записаться на мероприятие</a>
                                     <a class="nav-link" href="{{ route('service.profile') }}">Профиль</a>
+                                    <a class="nav-link" href="{{ route('service.projects') }}">Проекты</a>
                                     @can('view admin')
                                         <hr style="margin: 8px 0;">
                                         @can('view logs')
@@ -123,11 +127,14 @@
                                         @can('view events')
                                             <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
                                         @endcan
-                                        @can('edit timetable')
-                                            <a class="nav-link" href="{{ route('admin.timetable.index') }}">Расписание</a>
-                                        @endcan
                                         @can('getlost')
                                             <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
+                                        @endcan
+                                        @can('view projects')
+                                            <a class="nav-link" href="{{ route('admin.projects') }}">Проекты</a>
+                                        @endcan
+                                        @can('edit timetable')
+                                            <a class="nav-link" href="{{ route('admin.timetable.index') }}">Расписание</a>
                                         @endcan
                                         @can('dead souls')
                                             <a class="nav-link" href="{{ route('admin.dead_souls') }}">Мертвые души</a>
@@ -157,6 +164,7 @@
                                     <hr style="margin: 2px 0;">
                                     <a class="nav-link" href="{{ route('service.activity') }}">Записаться на мероприятие</a>
                                     <a class="nav-link" href="{{ route('service.profile') }}">Профиль</a>
+                                    <a class="nav-link" href="{{ route('service.projects') }}">Проекты</a>
                                     @can('view admin')
                                         <hr style="margin: 8px 0;">
                                         @can('view logs')
@@ -170,11 +178,14 @@
                                         @can('view events')
                                             <a class="nav-link" href="{{ route('admin.events') }}">Мероприятия</a>
                                         @endcan
-                                        @can('edit timetable')
-                                            <a class="nav-link" href="{{ route('admin.timetable.index') }}">Расписание</a>
-                                        @endcan
                                         @can('getlost')
                                             <a class="nav-link" href="{{ route('admin.getlost') }}">Потеряшки</a>
+                                        @endcan
+                                        @can('view projects')
+                                            <a class="nav-link" href="{{ route('admin.projects') }}">Проекты</a>
+                                        @endcan
+                                        @can('edit timetable')
+                                            <a class="nav-link" href="{{ route('admin.timetable.index') }}">Расписание</a>
                                         @endcan
                                         @can('dead souls')
                                             <a class="nav-link" href="{{ route('admin.dead_souls') }}">Мертвые души</a>

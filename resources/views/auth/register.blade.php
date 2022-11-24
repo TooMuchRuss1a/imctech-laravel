@@ -120,7 +120,7 @@
                                     {{ __('Отправить') }}
                                 </button>
                             </div>
-                            <div class="m-2 p-2 text-center text-muted">Нажимая на кнопку, вы даете согласие на обработку своих персональных данных и соглашаетсь с <a href="{{route('privacy')}}" class="link-primary">Политикой в отношении персональных данных</a></div>
+                            <div class="m-2 p-2 text-center text-muted">Нажимая на кнопку, вы даете согласие на обработку своих персональных данных и соглашаетесь с <a href="{{route('privacy')}}" class="link-primary">Политикой в отношении персональных данных</a></div>
                         </div>
                     </form>
                 </div>

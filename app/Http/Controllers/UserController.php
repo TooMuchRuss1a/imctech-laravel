@@ -6,6 +6,7 @@ use App\Models\Activity;
 use App\Models\Day;
 use App\Models\Event;
 use App\Models\User;
+use App\Models\Project;
 use App\Services\VkApiService;
 use Illuminate\Http\Request;
 
@@ -20,14 +21,15 @@ class UserController extends Controller
     public function pschool(Request $request)
     {
         $event = Event::findOrFail(4);
+        $projects = Project::with(['publicProjectUsers.user.vk', 'projectLikes'])->withCount('projectLikes')->where('approved', '=', '1')->get()->sortByDesc('project_likes_count');
         if (cache('timetable')) {
             $days = Day::with('timelines')->orderBy('date')->get();
             $nextDay = $days->where('date', '>=', now())->first();
             $activeDay = !empty($nextDay) ? array_search($nextDay->date, $days->pluck('date')->toArray()) : 0;
-            return view('pschool', compact('event', 'days', 'activeDay'));
+            return view('pschool', compact('event', 'projects', 'days', 'activeDay'));
         }
 
-        return view('pschool', compact('event'));
+        return view('pschool', compact('event', 'projects'));
     }
 
     public function psession(Request $request)
@@ -110,7 +112,7 @@ class UserController extends Controller
     public function profile(Request $request)
     {
         $vkApiService = new VkApiService();
-        $user = User::with('vk', 'activities.event')->findOrFail($request->user()->id);
+        $user = User::with('vk', 'activities.event', 'userProjects.project')->findOrFail($request->user()->id);
         $user->socialData = [
             'vk' => (!empty($vk = $user->vk)) ? ((!empty($vk_data = $vkApiService->getVkDataViaLink($vk->link))) ? $vk_data[0] : null) : null,
         ];
