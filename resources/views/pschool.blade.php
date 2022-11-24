@@ -13,8 +13,8 @@
     <meta property="og:image:secure_url" content="https://imctech.ru/img/pschool.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
 
-    <link rel="stylesheet" href="/css/pschool.css">
-    <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/css/pschool_mobile.css">
+    <link rel="stylesheet" href="/css/pschool.css?version=3.2{{{date('_Y-m-d_H:i:s')}}}">
+    <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/css/pschool_mobile.css?version=3.2{{{date('_Y-m-d_H:i:s')}}}">
 @endsection
 
 @section('content')
