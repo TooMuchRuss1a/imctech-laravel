@@ -46,7 +46,7 @@ class ProjectController extends Controller
     public function removeUser(Request $request, $id, $user_id) {
         $project = Project::findOrFail($id);
         if (!$request->user()->can('edit', $project))
-            redirect()->route('service.projects')->withErrors('У вас нет прав на удаление участников');
+            return redirect()->route('service.projects')->withErrors('У вас нет прав на удаление участников');
 
         if ($projectUser = ProjectUser::where('user_id', '=', $user_id)->where('project_id', '=', $project->id)->first()) {
             $projectUser->delete();
@@ -61,8 +61,8 @@ class ProjectController extends Controller
     public function view(Request $request, $id)
     {
         $project = Project::with('leader', 'projectUsers.user', 'projectLikes')->findOrFail($id);
-        if (!$request->user()->can('edit', $project))
-            redirect()->route('service.projects')->withErrors('У вас нет прав для просмотра проекта');
+        if (!$request->user()->can('view', $project))
+            return redirect()->route('service.projects')->withErrors('У вас нет прав для просмотра проекта');
 
         return view('service.projects.view', compact('project'));
     }
@@ -85,7 +85,7 @@ class ProjectController extends Controller
     {
         $project = Project::findOrFail($id);
         if (!$request->user()->can('edit', $project))
-            redirect()->route('service.projects')->withErrors('У вас нет прав на подготовку проекта к публикации');
+            return redirect()->route('service.projects')->withErrors('У вас нет прав на подготовку проекта к публикации');
 
         return view('service.projects.publish', compact('project'));
     }
@@ -94,7 +94,7 @@ class ProjectController extends Controller
     {
         $project = Project::with('publicProjectUsers.user.vk')->findOrFail($id);
         if (!$request->user()->can('edit', $project))
-            redirect()->route('service.projects')->withErrors('У вас нет прав на подготовку проекта к публикации');
+            return redirect()->route('service.projects')->withErrors('У вас нет прав на подготовку проекта к публикации');
 
         $validated = $request->validate([
             'name' => 'required|unique:projects,name,'.$project->id,
