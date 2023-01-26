@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.landing.app')
 
 @section('head')
     <title>IMCTech</title>
@@ -13,16 +13,14 @@
     <meta property="og:image:secure_url" content="https://imctech.ru/img/pschool.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
 
-    <link rel="stylesheet" href="/css/pschool.css?version=3.2{{{date('_Y-m-d_H:i:s')}}}">
-    <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/css/pschool_mobile.css?version=3.2{{{date('_Y-m-d_H:i:s')}}}">
+    <link rel="stylesheet" href="/css/landing/pschool.css?version=3.2{{{date('_Y-m-d_H:i:s')}}}">
+    <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/css/landing/pschool_mobile.css?version=3.2{{{date('_Y-m-d_H:i:s')}}}">
 @endsection
 
 @section('content')
     <a href="#">
         <div id="scrup" class="scroll-up"></div>
     </a>
-
-    <a href="{{route('analytics')}}"><img class="charts" src="/img/chart.png"></a>
 
     <div class="intro">
         <div class="containerglitch">

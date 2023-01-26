@@ -1,4 +1,4 @@
-@extends('layouts.service.app')
+@extends('layouts.landing.app')
 
 @section('content')
     <div class="container">
@@ -7,7 +7,8 @@
                 <div class="card">
                     <div class="card-header">Пользователи
                         <span class="badge bg-primary rounded-pill">{{{$users->count()}}}</span>
-                        <a class="btn btn-primary p-1 position-absolute" style="top: 2px; right: 10px" href="{{route('admin.users.create')}}" role="button">Создать</a>
+                        <a class="btn btn-primary p-1 position-absolute" style="top: 2px; right: 10px"
+                           href="{{route('admin.users.create')}}" role="button">Создать</a>
                     </div>
                     <div class="card-body">
                         @if (session('status'))
@@ -33,7 +34,8 @@
                                             <td>{{{$item}}}</td>
                                         @endforeach
                                         <td>
-                                            <a class="btn btn-primary" href="{{route('admin.users.view', ['id' => $row->id])}}" role="button">Подробнее</a>
+                                            <a class="btn btn-primary"
+                                               href="{{route('admin.users.view', ['id' => $row->id])}}" role="button">Подробнее</a>
                                         </td>
                                     </tr>
                                 @endforeach

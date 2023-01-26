@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.landing.app')
 
 @section('head')
     <title>IMCTech</title>
@@ -13,8 +13,8 @@
     <meta property="og:image:secure_url" content="https://imctech.ru/img/pschool.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
 
-    <link rel="stylesheet" href="/css/psession.css">
-    <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/css/psession_mobile.css">
+    <link rel="stylesheet" href="/css/landing/psession.css">
+    <link rel="stylesheet" type="text/css" media="(orientation: portrait)" href="/css/landing/psession_mobile.css">
 @endsection
 
 @section('content')

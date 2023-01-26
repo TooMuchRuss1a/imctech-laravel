@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Project;
 use App\Services\VkApiService;
 use Illuminate\Http\Request;
+use ProtoneMedia\Splade\Facades\Toast;
 
 class UserController extends Controller
 {
@@ -39,31 +40,6 @@ class UserController extends Controller
         return view('psession', ['students' => $students]);
     }
 
-    public function analytics(Request $request) {
-        $students = Activity::where('event_id', 2)->get()->count();
-        $groups = array();
-        $users = Event::findOrFail(2)
-            ->join('activities', 'activities.event_id', '=', 'events.id')
-            ->join('users', 'users.id', '=', 'activities.user_id')
-            ->orderBy('agroup')
-            ->get();
-
-        foreach ($users as $user) {
-            if (isset($groups[substr($user->agroup, 7)])) {
-                $groups[substr($user->agroup, 7)]++;
-            }
-            else {
-                $groups[substr($user->agroup, 7)] = 1;
-            }
-        }
-        ksort($groups);
-
-        return view('analytics', [
-            'students' => $students,
-            'groups' => $groups
-        ]);
-    }
-
     public function service(Request $request)
     {
         return view('service.service');
@@ -87,11 +63,14 @@ class UserController extends Controller
         $chat_id = $event->conversation_id;
         if (!empty($chat_id)) {
             $chat_link = $vkApiService->getInviteLink($chat_id);
-            request()->session()->flash('modal', ['title' => 'Остается только...', 'links' => ['Вступить в беседу ВК' => $chat_link['link'], 'Подписаться на телегам канал' => 'https://t.me/imctech']]);
+            request()->session()->flash('modal', $chat_link['link']);
         }
 
         if (!empty(Activity::where(['user_id' => auth()->id(), 'event_id' => $validated['event_id']])->first())) {
             request()->session()->flash('error', 'Вы уже записаны на мероприятие "' . $event->name .'"');
+            Toast::title('Вы уже записаны на мероприятие "' . $event->name .'"')
+                ->warning()
+                ->autoDismiss(5);;
             return redirect()->route('service');
         }
 
@@ -101,6 +80,9 @@ class UserController extends Controller
         ]);
 
         request()->session()->flash('status', 'Запись на мероприятие "' .$event->name .'" успешно создана');
+        Toast::title('Запись на мероприятие "' .$event->name .'" успешно создана')
+            ->success()
+            ->autoDismiss(5);
         return redirect()->route('service');
     }
 
