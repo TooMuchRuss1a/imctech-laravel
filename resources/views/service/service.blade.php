@@ -1,4 +1,4 @@
-@extends('layouts.landing.app')
+@extends('layouts.service.app')
 
 @section('content')
 
@@ -20,9 +20,7 @@
                             </div>
                         @endif
 
-                        <div class="p-1">IMCTechService - сервис, позволяющий пользователям взаимодействовать внутри
-                            экосистемы IMCTech
-                        </div>
+                        <div class="p-1">IMCTechService - сервис, позволяющий пользователям взаимодействовать внутри экосистемы IMCTech</div>
                     </div>
                 </div>
             </div>

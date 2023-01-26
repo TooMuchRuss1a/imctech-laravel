@@ -1,4 +1,4 @@
-@extends('layouts.landing.app')
+@extends('layouts.service.app')
 
 @section('content')
     <div class="container">
@@ -16,14 +16,10 @@
                 </div>
                 @if(!empty($user->socialData['vk']))
                     <div class="card mt-3">
-                        <div class="card-header"><a class="link-primary"
-                                                    href="https://vk.com/id{{$user->socialData['vk']['id']}}">ВКонтакте</a>
-                        </div>
-                        <div class="container m-2"
-                             style="display: flex;flex-direction: row;justify-content: flex-start;">
+                        <div class="card-header"><a class="link-primary" href="https://vk.com/id{{$user->socialData['vk']['id']}}">ВКонтакте</a></div>
+                        <div class="container m-2" style="display: flex;flex-direction: row;justify-content: flex-start;">
                             <div>
-                                <img src="{{$user->socialData['vk']['photo_50']}}" class="rounded-5 p-1 d-inline"
-                                     style="width: 50px">
+                                <img src="{{$user->socialData['vk']['photo_50']}}" class="rounded-5 p-1 d-inline" style="width: 50px">
                             </div>
                             <div style="padding-left: 5px">
                                 <div>{{$user->socialData['vk']['first_name'] . ' ' . $user->socialData['vk']['last_name']}}</div>
@@ -34,11 +30,9 @@
                 @elseif(!empty($user->vk))
                     <div class="card mt-3">
                         <div class="card-header">ВКонтакте</div>
-                        <div class="container m-2"
-                             style="display: flex;flex-direction: row;justify-content: flex-start;">
+                        <div class="container m-2" style="display: flex;flex-direction: row;justify-content: flex-start;">
                             <div>
-                                <img src="https://vk.com/images/deactivated_100.png" class="rounded-5 p-1 d-inline"
-                                     style="width: 50px">
+                                <img src="https://vk.com/images/deactivated_100.png" class="rounded-5 p-1 d-inline" style="width: 50px">
                             </div>
                             <div style="padding-left: 5px">
                                 <div>invalid</div>
@@ -62,9 +56,7 @@
                         <div class="card-header">Проекты</div>
                         <div class="container m-2">
                             @foreach($user->userProjects as $userProjects)
-                                <div><a class="link-primary"
-                                        href="{{route('service.projects.view', ['id' => $userProjects->project->id])}}">{{$userProjects->project->name}}</a>
-                                </div>
+                                <div><a class="link-primary" href="{{route('service.projects.view', ['id' => $userProjects->project->id])}}">{{$userProjects->project->name}}</a></div>
                             @endforeach
                         </div>
                     </div>

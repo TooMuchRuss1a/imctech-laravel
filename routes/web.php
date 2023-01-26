@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AdminProjectController;
 use Illuminate\Support\Facades\Route;
@@ -22,34 +27,36 @@ use App\Http\Controllers\Api\ApiProjectController;
 Route::get('/', [UserController::class, 'home'])->name('home');
 Route::get('/pschool', [UserController::class, 'pschool'])->name('pschool');
 Route::get('/psession', [UserController::class, 'psession'])->name('psession');
+Route::get('/pschool/analytics', [UserController::class, 'analytics'])->name('analytics');
+Route::get('/privacy', [UserController::class, 'privacy'])->name('privacy');
 
-//// Login Routes...
-//Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-//Route::post('login', [LoginController::class, 'login']);
-//Route::get('logout', [LoginController::class, 'logout'])->name('logout');
-//Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-//
-//// Registration Routes...
-//Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-//Route::post('register', [RegisterController::class, 'register']);
-//
-//// Password Reset Routes...
-//Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-//Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-//Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-//Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+// Login Routes...
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+// Registration Routes...
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('register', [RegisterController::class, 'register']);
+
+// Password Reset Routes...
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::group(['middleware' => 'isAuth'], function () {
-//    // Email Verification Routes...
-//    Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
-//    Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
-//    Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+    // Email Verification Routes...
+    Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+    Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+    Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
     Route::group(['middleware' => 'emailVerified', 'prefix' => '/service',
     ], function () {
-//        Route::get('/', [UserController::class, 'service'])->name('service');
-//        Route::get('/activity/create', [UserController::class, 'activityCreate'])->name('service.activity');
-//        Route::post('/activity/create', [UserController::class, 'activitySave']);
+        Route::get('/', [UserController::class, 'service'])->name('service');
+        Route::get('/activity/create', [UserController::class, 'activityCreate'])->name('service.activity');
+        Route::post('/activity/create', [UserController::class, 'activitySave']);
         Route::get('/profile', [UserController::class, 'profile'])->name('service.profile');
         Route::get('/projects', [ProjectController::class, 'index'])->name('service.projects');
         Route::get('/projects/join/{id}', [ProjectController::class, 'join'])->name('service.projects.join');
@@ -133,30 +140,4 @@ Route::group(['middleware' => 'isAuth'], function () {
 
 Route::group(['prefix' => 'api'], function () {
     Route::get('like/project/{id}', [ApiProjectController::class, 'likeProject'])->name('like.project');
-});
-
-
-Route::middleware('splade')->group(function () {
-    // Registers routes to support Table Bulk Actions and Exports...
-    Route::spladeTable();
-
-    // Registers routes to support async File Uploads with Filepond...
-    Route::spladeUploads();
-
-    Route::middleware('auth')->group(function () {
-        Route::group(['middleware' => 'emailVerified', 'prefix' => '/service'], function () {
-            Route::get('/', function () {
-                return view('service');
-            })->name('service');
-
-            Route::get('/activity/create', [UserController::class, 'activityCreate'])->name('service.activity');
-            Route::post('/activity/create', [UserController::class, 'activitySave']);
-        });
-    });
-
-    Route::get('/privacy', function () {
-        return view('privacy');
-    })->name('privacy');
-
-    require __DIR__.'/auth.php';
 });

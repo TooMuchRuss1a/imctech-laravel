@@ -1,20 +1,46 @@
-@extends('layouts.main')
-@section('main')
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
+@extends('layouts.service.app')
 
-                    <x-splade-form action="{{ route('service.activity') }}" class="space-y-4">
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Запись на мероприятие') }}</div>
+
+                <div class="card-body">
+                    <form method="POST" action="{{ route('service.activity') }}">
                         @csrf
-                        <x-splade-select name="event_id" :options="$events" option-label="name" option-value="id" />
+                        <div class="row mb-3">
+                            <label for="text" class="col-md-4 col-form-label text-md-end">{{ __('Выберите мероприятие') }}</label>
 
-                        <div class="flex items-center justify-end">
-                            <x-splade-submit class="ml-3" :label="'Записаться'" />
+                            <div class="col-md-6">
+                                <select class="form-select" name="event_id">
+                                    @foreach ($events as $event)
+                                        <option @if(request()->id == $event->id) selected @endif value="{{ $event->id }}">
+                                            {{ $event->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                @error('event_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
-                    </x-splade-form>
+
+                        <div class="row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <button type="submit" name="Submit" class="btn btn-primary">
+                                    {{ __('Записаться') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

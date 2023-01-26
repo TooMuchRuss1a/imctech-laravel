@@ -1,4 +1,4 @@
-@extends('layouts.landing.app')
+@extends('layouts.service.app')
 
 @section('content')
     <div class="container">
@@ -27,20 +27,15 @@
                                 <div class="row-0">
                                     <div class="text-center">Проект 1</div>
                                     <div class="row mb-3">
-                                        <label for="name"
-                                               class="col-md-4 col-form-label text-md-end">{{ __('Название') }}</label>
+                                        <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Название') }}</label>
                                         <div class="col-md-6">
-                                            <input id="name-0" type="text" class="form-control" name="name-0"
-                                                   value="{{ old('name-0') }}" required autocomplete="off">
+                                            <input id="name-0" type="text" class="form-control" name="name-0" value="{{ old('name-0') }}" required autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="data"
-                                               class="col-md-4 col-form-label text-md-end">{{ __('Описание') }}</label>
+                                        <label for="data" class="col-md-4 col-form-label text-md-end">{{ __('Описание') }}</label>
                                         <div class="col-md-6">
-                                            <textarea id="description-0" type="text" class="form-control"
-                                                      name="description-0" autocomplete="off"
-                                                      placeholder="Краткое описание">{{ old('description-0') }}</textarea>
+                                            <textarea id="description-0" type="text" class="form-control" name="description-0" autocomplete="off" placeholder="Краткое описание">{{ old('description-0') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -71,20 +66,20 @@
 
                             <script>
                                 var counter = 0;
-
-                                function addRow() {
+                                function  addRow()
+                                {
                                     counter++;
-                                    let newRow = $('<div class="row-' + counter + '">');
-                                    newRow.append($('<div class="text-center">Проект ' + ++counter + '</div>'));
+                                    let newRow = $('<div class="row-'+ counter +'">');
+                                    newRow.append($('<div class="text-center">Проект '+ ++counter +'</div>'));
                                     counter--;
-                                    newRow.append($('<div class="row mb-3"><label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Название') }}</label><div class="col-md-6"><input id="name-' + counter + '" type="text" class="form-control" name="name-' + counter + '" required autocomplete="off"></div></div>'));
-                                    newRow.append($('<div class="row mb-3"><label for="data" class="col-md-4 col-form-label text-md-end">{{ __('Описание') }}</label><div class="col-md-6"><textarea id="description-' + counter + '" type="text" class="form-control" name="description-' + counter + '" autocomplete="off" placeholder="Краткое описание">{{ old('description-0') }}</textarea></div></div>'));
+                                    newRow.append($('<div class="row mb-3"><label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Название') }}</label><div class="col-md-6"><input id="name-'+ counter +'" type="text" class="form-control" name="name-'+ counter +'" required autocomplete="off"></div></div>'));
+                                    newRow.append($('<div class="row mb-3"><label for="data" class="col-md-4 col-form-label text-md-end">{{ __('Описание') }}</label><div class="col-md-6"><textarea id="description-'+ counter +'" type="text" class="form-control" name="description-'+ counter +'" autocomplete="off" placeholder="Краткое описание">{{ old('description-0') }}</textarea></div></div>'));
                                     newRow.append($('</div>'));
                                     $('.rows').append(newRow);
                                 }
-
-                                function removeRow() {
-                                    if (counter >= 1) $('.row-' + counter--).remove();
+                                function  removeRow()
+                                {
+                                    if (counter >= 1) $('.row-'+ counter--).remove();
                                 }
                             </script>
                         </form>

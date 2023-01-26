@@ -1,4 +1,4 @@
-@extends('layouts.landing.app')
+@extends('layouts.service.app')
 
 @section('content')
     <div class="container">
@@ -13,9 +13,7 @@
                                 <thead>
                                 <tr>
                                     @foreach($keys as $key)
-                                        @if($key == 'ip')
-                                            @continue;
-                                        @endif
+                                        @if($key == 'ip')@continue;@endif
                                         <th scope="col">{{{$key}}}</th>
                                     @endforeach
                                 </tr>
@@ -24,9 +22,7 @@
                                 @foreach($audits as $row)
                                     <tr>
                                         @foreach(get_object_vars($row) as $key => $item)
-                                            @if($key == 'ip')
-                                                @continue;
-                                            @endif
+                                            @if($key == 'ip')@continue;@endif
                                             @if(in_array($loop->index, [5, 6]) && !empty($item))
                                                 <td>
                                                     <div class="nav-item dropdown">
@@ -35,8 +31,7 @@
                                                            data-bs-toggle="dropdown" aria-expanded="false">
                                                             Показать
                                                         </a>
-                                                        <ul class="dropdown-menu"
-                                                            aria-labelledby="navbarDropdownMenuLink">
+                                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                                             <a class="dropdown-item" title="Скопировать"
                                                                id="{{$keys[$loop->index].$row->id }}"
                                                                onclick="copyToClipboard('#{{$keys[$loop->index].$row->id }}')">

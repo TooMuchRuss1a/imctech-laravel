@@ -1,4 +1,4 @@
-@extends('layouts.landing.app')
+@extends('layouts.service.app')
 
 @section('content')
     <div class="container">
@@ -13,9 +13,7 @@
                                 <thead>
                                 <tr>
                                     @foreach($keys as $key)
-                                        @if($loop->index == 7)
-                                            @continue;
-                                        @endif
+                                        @if($loop->index == 7)@continue;@endif
                                         <th scope="col">{{{$key}}}</th>
                                     @endforeach
                                 </tr>
@@ -24,9 +22,7 @@
                                 @foreach($api as $row)
                                     <tr>
                                         @foreach(get_object_vars($row) as $item)
-                                            @if($loop->index == 7)
-                                                @continue;
-                                            @endif
+                                            @if($loop->index == 7)@continue;@endif
                                             @if(in_array($loop->index, [4, 5]) && !empty($item))
                                                 <td>
                                                     <div class="nav-item dropdown">
